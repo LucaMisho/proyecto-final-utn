@@ -4,9 +4,9 @@ Tecnicatura Universitaria en Programación — UTN FRMDP, Extensión Áulica Nec
 ## La institución
 Dos o tres líneas sobre qué es y qué hace.
 ## Integrantes
-Massa, Luca
-Génova, Candela
-Kristensen, Franco
+Massa Luca,
+Génova  Candela,
+Kristensen Franco
 ## Estado
 Etapa 1 — Investigación y análisis.
 HOLA HOLA 
