@@ -7,6 +7,6 @@ trabajando con adolescentes y niños en situaciones de vulnerabilidad psicosocia
 ## Integrantes
 Massa Luca,
 Génova  Candela,
-Kristensen Franco Valentin
+Kristensen Franco 
 ## Estado
 Etapa 1 — Investigación y análisis.
