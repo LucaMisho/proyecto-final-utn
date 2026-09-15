@@ -9,4 +9,4 @@ Massa Luca,
 Génova  Candela,
 Kristensen Franco
 ## Estado
-Etapa 1 — Investigación y análisis.
+Etapa 2 — Creación y diseño de los Wireframes.
