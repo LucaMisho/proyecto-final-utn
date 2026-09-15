@@ -16,5 +16,4 @@ Kristensen Franco Valentin
 
 ## Estado
 
-Etapa 1 — Investigación y análisis.
-
+Etapa 2 — Creación y diseño de los Wireframes.
