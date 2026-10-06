@@ -16,4 +16,4 @@ Kristensen Franco Valentin
 
 ## Estado
 
-Etapa 2 — Creación y diseño de los Wireframes.
+Etapa 3 — Análisis de datos y backend
