@@ -26,4 +26,13 @@ app.get("/", (req, res) => {
     });
 });
 
+// Importamos los middlewares de manejo de errores
+const { 
+    rutaNoEncontrada, 
+    manejarErrores 
+} = require("./middleware/errores");
+app.use(rutaNoEncontrada);
+app.use(manejarErrores);
+
+
 module.exports = app;
