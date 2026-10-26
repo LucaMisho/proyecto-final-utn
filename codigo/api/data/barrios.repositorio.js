@@ -47,14 +47,14 @@ async function actualizarBarrio(id, nombre, descripcion){
     RETURNING id_barrio, nombre, descripcion;
     `;
 
-    const resultado = await pool.query(consulta, [id, nombre, descripcion]);
+    const resultado = await pool.query(consulta, [nombre, descripcion, id]);
     return resultado.rows[0] || null;
 
 }
 
 //obtenerBarrioPorId()
 async function obtenerBarrioPorId(id){
-    consulta = `
+    const consulta = `
     SELECT id_barrio, nombre, descripcion
     FROM barrio
     WHERE id_barrio = $1;

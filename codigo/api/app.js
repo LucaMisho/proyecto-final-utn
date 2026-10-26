@@ -10,6 +10,15 @@ app.use(express.json());
 const barrioRoutes = require("./routes/barrios.routes");
 app.use("/api/barrios", barrioRoutes);
 
+const tallerRoutes = require("./routes/talleres.routes");
+app.use("/api/talleres", tallerRoutes);
+const alumnoRoutes = require("./routes/alumnos.routes");
+app.use("/api/alumnos", alumnoRoutes);
+const usuarioRoutes = require("./routes/usuarios.routes");
+app.use("/api/usuarios", usuarioRoutes);
+const personalRoutes = require("./routes/personal.routes");
+app.use("/api/personal", personalRoutes);
+
 
 app.get("/", (req, res) => {
     res.status(200).json({
