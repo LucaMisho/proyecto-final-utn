@@ -12,8 +12,12 @@ trabajando con adolescentes y niños en situaciones de vulnerabilidad psicosocia
 
 Massa Luca,
 Génova  Candela,
+<<<<<<< HEAD
+Kristensen Franco 
+=======
 Kristensen Franco Valentin
 
+>>>>>>> e0cd703a5953e82a33d96c511c1d06f0f2708b3e
 ## Estado
 
 Etapa 3 — Análisis de datos y backend
