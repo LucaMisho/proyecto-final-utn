@@ -18,7 +18,7 @@ async function obtenerTaller(id) {
 
 //crearTaller()
 async function crearTaller(datos) {
-    for (const campo of ["nombre", "dia", "hora_inicio", "hora_fin", "edad_minima", "edad_maxima", "id_barrio", "cupo"]) {
+    for (const campo of ["nombre", "id_barrio", "cupo"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }
@@ -35,7 +35,7 @@ async function actualizarTaller(id, datos) {
         throw new Error("Taller no encontrado");
     }
 
-    for (const campo of ["nombre", "dia", "hora_inicio", "hora_fin", "edad_minima", "edad_maxima", "id_barrio", "cupo"]) {
+    for (const campo of ["nombre", "id_barrio", "cupo"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }

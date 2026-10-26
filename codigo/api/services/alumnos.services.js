@@ -18,7 +18,7 @@ async function obtenerAlumno(id) {
 
 //crearAlumno()
 async function crearAlumno(datos) {
-    for (const campo of ["id_usuario", "dni"]) {
+    for (const campo of ["nombre", "apellido", "dni"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }
@@ -35,7 +35,7 @@ async function actualizarAlumno(id, datos) {
         throw new Error("Alumno no encontrado");
     }
 
-    for (const campo of ["id_usuario", "dni"]) {
+    for (const campo of ["nombre", "apellido", "dni"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }

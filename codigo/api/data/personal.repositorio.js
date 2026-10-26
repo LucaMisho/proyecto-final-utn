@@ -5,7 +5,7 @@ async function crearPersonal(datos){
     const consulta = `
     INSERT INTO personal (id_usuario, funcion)
     VALUES ($1, $2)
-    RETURNING id_personal, id_usuario, funcion, activo;
+    RETURNING id_personal, id_usuario, funcion;
     `;
 
     const resultado = await pool.query(consulta, [datos.id_usuario ?? null, datos.funcion ?? null]);
@@ -28,7 +28,7 @@ async function eliminarPersonal(id){
 //listarPersonal()
 async function listarPersonal(){
     const consulta = `
-    SELECT id_personal, id_usuario, funcion, activo
+    SELECT id_personal, id_usuario, funcion
     FROM personal
     ORDER BY id_personal;
     `;
@@ -43,7 +43,7 @@ async function actualizarPersonal(id, datos){
     UPDATE personal
     SET id_usuario = $1, funcion = $2
     WHERE id_personal = $3
-    RETURNING id_personal, id_usuario, funcion, activo;
+    RETURNING id_personal, id_usuario, funcion;
     `;
 
     const resultado = await pool.query(consulta, [datos.id_usuario ?? null, datos.funcion ?? null, id]);
@@ -54,7 +54,7 @@ async function actualizarPersonal(id, datos){
 //obtenerPersonalPorId()
 async function obtenerPersonalPorId(id){
     const consulta = `
-    SELECT id_personal, id_usuario, funcion, activo
+    SELECT id_personal, id_usuario, funcion
     FROM personal
     WHERE id_personal = $1;
     `;
