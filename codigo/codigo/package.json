@@ -1,0 +1,21 @@
+{
+  "name": "envion-quequen-api",
+  "version": "1.0.0",
+  "description": "API REST del Programa Envión-Quequén (Programación IV, TUP UTN Necochea)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "db:iniciar": "node scripts/iniciar-db.js",
+    "probar:repositorios": "node scripts/probar-repositorios.js",
+    "prueba:1-crear": "node scripts/pruebas/1-crear.js",
+    "prueba:2-buscar": "node scripts/pruebas/2-buscar.js",
+    "prueba:3-actualizar": "node scripts/pruebas/3-actualizar.js",
+    "prueba:4-borrar": "node scripts/pruebas/4-borrar.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
