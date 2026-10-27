@@ -1,14 +1,14 @@
 const pool = require ("./conexion");
 
 //crearUsuario
-async function crearUsuario(datos, contrasenaHash){
+async function crearUsuario(datos, claveHash){
     const consulta = `
     INSERT INTO usuario (username, email, contraseña, rol)
     VALUES ($1, $2, $3, $4)
     RETURNING id_usuario, username, email, rol, fecha_registro, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.username , datos.email , contrasenaHash, "USUARIO"]);
+    const resultado = await pool.query(consulta, [datos.username, datos.email, claveHash, datos.rol ?? "USUARIO"]);
     return resultado.rows[0];
 }
 
@@ -38,15 +38,15 @@ async function listarUsuarios(){
 }
 
 //actualizarUsuario()
-async function actualizarUsuario(id, datos, contrasenaHash){
+async function actualizarUsuario(id, datos, claveHash){
     const consulta = `
     UPDATE usuario
-    SET username = $1, email = $2, contraseña = $3
-    WHERE id_usuario = $4
-    RETURNING id_usuario, username, email, rol, estado;
+    SET username = $1, email = $2, rol = COALESCE($3, rol), estado = COALESCE($4, estado), contraseña = COALESCE($5, contraseña)
+    WHERE id_usuario = $6
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.username, datos.email, contrasenaHash, id]);
+    const resultado = await pool.query(consulta, [datos.username, datos.email, datos.rol ?? null, datos.estado ?? null, claveHash ?? null, id]);
     return resultado.rows[0] || null;
 
 }

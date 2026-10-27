@@ -72,7 +72,7 @@ CREATE TABLE personal (
     id_usuario  INTEGER NOT NULL UNIQUE,
     nombre      VARCHAR(100) NOT NULL,
     apellido    VARCHAR(100) NOT NULL,
-    dni         VARCHAR(100) NOT NULL UNIQUE, 
+    dni         VARCHAR(20) NOT NULL UNIQUE,
     telefono    VARCHAR(30),    
     funcion     VARCHAR(100) NOT NULL,
     CONSTRAINT fk_personal_usuario

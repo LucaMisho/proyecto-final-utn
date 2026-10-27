@@ -1,4 +1,5 @@
 const alumnoRepositorio = require("../data/alumnos.repositorio");
+const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
 //listarAlumnos()
 async function listarAlumnos() {
@@ -10,7 +11,7 @@ async function obtenerAlumno(id) {
     const alumno = await alumnoRepositorio.obtenerAlumnoPorId(id);
 
     if (!alumno) {
-        throw new Error("Alumno no encontrado");
+        throw new ErrorNoEncontrado("Alumno no encontrado");
     }
 
     return alumno;
@@ -20,7 +21,7 @@ async function obtenerAlumno(id) {
 async function crearAlumno(datos) {
     for (const campo of ["nombre", "apellido", "dni"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -32,12 +33,12 @@ async function actualizarAlumno(id, datos) {
     const alumno = await alumnoRepositorio.obtenerAlumnoPorId(id);
 
     if (!alumno) {
-        throw new Error("Alumno no encontrado");
+        throw new ErrorNoEncontrado("Alumno no encontrado");
     }
 
     for (const campo of ["nombre", "apellido", "dni"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -49,7 +50,7 @@ async function borrarAlumno(id) {
     const alumno = await alumnoRepositorio.obtenerAlumnoPorId(id);
 
     if (!alumno) {
-        throw new Error("Alumno no encontrado");
+        throw new ErrorNoEncontrado("Alumno no encontrado");
     }
 
     return alumnoRepositorio.eliminarAlumno(id);

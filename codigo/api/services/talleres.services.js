@@ -1,4 +1,5 @@
 const tallerRepositorio = require("../data/talleres.repositorio");
+const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
 //listarTalleres()
 async function listarTalleres() {
@@ -10,7 +11,7 @@ async function obtenerTaller(id) {
     const taller = await tallerRepositorio.obtenerTallerPorId(id);
 
     if (!taller) {
-        throw new Error("Taller no encontrado");
+        throw new ErrorNoEncontrado("Taller no encontrado");
     }
 
     return taller;
@@ -20,7 +21,7 @@ async function obtenerTaller(id) {
 async function crearTaller(datos) {
     for (const campo of ["nombre", "id_barrio", "cupo"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -32,12 +33,12 @@ async function actualizarTaller(id, datos) {
     const taller = await tallerRepositorio.obtenerTallerPorId(id);
 
     if (!taller) {
-        throw new Error("Taller no encontrado");
+        throw new ErrorNoEncontrado("Taller no encontrado");
     }
 
     for (const campo of ["nombre", "id_barrio", "cupo"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -49,7 +50,7 @@ async function borrarTaller(id) {
     const taller = await tallerRepositorio.obtenerTallerPorId(id);
 
     if (!taller) {
-        throw new Error("Taller no encontrado");
+        throw new ErrorNoEncontrado("Taller no encontrado");
     }
 
     return tallerRepositorio.eliminarTaller(id);

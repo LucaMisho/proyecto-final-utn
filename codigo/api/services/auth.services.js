@@ -1,54 +1,66 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const usuarioRepositorio = require("../data/usuarios.repositorio");
+const { ErrorDeDatos, ErrorDeCredenciales, ErrorSinPermiso } = require("./errores");
 
+
+// La clave puede llegar como "contrasena" o "contraseña"
+function leerClave(datos) {
+    return datos.contrasena ?? datos["contraseña"];
+}
 
 async function registrar(datos) {
-    const { username, email, contraseña } = datos;
+    const { username, email } = datos;
+    const clave = leerClave(datos);
 
-    if (!username || !email || !contraseña) {
-        throw new Error("Todos los campos son obligatorios");
+    if (!username || !email || !clave) {
+        throw new ErrorDeDatos("Todos los campos son obligatorios");
     }
 
-    if (String(contraseña).length < 8) {
-        throw new Error("La contraseña debe tener al menos 8 caracteres");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
+        throw new ErrorDeDatos("El email no es válido");
     }
 
-    const contrasenaHash = await bcrypt.hash(
-        String(contraseña),
+    if (String(clave).length < 8) {
+        throw new ErrorDeDatos("La contraseña debe tener al menos 8 caracteres");
+    }
+
+    const claveHash = await bcrypt.hash(
+        String(clave),
         10
     );
 
+    // El rol no se toma del pedido: quien se registra siempre es USUARIO
     return usuarioRepositorio.crearUsuario(
-        datos,
-        contrasenaHash
+        { username, email },
+        claveHash
     );
 }
 
 
 //IniciarSesion
-async function iniciarSesion(username, contraseña) {
-    if (!username || !contraseña) {
-        throw new Error("El usuario y la contraseña son obligatorios");
+async function iniciarSesion(username, clave) {
+    if (!username || !clave) {
+        throw new ErrorDeDatos("El usuario y la contraseña son obligatorios");
     }
 
     const usuario = await usuarioRepositorio.buscarPorUsername(username);
 
     if (!usuario) {
-        throw new Error("Credenciales incorrectas");
+        throw new ErrorDeCredenciales("Credenciales incorrectas");
     }
 
-    const contrasenaValida = await bcrypt.compare(
-        contraseña,
+    const claveValida = await bcrypt.compare(
+        String(clave),
         usuario.contraseña
     );
 
-    if (!contrasenaValida) {
-        throw new Error("Credenciales incorrectas");
+    if (!claveValida) {
+        throw new ErrorDeCredenciales("Credenciales incorrectas");
     }
 
     if (!usuario.estado) {
-        throw new Error("La cuenta está inactiva");
+        throw new ErrorSinPermiso("La cuenta está inactiva");
     }
 
     const secreto = process.env.JWT_SECRETO;
@@ -73,11 +85,9 @@ async function iniciarSesion(username, contraseña) {
         usuario: {
             id_usuario: usuario.id_usuario,
             username: usuario.username,
-            nombre: usuario.nombre,
-            apellido: usuario.apellido,
             rol: usuario.rol
         }
     };
 }
 
-module.exports = { iniciarSesion, registrar};
+module.exports = { iniciarSesion, registrar, leerClave };

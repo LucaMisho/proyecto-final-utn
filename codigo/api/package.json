@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "admin:crear": "node scripts/crear-admin.js"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,25 @@
 const bcrypt = require("bcryptjs");
 const usuarioRepositorio = require("../data/usuarios.repositorio");
-const jwt = require("jsonwebtoken");
+const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
+
+const ROLES = ["USUARIO", "PERSONAL", "ADMINISTRADOR"];
+
+// La clave puede llegar como "contrasena" o "contraseña"
+function leerClave(datos) {
+    return datos.contrasena ?? datos["contraseña"];
+}
+
+function validarRol(rol) {
+    if (rol !== undefined && rol !== null && !ROLES.includes(rol)) {
+        throw new ErrorDeDatos(`El rol tiene que ser uno de: ${ROLES.join(", ")}`);
+    }
+}
+
+function validarEstado(estado) {
+    if (estado !== undefined && estado !== null && typeof estado !== "boolean") {
+        throw new ErrorDeDatos("El estado tiene que ser true o false");
+    }
+}
 
 //listarUsuarios()
 async function listarUsuarios() {
@@ -12,7 +31,7 @@ async function obtenerUsuario(id) {
     const usuario = await usuarioRepositorio.obtenerUsuarioPorId(id);
 
     if (!usuario) {
-        throw new Error("Usuario no encontrado");
+        throw new ErrorNoEncontrado("Usuario no encontrado");
     }
 
     return usuario;
@@ -20,26 +39,31 @@ async function obtenerUsuario(id) {
 
 //crearUsuario()
 async function crearUsuario(datos) {
-    for (const campo of ["username", "email", "contraseña"]) {
+    for (const campo of ["username", "email"]) {
         if (
             datos[campo] === undefined ||
             datos[campo] === null ||
             String(datos[campo]).trim() === ""
         ) {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
-    if (String(datos.contraseña).length < 8) {
-        throw new Error("La contraseña debe tener al menos 8 caracteres");
+    const clave = leerClave(datos);
+
+    if (clave === undefined || clave === null || String(clave).trim() === "") {
+        throw new ErrorDeDatos("El campo contrasena es obligatorio");
     }
 
-    const contrasenaHash = await bcrypt.hash(
-        String(datos.contraseña),
-        10
-    );
+    if (String(clave).length < 8) {
+        throw new ErrorDeDatos("La contraseña debe tener al menos 8 caracteres");
+    }
 
-    return usuarioRepositorio.crearUsuario(datos, contrasenaHash);
+    validarRol(datos.rol);
+
+    const claveHash = await bcrypt.hash(String(clave), 10);
+
+    return usuarioRepositorio.crearUsuario(datos, claveHash);
 }
 
 
@@ -48,18 +72,30 @@ async function actualizarUsuario(id, datos) {
     const usuario = await usuarioRepositorio.obtenerUsuarioPorId(id);
 
     if (!usuario) {
-        throw new Error("Usuario no encontrado");
+        throw new ErrorNoEncontrado("Usuario no encontrado");
     }
 
-    for (const campo of ["username", "contraseña", "email"]) {
-
+    for (const campo of ["username", "email"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
-    const contrasenaHash = await bcrypt.hash(datos.contraseña, 10);
 
-    return usuarioRepositorio.actualizarUsuario(id, datos, contrasenaHash);
+    validarRol(datos.rol);
+    validarEstado(datos.estado);
+
+    // La contraseña solo se cambia si viene en el pedido
+    const clave = leerClave(datos);
+    let claveHash = null;
+
+    if (clave !== undefined && clave !== null && String(clave) !== "") {
+        if (String(clave).length < 8) {
+            throw new ErrorDeDatos("La contraseña debe tener al menos 8 caracteres");
+        }
+        claveHash = await bcrypt.hash(String(clave), 10);
+    }
+
+    return usuarioRepositorio.actualizarUsuario(id, datos, claveHash);
 }
 
 //borrarUsuario()
@@ -67,7 +103,7 @@ async function borrarUsuario(id) {
     const usuario = await usuarioRepositorio.obtenerUsuarioPorId(id);
 
     if (!usuario) {
-        throw new Error("Usuario no encontrado");
+        throw new ErrorNoEncontrado("Usuario no encontrado");
     }
 
     return usuarioRepositorio.eliminarUsuario(id);

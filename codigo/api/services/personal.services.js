@@ -1,4 +1,5 @@
 const personalRepositorio = require("../data/personal.repositorio");
+const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
 //listarPersonal()
 async function listarPersonal() {
@@ -10,7 +11,7 @@ async function obtenerPersonal(id) {
     const personal = await personalRepositorio.obtenerPersonalPorId(id);
 
     if (!personal) {
-        throw new Error("Personal no encontrado");
+        throw new ErrorNoEncontrado("Personal no encontrado");
     }
 
     return personal;
@@ -18,9 +19,9 @@ async function obtenerPersonal(id) {
 
 //crearPersonal()
 async function crearPersonal(datos) {
-    for (const campo of ["id_usuario", "funcion"]) {
+    for (const campo of ["id_usuario", "nombre", "apellido", "dni", "funcion"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -32,12 +33,12 @@ async function actualizarPersonal(id, datos) {
     const personal = await personalRepositorio.obtenerPersonalPorId(id);
 
     if (!personal) {
-        throw new Error("Personal no encontrado");
+        throw new ErrorNoEncontrado("Personal no encontrado");
     }
 
-    for (const campo of ["id_usuario", "funcion"]) {
+    for (const campo of ["id_usuario", "nombre", "apellido", "dni", "funcion"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new Error(`El campo ${campo} es obligatorio`);
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
 
@@ -49,7 +50,7 @@ async function borrarPersonal(id) {
     const personal = await personalRepositorio.obtenerPersonalPorId(id);
 
     if (!personal) {
-        throw new Error("Personal no encontrado");
+        throw new ErrorNoEncontrado("Personal no encontrado");
     }
 
     return personalRepositorio.eliminarPersonal(id);

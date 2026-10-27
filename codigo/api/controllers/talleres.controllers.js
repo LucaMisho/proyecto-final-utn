@@ -1,4 +1,5 @@
 const tallerService = require("../services/talleres.services");
+const { responderError } = require("../middleware/errores");
 
 // Listar todos: talleres
 async function listar(req, res) {
@@ -6,7 +7,7 @@ async function listar(req, res) {
         const talleres = await tallerService.listarTalleres();
         res.status(200).json(talleres);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -16,8 +17,7 @@ async function obtenerPorId(req, res) {
         const taller = await tallerService.obtenerTaller(req.params.id);
         res.status(200).json(taller);
     } catch (error) {
-        const estado = error.message === "Taller no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -27,7 +27,7 @@ async function crear(req, res) {
         const taller = await tallerService.crearTaller(req.body);
         res.status(201).json(taller);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -40,8 +40,7 @@ async function actualizar(req, res) {
         );
         res.status(200).json(taller);
     } catch (error) {
-        const estado = error.message === "Taller no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -53,8 +52,7 @@ async function borrar(req, res) {
             mensaje: "Taller eliminado correctamente"
         });
     } catch (error) {
-        const estado = error.message === "Taller no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 

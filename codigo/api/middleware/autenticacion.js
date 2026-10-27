@@ -6,7 +6,7 @@ const autenticarToken = (req, res, next) => {
 
     if (!encabezado || !encabezado.startsWith('Bearer ')) {
         return res.status(401).json({ 
-            mensaje: 'Se requiere iniciar sesión' 
+            error: 'Se requiere iniciar sesión' 
         });
     }
 
@@ -22,7 +22,7 @@ const autenticarToken = (req, res, next) => {
         next();
     } catch (error) {
         return res.status(401).json({
-            mensaje: 'Token inválido o vencido'
+            error: 'Token inválido o vencido'
         });
     }
 }
@@ -33,7 +33,7 @@ function autorizarRol( ...rolesPermitidos) {
     return function  (req, res, next) {
         if (!req.usuario || !rolesPermitidos.includes(req.usuario.rol)) {
             return res.status(403).json({
-                mensaje: 'No tienes permisos para realizar esta acción'
+                error: 'No tienes permisos para realizar esta acción'
             });
         }
 

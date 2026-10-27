@@ -8,7 +8,7 @@ async function crearAlumno(datos){
     RETURNING id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio;
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre , datos.apellido , datos.dni , datos.telefono, datos.tiene_beca , datos.estudios_completos , datos.colegio ]);
+    const resultado = await pool.query(consulta, [datos.nombre , datos.apellido , datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null]);
     return resultado.rows[0];
 }
 
@@ -45,7 +45,7 @@ async function actualizarAlumno(id, datos){
     RETURNING id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio;
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre, datos.apellido, datos.dni, datos.telefono, datos.tiene_beca, datos.estudios_completos, datos.colegio, id]);
+    const resultado = await pool.query(consulta, [datos.nombre, datos.apellido, datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null, id]);
     return resultado.rows[0] || null;
 
 }
@@ -53,7 +53,7 @@ async function actualizarAlumno(id, datos){
 //obtenerAlumnoPorId()
 async function obtenerAlumnoPorId(id){
     const consulta = `
-    SELECT id_alumno, nombre, apellido, dni, tiene_beca, estudios_completos, colegio
+    SELECT id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio
     FROM alumno
     WHERE id_alumno = $1;
     `;

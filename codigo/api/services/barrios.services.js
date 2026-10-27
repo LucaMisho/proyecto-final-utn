@@ -1,4 +1,5 @@
 const barrioRepositorio = require("../data/barrios.repositorio");
+const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
 //listarBarrios()
 async function listarBarrios() {
@@ -10,7 +11,7 @@ async function obtenerBarrio(id) {
     const barrio = await barrioRepositorio.obtenerBarrioPorId(id);
 
     if (!barrio) {
-        throw new Error("Barrio no encontrado");
+        throw new ErrorNoEncontrado("Barrio no encontrado");
     }
 
     return barrio;
@@ -18,12 +19,12 @@ async function obtenerBarrio(id) {
 
 //crearBarrio()
 async function crearBarrio(datos) {
-    if (!datos.nombre || !datos.nombre.trim()) {
-        throw new Error("El nombre del barrio es obligatorio");
+    if (!datos.nombre || !String(datos.nombre).trim()) {
+        throw new ErrorDeDatos("El nombre del barrio es obligatorio");
     }
 
     return barrioRepositorio.crearBarrio(
-        datos.nombre.trim(),
+        String(datos.nombre).trim(),
         datos.descripcion ?? null
     );
 }
@@ -33,16 +34,16 @@ async function actualizarBarrio(id, datos) {
     const barrio = await barrioRepositorio.obtenerBarrioPorId(id);
 
     if (!barrio) {
-        throw new Error("Barrio no encontrado");
+        throw new ErrorNoEncontrado("Barrio no encontrado");
     }
 
-    if (!datos.nombre || !datos.nombre.trim()) {
-        throw new Error("El nombre del barrio es obligatorio");
+    if (!datos.nombre || !String(datos.nombre).trim()) {
+        throw new ErrorDeDatos("El nombre del barrio es obligatorio");
     }
 
     return barrioRepositorio.actualizarBarrio(
         id,
-        datos.nombre.trim(),
+        String(datos.nombre).trim(),
         datos.descripcion ?? null
     );
 }
@@ -52,7 +53,7 @@ async function borrarBarrio(id) {
     const barrio = await barrioRepositorio.obtenerBarrioPorId(id);
 
     if (!barrio) {
-        throw new Error("Barrio no encontrado");
+        throw new ErrorNoEncontrado("Barrio no encontrado");
     }
 
     return barrioRepositorio.eliminarBarrio(id);

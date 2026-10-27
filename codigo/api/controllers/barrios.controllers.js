@@ -1,4 +1,5 @@
 const barrioService = require("../services/barrios.services");
+const { responderError } = require("../middleware/errores");
 
 // Listar todos los barrios
 async function listar(req, res) {
@@ -6,7 +7,7 @@ async function listar(req, res) {
         const barrios = await barrioService.listarBarrios();
         res.status(200).json(barrios);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -16,8 +17,7 @@ async function obtenerPorId(req, res) {
         const barrio = await barrioService.obtenerBarrio(req.params.id);
         res.status(200).json(barrio);
     } catch (error) {
-        const estado = error.message === "Barrio no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -27,7 +27,7 @@ async function crear(req, res) {
         const barrio = await barrioService.crearBarrio(req.body);
         res.status(201).json(barrio);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -40,8 +40,7 @@ async function actualizar(req, res) {
         );
         res.status(200).json(barrio);
     } catch (error) {
-        const estado = error.message === "Barrio no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
@@ -53,8 +52,7 @@ async function borrar(req, res) {
             mensaje: "Barrio eliminado correctamente"
         });
     } catch (error) {
-        const estado = error.message === "Barrio no encontrado" ? 404 : 400;
-        res.status(estado).json({ error: error.message });
+        responderError(res, error);
     }
 }
 
