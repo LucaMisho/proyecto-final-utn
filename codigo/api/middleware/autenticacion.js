@@ -15,7 +15,7 @@ const autenticarToken = (req, res, next) => {
     try {
         const datosUsuario = jwt.verify( //jwt.verify() verifica que el token es válido y no ha expirado, y decodifica los datos del usuario
             token, 
-            process.env.JWT_SECRET
+            process.env.JWT_SECRETO
         );
 
         req.usuario = datosUsuario; // Almacena los datos del usuario en la solicitud para su uso posterior
