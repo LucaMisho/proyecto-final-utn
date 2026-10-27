@@ -1,12 +1,18 @@
+
 const express = require("express");
 const router = express.Router();
 
 const usuarioController = require("../controllers/usuarios.controllers");
+const { autenticarToken, autorizarRol } = require("../middleware/autenticacion");
 
-router.get("/", usuarioController.listar);
-router.get("/:id", usuarioController.obtenerPorId);
+// Rutas públicas
 router.post("/", usuarioController.crear);
-router.put("/:id", usuarioController.actualizar);
-router.delete("/:id", usuarioController.borrar);
+router.post("/login", usuarioController.iniciarSesion);
+
+// Rutas que requieren iniciar sesión
+router.get("/", autenticarToken, autorizarRol("ADMINISTRADOR"), usuarioController.listar);
+router.get("/:id", autenticarToken, usuarioController.obtenerPorId);
+router.put("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), usuarioController.actualizar);
+router.delete("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), usuarioController.borrar);
 
 module.exports = router;
