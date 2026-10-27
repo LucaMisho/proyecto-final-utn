@@ -63,4 +63,26 @@ async function obtenerUsuarioPorId(id){
     return resultado.rows[0] || null;
 }
 
-module.exports = {listarUsuarios, eliminarUsuario, crearUsuario, actualizarUsuario, obtenerUsuarioPorId};
+//buscarPorUsername()
+async function buscarPorUsername(username) {
+    const consulta = `
+        SELECT id_usuario, username, nombre, apellido,
+               email, telefono, contrasena, rol, estado
+        FROM usuario
+        WHERE username = $1;
+    `;
+
+    const resultado = await pool.query(consulta, [username]);
+
+    return resultado.rows[0] || null;
+}
+
+
+module.exports = {
+    listarUsuarios, 
+    eliminarUsuario, 
+    crearUsuario, 
+    actualizarUsuario, 
+    obtenerUsuarioPorId,
+    buscarPorUsername
+};
