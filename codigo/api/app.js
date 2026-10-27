@@ -13,7 +13,8 @@ app.use((req, res, next) => {
     if (req.body === undefined) req.body = {};
     next();
 });
-
+const buscadorRoutes = require("./routes/buscador.routes");
+app.use("/api/buscador", buscadorRoutes);
 const barrioRoutes = require("./routes/barrios.routes");
 app.use("/api/barrios", barrioRoutes);
 const authRoutes = require("./routes/auth.routes");
