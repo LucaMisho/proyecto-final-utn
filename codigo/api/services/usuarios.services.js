@@ -20,11 +20,11 @@ async function obtenerUsuario(id) {
 
 //crearUsuario()
 async function crearUsuario(datos) {
-    for (const campo of ["username", "nombre", "apellido", "email", "contrasena"]) {
+    for (const campo of ["username", "email", "contrasena"]) {
         if (String(datos.contrasena).length < 8) {
             throw new Error("La contraseña debe tener al menos 8 caracteres");
         }
-        
+    }        
     for (const campo of ["username", "email", "contraseña"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
