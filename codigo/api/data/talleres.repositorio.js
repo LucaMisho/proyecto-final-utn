@@ -8,7 +8,17 @@ async function crearTaller(datos){
     RETURNING id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre ?? null, datos.descripcion ?? null, datos.dia ?? null, datos.hora_inicio ?? null, datos.hora_fin ?? null, datos.edad_minima ?? null, datos.edad_maxima ?? null, datos.id_barrio ?? null, datos.cupo ?? null, datos.equipo_disponible ?? null, datos.estado ?? "activo"]);
+    const resultado = await pool.query(consulta, [datos.nombre ?? null,
+     datos.descripcion ?? null,
+     datos.dia ?? null, 
+     datos.hora_inicio ?? null,
+     datos.hora_fin ?? null, 
+     datos.edad_minima ?? null,
+     datos.edad_maxima ?? null, 
+     datos.id_barrio ?? null, 
+     datos.cupo ?? null,
+     datos.equipo_disponible ?? null,
+     datos.estado ?? "activo"]);
     return resultado.rows[0];
 }
 
