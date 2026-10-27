@@ -58,44 +58,10 @@ async function borrar(req, res) {
     }
 }
 
-// Iniciar sesión
-async function iniciarSesion(req, res) {
-    try {
-        const { username, contrasena } = req.body;
-
-        const resultado = await usuarioService.iniciarSesion(
-            username,
-            contrasena
-        );
-
-        res.status(200).json(resultado);
-
-    } catch (error) {
-        if (error.message === "El usuario y la contraseña son obligatorios") {
-            return res.status(400).json({ mensaje: error.message });
-        }
-
-        if (error.message === "Credenciales incorrectas") {
-            return res.status(401).json({ mensaje: error.message });
-        }
-
-        if (error.message === "La cuenta está inactiva") {
-            return res.status(403).json({ mensaje: error.message });
-        }
-
-        console.error(error);
-        res.status(500).json({
-            mensaje: "Error interno del servidor"
-        });
-    }
-}
-
-
 module.exports = {
     listar,
     obtenerPorId,
     crear,
     actualizar,
-    borrar,
-    iniciarSesion
+    borrar
 };

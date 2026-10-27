@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 const barrioRoutes = require("./routes/barrios.routes");
 app.use("/api/barrios", barrioRoutes);
-
+const authRoutes = require("./routes/auth.routes");
+app.use("/api/auth", authRoutes);
 const tallerRoutes = require("./routes/talleres.routes");
 app.use("/api/talleres", tallerRoutes);
 const alumnoRoutes = require("./routes/alumnos.routes");

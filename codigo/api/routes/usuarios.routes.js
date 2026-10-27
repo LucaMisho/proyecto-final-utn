@@ -7,7 +7,6 @@ const { autenticarToken, autorizarRol } = require("../middleware/autenticacion")
 
 // Rutas públicas
 router.post("/", usuarioController.crear);
-router.post("/login", usuarioController.iniciarSesion);
 
 // Rutas que requieren iniciar sesión
 router.get("/", autenticarToken, autorizarRol("ADMINISTRADOR"), usuarioController.listar);

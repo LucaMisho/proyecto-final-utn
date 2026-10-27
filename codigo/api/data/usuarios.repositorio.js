@@ -8,7 +8,7 @@ async function crearUsuario(datos, contrasenaHash){
     RETURNING id_usuario, username, email, rol, fecha_registro, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.username , datos.email , contrasenaHash, datos.rol ?? "USUARIO"]);
+    const resultado = await pool.query(consulta, [datos.username , datos.email , contrasenaHash, "USUARIO"]);
     return resultado.rows[0];
 }
 
@@ -66,8 +66,7 @@ async function obtenerUsuarioPorId(id){
 //buscarPorUsername()
 async function buscarPorUsername(username) {
     const consulta = `
-        SELECT id_usuario, username, nombre, apellido,
-               email, telefono, contrasena, rol, estado
+        SELECT id_usuario, username, email, contraseña, rol, estado
         FROM usuario
         WHERE username = $1;
     `;
@@ -76,6 +75,7 @@ async function buscarPorUsername(username) {
 
     return resultado.rows[0] || null;
 }
+
 
 
 module.exports = {
