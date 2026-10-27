@@ -19,7 +19,7 @@ async function obtenerUsuario(id) {
 
 //crearUsuario()
 async function crearUsuario(datos) {
-    for (const campo of ["username", "nombre", "apellido", "email", "contrasena"]) {
+    for (const campo of ["username", "email", "contraseña"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }
@@ -36,13 +36,15 @@ async function actualizarUsuario(id, datos) {
         throw new Error("Usuario no encontrado");
     }
 
-    for (const campo of ["username", "nombre", "apellido", "email"]) {
+    for (const campo of ["username", "contraseña", "email"]) {
+
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new Error(`El campo ${campo} es obligatorio`);
         }
     }
+    const contrasenaHash = await bcrypt.hash(datos.contraseña, 10);
 
-    return usuarioRepositorio.actualizarUsuario(id, datos);
+    return usuarioRepositorio.actualizarUsuario(id, datos, contrasenaHash);
 }
 
 //borrarUsuario()

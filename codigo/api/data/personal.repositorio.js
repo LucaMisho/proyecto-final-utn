@@ -3,12 +3,12 @@ const pool = require ("./conexion");
 //crearPersonal
 async function crearPersonal(datos){
     const consulta = `
-    INSERT INTO personal (id_usuario, funcion)
-    VALUES ($1, $2)
-    RETURNING id_personal, id_usuario, funcion;
+    INSERT INTO personal (id_usuario, nombre, apellido, dni, telefono, funcion)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING id_personal, id_usuario, nombre, apellido, dni, telefono, funcion;
     `;
 
-    const resultado = await pool.query(consulta, [datos.id_usuario ?? null, datos.funcion ?? null]);
+    const resultado = await pool.query(consulta, [datos.id_usuario ,datos.nombre, datos.apellido, datos.dni, datos.telefono, datos.funcion ?? null]);
     return resultado.rows[0];
 }
 
@@ -28,7 +28,7 @@ async function eliminarPersonal(id){
 //listarPersonal()
 async function listarPersonal(){
     const consulta = `
-    SELECT id_personal, id_usuario, funcion
+    SELECT id_personal, id_usuario, nombre, apellido, dni, telefono, funcion
     FROM personal
     ORDER BY id_personal;
     `;
@@ -41,12 +41,12 @@ async function listarPersonal(){
 async function actualizarPersonal(id, datos){
     const consulta = `
     UPDATE personal
-    SET id_usuario = $1, funcion = $2
-    WHERE id_personal = $3
-    RETURNING id_personal, id_usuario, funcion;
+    SET id_usuario = $1, nombre = $2, apellido = $3, dni = $4, telefono = $5, funcion = $6
+    WHERE id_personal = $7
+    RETURNING id_personal, id_usuario, nombre, apellido, dni, telefono, funcion;
     `;
 
-    const resultado = await pool.query(consulta, [datos.id_usuario ?? null, datos.funcion ?? null, id]);
+    const resultado = await pool.query(consulta, [datos.id_usuario ?? null, datos.nombre, datos.apellido, datos.dni, datos.telefono, datos.funcion ?? null, id]);
     return resultado.rows[0] || null;
 
 }
@@ -54,7 +54,7 @@ async function actualizarPersonal(id, datos){
 //obtenerPersonalPorId()
 async function obtenerPersonalPorId(id){
     const consulta = `
-    SELECT id_personal, id_usuario, funcion
+    SELECT id_personal, id_usuario, nombre, apellido, dni, telefono,funcion
     FROM personal
     WHERE id_personal = $1;
     `;

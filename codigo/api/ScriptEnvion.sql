@@ -9,11 +9,8 @@ BEGIN;
 CREATE TABLE usuario (
     id_usuario       INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username         VARCHAR(50) NOT NULL UNIQUE,
-	nombre           VARCHAR(100) NOT NULL,
-    apellido         VARCHAR(100) NOT NULL,
     email            VARCHAR(150) NOT NULL UNIQUE,
-    telefono         VARCHAR(30),
-    contrasena       VARCHAR(255) NOT NULL,
+    contraseña       VARCHAR(255) NOT NULL,
     rol              VARCHAR(30) NOT NULL DEFAULT 'USUARIO',
     fecha_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     estado           BOOLEAN NOT NULL DEFAULT TRUE
@@ -60,7 +57,8 @@ CREATE TABLE alumno (
     id_alumno          INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre             VARCHAR(100) NOT NULL,
     apellido           VARCHAR(100) NOT NULL,
-	dni 				VARCHAR(20) NOT NULL UNIQUE,
+	dni 			   VARCHAR(20) NOT NULL UNIQUE,
+    telefono           VARCHAR(30),
     tiene_beca         BOOLEAN NOT NULL DEFAULT FALSE,
     estudios_completos BOOLEAN NOT NULL DEFAULT FALSE,
     colegio            VARCHAR(150)
@@ -72,6 +70,10 @@ CREATE TABLE alumno (
 CREATE TABLE personal (
     id_personal INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     id_usuario  INTEGER NOT NULL UNIQUE,
+    nombre      VARCHAR(100) NOT NULL,
+    apellido    VARCHAR(100) NOT NULL,
+    dni         VARCHAR(100) NOT NULL UNIQUE, 
+    telefono    VARCHAR(30),    
     funcion     VARCHAR(100) NOT NULL,
     CONSTRAINT fk_personal_usuario
         FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)

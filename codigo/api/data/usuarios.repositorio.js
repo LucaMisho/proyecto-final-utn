@@ -3,12 +3,12 @@ const pool = require ("./conexion");
 //crearUsuario
 async function crearUsuario(datos, contrasenaHash){
     const consulta = `
-    INSERT INTO usuario (username, nombre, apellido, email, telefono, contrasena, rol)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING id_usuario, username, nombre, apellido, email, telefono, rol, estado;
+    INSERT INTO usuario (username, email, contraseña, rol)
+    VALUES ($1, $2, $3, $4)
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.username ?? null, datos.nombre ?? null, datos.apellido ?? null, datos.email ?? null, datos.telefono ?? null, contrasenaHash, datos.rol ?? "USUARIO"]);
+    const resultado = await pool.query(consulta, [datos.username , datos.email , contrasenaHash, datos.rol ?? "USUARIO"]);
     return resultado.rows[0];
 }
 
@@ -28,7 +28,7 @@ async function eliminarUsuario(id){
 //listarUsuarios()
 async function listarUsuarios(){
     const consulta = `
-    SELECT id_usuario, username, nombre, apellido, email, telefono, rol, estado
+    SELECT id_usuario, username, email, rol, estado
     FROM usuario
     ORDER BY id_usuario;
     `;
@@ -38,15 +38,15 @@ async function listarUsuarios(){
 }
 
 //actualizarUsuario()
-async function actualizarUsuario(id, datos){
+async function actualizarUsuario(id, datos, contrasenaHash){
     const consulta = `
     UPDATE usuario
-    SET username = $1, nombre = $2, apellido = $3, email = $4, telefono = $5, rol = $6, estado = $7
-    WHERE id_usuario = $8
-    RETURNING id_usuario, username, nombre, apellido, email, telefono, rol, estado;
+    SET username = $1, email = $2, contraseña = $3
+    WHERE id_usuario = $4
+    RETURNING id_usuario, username, email, rol, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.username ?? null, datos.nombre ?? null, datos.apellido ?? null, datos.email ?? null, datos.telefono ?? null, datos.rol ?? "USUARIO", datos.estado ?? true, id]);
+    const resultado = await pool.query(consulta, [datos.username, datos.email, contrasenaHash, id]);
     return resultado.rows[0] || null;
 
 }
@@ -54,7 +54,7 @@ async function actualizarUsuario(id, datos){
 //obtenerUsuarioPorId()
 async function obtenerUsuarioPorId(id){
     const consulta = `
-    SELECT id_usuario, username, nombre, apellido, email, telefono, rol, estado
+    SELECT id_usuario, username, email, rol, estado
     FROM usuario
     WHERE id_usuario = $1;
     `;
