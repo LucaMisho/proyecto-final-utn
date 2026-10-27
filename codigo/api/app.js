@@ -26,6 +26,17 @@ app.get("/", (req, res) => {
     });
 });
 
+//
+const { autenticarToken } = require("./middleware/autenticacion");
+
+app.get("/api/prueba-protegida", autenticarToken, (req, res) => {
+    res.status(200).json({
+        mensaje: "Acceso autorizado",
+        usuario: req.usuario
+    });
+});
+
+
 // Importamos los middlewares de manejo de errores
 const { 
     rutaNoEncontrada, 
