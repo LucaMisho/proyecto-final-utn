@@ -43,6 +43,9 @@ Una vez configurado los modulos, se requiere crear un archivo nuevo llamado .env
 misma raiz, copiando y pegando los valores que estan en .env.ejemplo y adaptandolos a la 
 configuración del equipo en el que se encuentra(La base de datos).  
 
+##  Datos de prueba y tablas
+Ejecutar el ScriptEnvion.sql de la carpeta /bd en la base de datos para integrar las tablas y relaciones, y el archivo DatosPruebaEnvion.sql para insertar datos para hacer las consultas, el usuario se crea con el cliente REST y el administrador por seguridad con npm run admin:crear.
+
 ## Iniciar el servidor 
 Una vez instaladas las dependencias y configurada la base de datos, iniciar la API con el 
 comando correspondiente definido en package.json, en este caso: npm run dev.  
