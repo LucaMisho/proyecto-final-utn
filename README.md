@@ -19,37 +19,39 @@ Kristensen Franco
 Etapa 4 — Diseño e implementación de las API
 
 ## Instrucciones de instalación y ejecución:
+Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
 
-Requisitos previos:
-Antes de ejecutar el proyecto, es necesario instalar:
-    Node.js y npm: para ejecutar la API e instalar sus dependencias.
-    PostgreSQL: para gestionar la base de datos.
-    Un cliente para administrar la base de datos, como pgAdmin.
-    Git, para clonar el repositorio. 
-Instalacion y ejecucion:
-1. Clonar el repositorio.
-	git clone https://github.com/LucaMisho/proyecto-final-utn.git
-2. Configurar la base de datos
-    Iniciar PostgreSQL.
-    Crear la base de datos del proyecto.
-    Ejecutar el script SQL del repositorio para crear las tablas, relaciones, restricciones e índices necesarios.
-    Verificar que las tablas se hayan creado correctamente.
-3. Configurar el backend.
-    Ingresar a la carpeta de la API:
-        cd codigo/api
-    Instalar las dependencias:
-        npm install
-    Configurar las variables de entorno necesarias para la conexión a PostgreSQL y el funcionamiento de la API, utilizando los nombres y valores requeridos por el proyecto. No publicar contraseñas ni claves privadas en el repositorio.
-4. Iniciar el servidor.
-    npm run dev
-    La API utiliza el puerto 3000, por lo que, una vez iniciada, se puede acceder a ella mediante: http://localhost:3000
-5. Probar la API.
-    Los endpoints pueden probarse mediante Postman u otro cliente HTTP, enviando las solicitudes correspondientes y configurando la autenticación cuando sea necesaria.
-* Verificación de la instalación
-    Para comprobar que el proyecto funciona en otro equipo:
-        Clonar el repositorio en una computadora diferente.
-        Seguir los pasos de instalación y configuración.
-        Iniciar el servidor.
-        Probar los endpoints principales de la API.
-        Registrar cualquier problema encontrado durante la instalación o ejecución.
+## Herramientas obligatorias y el ZIP
+Instalar Visual Studio Code (VSCODE): Entorno de desarrollo principal donde vamos a utilizar su terminal integrada.
+Instalar Node.js y npm: permite ejecutar la API e instalar sus dependencias.
+Instalar PostgreSQL: para gestionar la base de datos.
+Instalar pgAdmin: Cliente para administrar la base de datos.
+Instalar Postman u otro Cliente REST: Permite hacer las peticiones HTTP con los diferentes endpoints.
 
+Descargar proyecto como ZIP y extraerlo en tu computadora, abrir la carpeta con el Visual Studio Code ya instalado.
+
+## Instalar las dependencias 
+1. Abrir la terminal en VSCODE y posicionarse en la raiz /codigo y luego /api. 
+2. Ejecutar el comando: npm install  
+Este comando instala las dependencias declaradas en package.json y genera la carpeta 
+node_modules, donde se almacenan los módulos necesarios para ejecutar la aplicación. 
+
+Los principales modulos y mas importantes que utilizamos son:  express, pg, dotenv, bcryptjs, jsonwebtoken  
+
+## Configurar las variables de entorno  
+Una vez configurado los modulos, se requiere crear un archivo nuevo llamado .env en la 
+misma raiz, copiando y pegando los valores que estan en .env.ejemplo y adaptandolos a la 
+configuración del equipo en el que se encuentra(La base de datos).  
+
+## Iniciar el servidor 
+Una vez instaladas las dependencias y configurada la base de datos, iniciar la API con el 
+comando correspondiente definido en package.json, en este caso: npm run dev.  
+ 
+## Creación del usuario administrador  
+El proyecto cuenta con un comando para crear un usuario con rol de administrador: npm run admin:crear  
+
+Básicamente lo que hace es generar un usuario utilizando las credenciales del .env y el 
+crear-admin.js en script que se encarga de hacer el INSERT de un usuario nuevo con rol ADMINISTRADOR por defecto, 
+permite usar los endpoints principales de la API.  
+
+Por motivos de seguridad, los usuarios registrados normalmente no pueden modificar su propio rol para obtener permisos de administrador. La asignación de este rol se realiza mediante el procedimiento específico de creación del administrador. 
