@@ -5,7 +5,7 @@ async function buscar(req, res, next) {
     try {
         const { q } = req.query;
 
-        if (!q || !q.trim()) {
+        if (typeof q !== "string" || !q.trim()) {
             return res.status(400).json({
                 error: "El parámetro q es obligatorio"
             });

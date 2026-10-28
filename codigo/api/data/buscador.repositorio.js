@@ -18,7 +18,7 @@ async function buscar(q) {
         pool.query(
             `SELECT id_noticia, titulo, contenido, fecha_publicacion, imagen, estado
              FROM noticia
-             WHERE titulo ILIKE $1 OR contenido ILIKE $1`,
+             WHERE estado = 'activa' AND (titulo ILIKE $1 OR contenido ILIKE $1)`,
             [texto]
         ),
 

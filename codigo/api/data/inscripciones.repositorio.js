@@ -8,7 +8,7 @@ async function crearInscripcion(datos){
     RETURNING id_inscripcion, id_alumno, id_taller, estado, comentario, fecha_solicitud, fecha_respuesta;
     `;
 
-    const resultado = await pool.query(consulta, [datos.id_alumno ?? null, datos.id_taller ?? null, datos.estado ?? null, datos.comentario ?? null, datos.fecha_respuesta]);
+    const resultado = await pool.query(consulta, [datos.id_alumno ?? null, datos.id_taller ?? null, datos.estado ?? null, datos.comentario ?? null, datos.fecha_respuesta ?? null]);
     return resultado.rows[0];
 }
 
@@ -41,16 +41,16 @@ async function listarInscripciones(){
 async function actualizarInscripcion(id, datos){
     const consulta = `
     UPDATE inscripcion
-    SET id_alumno = $1, id_taller = $2, estado = COALESCE($3, 'aceptada'), comentario = $4, fecha_respuesta = $5
+    SET id_alumno = $1, id_taller = $2, estado = COALESCE($3, 'aceptada'), comentario = $4, fecha_respuesta = COALESCE($5, fecha_respuesta)
     WHERE id_inscripcion = $6
-    RETURNING id_inscripcion, id_alumno, id_taller, estado, comentario, fecha_respuesta;
+    RETURNING id_inscripcion, id_alumno, id_taller, estado, comentario, fecha_solicitud, fecha_respuesta;
     `;
 
     const resultado = await pool.query(consulta, [datos.id_alumno ?? null, 
     datos.id_taller ?? null, 
     datos.estado ?? null, 
     datos.comentario ?? null,
-    datos.fecha_respuesta, 
+    datos.fecha_respuesta ?? null, 
      id]);
     return resultado.rows[0] || null;
 
