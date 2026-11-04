@@ -16,7 +16,7 @@ Kristensen Franco
 
 ## Estado
 
-Etapa 4 — Diseño e implementación de las API
+Etapa 5 — Diseño Visual
 
 ## Instrucciones de instalación y ejecución:
 Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
