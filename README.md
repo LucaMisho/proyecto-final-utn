@@ -12,11 +12,11 @@ trabajando con adolescentes y niños en situaciones de vulnerabilidad psicosocia
 
 Massa Luca,
 Génova  Candela,
-Kristensen Franco 
+Kristensen Franco Valentin
 
 ## Estado
 
-Etapa 5 — Diseño Visual
+tapa 5 — Diseño Visual
 
 ## Instrucciones de instalación y ejecución:
 Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
