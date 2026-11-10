@@ -1,0 +1,62 @@
+
+.buscador {
+  width: 100%;
+  padding: 25px 5%;
+  background-color: var(--color-fondo-secundario);
+  box-sizing: border-box;
+}
+
+.formulario-busqueda {
+  display: flex;
+  align-items: center;
+  max-width: 750px;
+  margin: 0 auto;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-institucional);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.formulario-busqueda input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: var(--color-texto);
+}
+
+.formulario-busqueda input::placeholder {
+  color: #888888;
+}
+
+.formulario-busqueda button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: none;
+  border-left: 1px solid var(--color-institucional);
+  background-color: var(--color-fondo);
+  color: var(--color-institucional);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.formulario-busqueda button:hover {
+  background-color: var(--color-fondo-alternativo);
+}
+
+@media (max-width: 600px) {
+  .formulario-busqueda input {
+    padding: 13px 12px;
+    font-size: 14px;
+  }
+
+  .formulario-busqueda button {
+    padding: 12px;
+  }
+}

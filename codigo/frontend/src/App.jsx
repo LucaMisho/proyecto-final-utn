@@ -1,5 +1,5 @@
-import Encabezado from "./componentes/Encabezado"; {/* Importación del componente Encabezado */}
-import Buscador from "./componentes/Buscador";
+import Encabezado from "./componentes/Encabezado/Encabezado"; {/* Importación del componente Encabezado */}
+import Buscador from "./componentes/Buscador/Buscador";
 
 function App() {
   return (
