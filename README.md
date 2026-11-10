@@ -12,7 +12,7 @@ trabajando con adolescentes y niños en situaciones de vulnerabilidad psicosocia
 
 Massa Luca,
 Génova  Candela,
-Kristensen Franco 
+Kristensen Franco Valentin
 
 ## Estado
 
