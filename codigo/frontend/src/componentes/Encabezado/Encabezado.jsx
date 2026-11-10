@@ -9,8 +9,16 @@ function Encabezado() { /* Componente de encabezado */
       <div className="encabezado-superior">
 
         <div className="identidad">
-          <div className="logo-barrio">Barrio Cultura</div>
-          <div className="logo-envion">Envión Quequén</div>
+          <img
+           src="/imagenes/logo.png"
+           alt="Logo de Barrio Cultura y Envión Quequén"
+           className="logo-imagen"
+          />
+
+           <div className="nombres-institucionales">
+            <div className="logo-barrio">Barrio Cultura</div>
+            <div className="logo-envion">Envión Quequén</div>
+          </div>
         </div>
 
         <a href="/admin" className="acceso-admin">
