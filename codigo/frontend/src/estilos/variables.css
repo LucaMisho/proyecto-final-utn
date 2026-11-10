@@ -1,0 +1,19 @@
+
+:root {
+  /* Colores principales */
+  --color-fondo: #FFFFFF;
+  --color-fondo-secundario: #FFF7FF;
+  --color-fondo-alternativo: #FFE4FF;
+
+  /* Textos */
+  --color-texto: #333333;
+
+  /* Identidad institucional */
+  --color-institucional: #670066;
+  --color-institucional-hover: #950095;
+  --color-acento: #C66CC5;
+
+  /* Estados y mensajes */
+  --color-error: #B42318;
+  --color-exito: #167D3D;
+}

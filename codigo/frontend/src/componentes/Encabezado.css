@@ -1,0 +1,98 @@
+
+.encabezado {
+  width: 100%;
+  background-color: var(--color-fondo);
+}
+
+.encabezado-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  gap: 20px;
+}
+
+.identidad {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-barrio,
+.logo-envion {
+  color: var(--color-institucional);
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.acceso-admin {
+  color: var(--color-institucional);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.acceso-admin:hover {
+  color: var(--color-institucional-hover);
+}
+
+/* Menú de navegación */
+.menu-navegacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 15px;
+  background-color: var(--color-institucional);
+}
+
+.menu-navegacion a {
+  color: var(--color-fondo);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.menu-navegacion a:hover {
+  text-decoration: underline;
+}
+
+/* Botón hamburguesa */
+.boton-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-institucional);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Adaptación para celulares */
+@media (max-width: 768px) {
+  .encabezado-superior {
+    flex-wrap: wrap;
+  }
+
+  .identidad {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .acceso-admin {
+    margin-left: auto;
+  }
+
+  .boton-menu {
+    display: block;
+  }
+
+  .menu-navegacion {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .menu-navegacion.menu-abierto {
+    display: flex;
+  }
+}
