@@ -16,7 +16,7 @@ Kristensen Franco
 
 ## Estado
 
-Etapa 4 — Diseño e implementación de las API
+Etapa 6 — Prototipos interactivos
 
 ## Instrucciones de instalación y ejecución:
 Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
@@ -44,7 +44,7 @@ misma raiz, copiando y pegando los valores que estan en .env.ejemplo y adaptando
 configuración del equipo en el que se encuentra(La base de datos).  
 
 ##  Datos de prueba y tablas
-Ejecutar el ScriptEnvion.sql de la carpeta /bd en la base de datos para integrar las tablas y relaciones, y el archivo DatosPruebaEnvion.sql para insertar datos para hacer las consultas, el usuario se crea con el cliente REST y el administrador por seguridad con npm run admin:crear.
+Ejecutar el ScriptEnvion.sql de la carpeta /bd en la base de datos para integrar las tablas y relaciones y crear la base de datos, y el archivo DatosPruebaEnvion.sql para insertar datos para hacer las consultas, el usuario se crea con el cliente REST y el administrador por seguridad con npm run admin:crear.
 
 ## Iniciar el servidor 
 Una vez instaladas las dependencias y configurada la base de datos, iniciar la API con el 
