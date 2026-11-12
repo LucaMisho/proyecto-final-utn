@@ -16,11 +16,7 @@ Kristensen Franco Valentin
 
 ## Estado
 
-<<<<<<< .merge_file_a6eSat
-tapa 5 — Diseño Visual
-=======
-Etapa 6 — Prototipos interactivos
->>>>>>> .merge_file_dCy1F3
+Etapa 6 — Prototipos interactivosv
 
 ## Instrucciones de instalación y ejecución:
 Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
