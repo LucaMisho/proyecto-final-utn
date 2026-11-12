@@ -1,0 +1,369 @@
+### ==========================================================
+### COLECCIÓN DE PRUEBAS - API Envión-Quequén / Barrio Cultura
+### Se ejecuta con la extensión REST Client de VS Code.
+### Orden recomendado: sección 1 (genera los tokens) y después el resto.
+### ==========================================================
+
+@baseUrl = http://localhost:3000/api
+
+# Cuentas que deben existir en la base (data.sql):
+#   - Administrador: admin@mail.com / Admin1234   (rol ADMINISTRADOR)
+#   - Personal:      personal@mail.com / Personal1234 (rol PERSONAL)
+# El usuario común se crea con el registro (1.1).
+
+
+### ==========================================================
+### 1. AUTENTICACIÓN
+### ==========================================================
+
+### 1.1 Registro exitoso -> 201
+POST {{baseUrl}}/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "prueba@mail.com",
+  "password": "Prueba1234"
+}
+
+### 1.2 Registro con email repetido -> 409
+POST {{baseUrl}}/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Usuario Prueba",
+  "email": "prueba@mail.com",
+  "password": "Prueba1234"
+}
+
+### 1.3 Registro con datos incompletos -> 400
+POST {{baseUrl}}/auth/registro
+Content-Type: application/json
+
+{
+  "email": "sinpassword@mail.com"
+}
+
+### 1.4 Login usuario común -> 200 (guarda el token)
+# @name loginUser
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "prueba@mail.com",
+  "password": "Prueba1234"
+}
+
+###
+@tokenUser = {{loginUser.response.body.token}}
+
+### 1.5 Login administrador -> 200 (guarda el token)
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@mail.com",
+  "password": "Admin1234"
+}
+
+###
+@tokenAdmin = {{loginAdmin.response.body.token}}
+
+### 1.6 Login personal -> 200 (guarda el token)
+# @name loginPersonal
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "personal@mail.com",
+  "password": "Personal1234"
+}
+
+###
+@tokenPersonal = {{loginPersonal.response.body.token}}
+
+### 1.7 Login con contraseña incorrecta -> 401
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "prueba@mail.com",
+  "password": "incorrecta"
+}
+
+
+### ==========================================================
+### 2. PROTECCIÓN DE RUTAS (401 / 403)
+### ==========================================================
+
+### 2.1 Ruta protegida SIN token -> 401
+GET {{baseUrl}}/alumnos
+
+### 2.2 Ruta protegida con token inválido -> 401
+GET {{baseUrl}}/alumnos
+Authorization: Bearer token.invalido.123
+
+### 2.3 Usuario común en ruta de administrador -> 403
+GET {{baseUrl}}/usuarios
+Authorization: Bearer {{tokenUser}}
+
+### 2.4 La misma ruta con administrador -> 200
+GET {{baseUrl}}/usuarios
+Authorization: Bearer {{tokenAdmin}}
+
+### 2.5 Personal en ruta solo de administrador -> 403
+DELETE {{baseUrl}}/alumnos/1
+Authorization: Bearer {{tokenPersonal}}
+
+
+### ==========================================================
+### 3. RECURSOS PÚBLICOS (lectura sin token, escritura solo ADMINISTRADOR)
+### ==========================================================
+
+### ---------- 3.1 TALLERES ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/talleres
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/talleres/99999
+
+### Error: crear sin ser administrador -> 403
+POST {{baseUrl}}/talleres
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{
+  "nombre": "Taller no autorizado"
+}
+
+### Error: crear con datos inválidos -> 400
+POST {{baseUrl}}/talleres
+Authorization: Bearer {{tokenAdmin}}
+Content-Type: application/json
+
+{}
+
+### ---------- 3.2 ACTIVIDADES ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/actividades
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/actividades/99999
+
+### Error: crear sin ser administrador -> 403
+POST {{baseUrl}}/actividades
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{}
+
+### ---------- 3.3 BARRIOS ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/barrios
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/barrios/99999
+
+### Error: eliminar inexistente como administrador -> 404
+DELETE {{baseUrl}}/barrios/99999
+Authorization: Bearer {{tokenAdmin}}
+
+### ---------- 3.4 SEDES ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/sedes
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/sedes/99999
+
+### Error: crear sin token -> 401
+POST {{baseUrl}}/sedes
+Content-Type: application/json
+
+{}
+
+### ---------- 3.5 NOTICIAS ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/noticias
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/noticias/99999
+
+### Error: actualizar sin ser administrador -> 403
+PUT {{baseUrl}}/noticias/1
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{}
+
+### ---------- 3.6 REDES ----------
+
+### Éxito: listar -> 200
+GET {{baseUrl}}/redes
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/redes/99999
+
+### Error: eliminar sin ser administrador -> 403
+DELETE {{baseUrl}}/redes/1
+Authorization: Bearer {{tokenUser}}
+
+### ---------- 3.7 BUSCADOR ----------
+
+### Éxito: buscar -> 200
+GET {{baseUrl}}/buscador?q=taller
+
+### Error: búsqueda sin término -> 400
+GET {{baseUrl}}/buscador
+
+
+### ==========================================================
+### 4. RECURSOS INTERNOS (PERSONAL y ADMINISTRADOR)
+### ==========================================================
+
+### ---------- 4.1 ALUMNOS ----------
+
+### Éxito: listar como personal -> 200
+GET {{baseUrl}}/alumnos
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: usuario común -> 403
+GET {{baseUrl}}/alumnos
+Authorization: Bearer {{tokenUser}}
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/alumnos/99999
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: crear con datos inválidos -> 400
+POST {{baseUrl}}/alumnos
+Authorization: Bearer {{tokenPersonal}}
+Content-Type: application/json
+
+{}
+
+### ---------- 4.2 INSCRIPCIONES ----------
+
+### Éxito: listar como personal -> 200
+GET {{baseUrl}}/inscripciones
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: sin token -> 401
+GET {{baseUrl}}/inscripciones
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/inscripciones/99999
+Authorization: Bearer {{tokenPersonal}}
+
+### ---------- 4.3 ASISTENCIAS ----------
+
+### Éxito: listar como personal -> 200
+GET {{baseUrl}}/asistencias
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: usuario común -> 403
+GET {{baseUrl}}/asistencias
+Authorization: Bearer {{tokenUser}}
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/asistencias/99999
+Authorization: Bearer {{tokenPersonal}}
+
+### ---------- 4.4 SEGUIMIENTOS ----------
+
+### Éxito: listar como personal -> 200
+GET {{baseUrl}}/seguimientos
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: usuario común -> 403
+GET {{baseUrl}}/seguimientos
+Authorization: Bearer {{tokenUser}}
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/seguimientos/99999
+Authorization: Bearer {{tokenPersonal}}
+
+### ---------- 4.5 PERSONAL ----------
+
+### Éxito: listar como personal -> 200
+GET {{baseUrl}}/personal
+Authorization: Bearer {{tokenPersonal}}
+
+### Error: crear siendo personal (solo administrador) -> 403
+POST {{baseUrl}}/personal
+Authorization: Bearer {{tokenPersonal}}
+Content-Type: application/json
+
+{}
+
+### Error: inexistente -> 404
+GET {{baseUrl}}/personal/99999
+Authorization: Bearer {{tokenPersonal}}
+
+
+### ==========================================================
+### 5. SUGERENCIAS (crear: cualquier usuario registrado; resto: ADMINISTRADOR)
+### ==========================================================
+
+### Éxito: enviar sugerencia con usuario registrado -> 201
+POST {{baseUrl}}/sugerencias
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{
+  "titulo": "Taller de música",
+  "descripcion": "Me gustaría un taller de guitarra"
+}
+
+### Error: enviar sin token -> 401
+POST {{baseUrl}}/sugerencias
+Content-Type: application/json
+
+{
+  "titulo": "Taller de música",
+  "descripcion": "Me gustaría un taller de guitarra"
+}
+
+### Error: enviar con datos inválidos -> 400
+POST {{baseUrl}}/sugerencias
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{}
+
+### Éxito: listar como administrador -> 200
+GET {{baseUrl}}/sugerencias
+Authorization: Bearer {{tokenAdmin}}
+
+### Error: listar como usuario común -> 403
+GET {{baseUrl}}/sugerencias
+Authorization: Bearer {{tokenUser}}
+
+
+### ==========================================================
+### 6. USUARIOS
+### ==========================================================
+
+### Éxito: listar como administrador -> 200
+GET {{baseUrl}}/usuarios
+Authorization: Bearer {{tokenAdmin}}
+
+### Éxito: ver un usuario existente (cualquier usuario con token) -> 200
+GET {{baseUrl}}/usuarios/1
+Authorization: Bearer {{tokenAdmin}}
+
+### Error: usuario inexistente -> 404
+GET {{baseUrl}}/usuarios/99999
+Authorization: Bearer {{tokenAdmin}}
+
+### Error: crear usuario siendo usuario común -> 403
+POST {{baseUrl}}/usuarios
+Authorization: Bearer {{tokenUser}}
+Content-Type: application/json
+
+{}

@@ -76,6 +76,24 @@ async function buscarPorUsername(username) {
     return resultado.rows[0] || null;
 }
 
+const actualizarPerfil = async (id_usuario, { username, email, claveHash }) => {
+  const consulta = `
+    UPDATE usuario
+       SET username   = COALESCE($1, username),
+           email      = COALESCE($2, email),
+           contraseña = COALESCE($3, contraseña)
+     WHERE id_usuario = $4
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado;
+  `;
+  const resultado = await pool.query(consulta, [
+    username ?? null,
+    email ?? null,
+    claveHash ?? null,
+    id_usuario
+  ]);
+  return resultado.rows[0];
+};
+
 
 
 module.exports = {
@@ -84,5 +102,6 @@ module.exports = {
     crearUsuario, 
     actualizarUsuario, 
     obtenerUsuarioPorId,
-    buscarPorUsername
+    buscarPorUsername,
+    actualizarPerfil
 };
