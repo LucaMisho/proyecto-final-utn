@@ -1,5 +1,7 @@
 -- Base de datos del proyecto Envion / Barrio Cultura
 -- Las inscripciones son registradas por administradores desde el sistema.
+CREATE DATABASE envion_quequen;
+
 
 BEGIN;
 -- ==========================================
