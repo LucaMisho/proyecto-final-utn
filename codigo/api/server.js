@@ -1,4 +1,8 @@
-//Archivo encargado de iniciar el servidor
+// Archivo encargado de iniciar el servidor
 const app = require("./app");
 
-app.listen(3000, () => console.log("API en http://localhost:3000"));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`API funcionando en puerto ${PORT}`);
+});

@@ -1,6 +1,19 @@
 //Creamos la app con express
 const express = require("express");
-const cors = require("cors");
+const origenesPermitidos = [
+    "http://localhost:5173",
+    process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || origenesPermitidos.includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error("Origen no permitido por CORS"));
+    }
+}));
 
 const app = express();
 
