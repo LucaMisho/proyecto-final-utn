@@ -143,3 +143,5 @@ INSERT INTO red_social (id_sede, tipo, url, estado) VALUES
 ((SELECT id_sede FROM sede WHERE nombre = 'Sede Barrio Cultura'), 'YouTube',   'https://youtube.com/@barriocultura-test',   'inactiva');
 
 COMMIT;
+
+END;

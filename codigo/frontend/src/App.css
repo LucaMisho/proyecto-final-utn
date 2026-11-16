@@ -1,3 +1,21 @@
+
+/* Contenido principal */
+
+.contenido-principal {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #FAD5FA;
+  color: #292929;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .contenido-principal {
+    padding-bottom: 40px;
+  }
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
