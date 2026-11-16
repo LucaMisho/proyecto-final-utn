@@ -5,20 +5,8 @@ const origenesPermitidos = [
     process.env.FRONTEND_URL
 ].filter(Boolean);
 
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || origenesPermitidos.includes(origin)) {
-            return callback(null, true);
-        }
-
-        return callback(new Error("Origen no permitido por CORS"));
-    }
-}));
-
 const app = express();
 
-
-app.use(cors());
 app.use(express.json());
 
 // Si el pedido no trae cuerpo, req.body queda vacío en lugar de undefined
