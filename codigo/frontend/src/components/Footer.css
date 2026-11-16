@@ -1,0 +1,151 @@
+
+.footer {
+  width: 100%;
+  background-color: #720072;
+  color: white;
+  padding: 45px 7% 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.footer-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 45px;
+  padding-bottom: 35px;
+}
+
+/* IDENTIDAD */
+
+.footer-identidad h2 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.footer-identidad span {
+  color: #F3B9F3;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.footer-identidad p {
+  max-width: 320px;
+  color: #F3DDF3;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 15px;
+}
+
+/* NAVEGACIÓN */
+
+.footer-enlaces {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-enlaces h3,
+.footer-redes h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.footer-enlaces a {
+  color: #F3DDF3;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-enlaces a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* REDES SOCIALES */
+
+.footer-redes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-redes p {
+  max-width: 280px;
+  color: #F3DDF3;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.footer-redes-iconos {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.footer-redes-iconos a {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-redes-iconos a:hover {
+  background-color: white;
+  color: #720072;
+  transform: translateY(-4px);
+}
+
+/* COPYRIGHT */
+
+.footer-final {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 18px 0;
+  text-align: center;
+}
+
+.footer-final p {
+  color: #F3DDF3;
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767px) {
+  .footer {
+    padding: 38px 22px 0;
+  }
+
+  .footer-contenido {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-identidad h2 {
+    font-size: 20px;
+  }
+
+  .footer-final p {
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+  }
+
+  
+
+
+
