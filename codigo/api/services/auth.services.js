@@ -46,6 +46,10 @@ async function iniciarSesion(username, clave) {
 
     const usuario = await usuarioRepositorio.buscarPorUsername(username);
 
+    console.log("Usuario encontrado:", !!usuario);
+    console.log("Username recibido:", username);
+    console.log("Hash guardado:", !!usuario?.contraseña);
+
     if (!usuario) {
         throw new ErrorDeCredenciales("Credenciales incorrectas");
     }
