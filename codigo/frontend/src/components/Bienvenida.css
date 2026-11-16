@@ -1,0 +1,77 @@
+
+.bienvenida {
+    width: 100%;
+    min-height: 260px;
+
+    background-color: #990099;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bienvenida-contenido {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.bienvenida h1 {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.bienvenida p {
+    color: white;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.btn-conocer {
+    display: inline-block;
+
+    background-color: white;
+    color: #990099;
+
+    padding: 10px 25px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: background-color 0.3s;
+}
+
+.btn-conocer:hover {
+    background-color: #FAD5FA;
+}
+
+/* Adaptación a escritorio */
+
+@media (min-width: 768px) {
+    .bienvenida {
+        min-height: 350px;
+    }
+
+    .bienvenida h1 {
+        font-size: 36px;
+    }
+
+    .bienvenida p {
+        font-size: 16px;
+    }
+
+    .btn-conocer {
+        font-size: 14px;
+    }
+}
