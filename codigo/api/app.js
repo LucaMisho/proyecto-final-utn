@@ -1,15 +1,31 @@
-//Creamos la app con express
+// Creamos la app con express
 const express = require("express");
 const cors = require("cors");
 
 // Creamos la app con Express
 const app = express();
+const pool = require("./data/conexion");
+
+// TEMPORAL: diagnóstico de la conexión (borrar cuando todo ande)
+app.get("/api/diagnostico", async (req, res) => {
+    try {
+        const pool = require("./data/conexion");
+        const r = await pool.query(
+            "SELECT current_database() AS base, (SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public') AS tablas"
+        );
+        res.json(r.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
 
 // Configuración de CORS
 const origenesPermitidos = [
     "http://localhost:5173",
     process.env.FRONTEND_URL
-].filter(Boolean);
+]
+    .filter(Boolean)
+    .map((o) => o.trim().replace(/\/$/, ""));
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -17,6 +33,7 @@ app.use(cors({
             return callback(null, true);
         }
 
+        console.log("CORS rechazó:", origin, "| permitidos:", origenesPermitidos);
         return callback(new Error("Origen no permitido por CORS"));
     }
 }));
@@ -86,6 +103,19 @@ app.get("/", (req, res) => {
     res.status(200).json({
         mensaje: "API de Barrio Cultura funcionando"
     });
+});
+
+// TEMPORAL: diagnóstico de la conexión (borrar cuando todo ande)
+app.get("/api/diagnostico", async (req, res) => {
+    try {
+        const pool = require("./data/db"); // <-- ajustar al nombre real del archivo del Pool
+        const r = await pool.query(
+            "SELECT current_database() AS base, (SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public') AS tablas"
+        );
+        res.json(r.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
 });
 
 // Middlewares de manejo de errores
