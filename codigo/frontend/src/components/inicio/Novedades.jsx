@@ -1,5 +1,4 @@
-
-import "./Novedades.css";
+import "../../styles/Novedades.css";
 
 function Novedades() {
   const novedades = [

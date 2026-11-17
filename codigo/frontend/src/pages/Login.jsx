@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Login.css";
+import "../styles/Login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -23,25 +22,38 @@ function Login() {
     try {
       setCargando(true);
 
-      const respuesta = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: username.trim(),
-            contrasena: clave,
-          }),
-        }
+          const respuesta = await fetch("/api/auth/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username: username.trim(),
+                contrasena: clave,
+              }),
+            });
+           
+            
+          
+    const texto = await respuesta.text();
+
+    let datos = {};
+
+    try {
+      datos = texto ? JSON.parse(texto) : {};
+    } catch {
+      throw new Error("El servidor devolvió una respuesta inválida.");
+    }
+
+    if (!respuesta.ok) {
+      throw new Error(
+        datos.mensaje || datos.error || "Usuario o contraseña incorrectos."
       );
+    }
 
-      const datos = await respuesta.json();
-
-      if (!respuesta.ok) {
-        throw new Error(datos.mensaje || "Usuario o contraseña incorrectos.");
-      }
+    if (!datos.token || !datos.usuario) {
+      throw new Error("El servidor no devolvió los datos de inicio de sesión.");
+    }
 
       localStorage.setItem("token", datos.token);
       localStorage.setItem("usuario", JSON.stringify(datos.usuario));

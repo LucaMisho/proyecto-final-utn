@@ -1,5 +1,4 @@
-
-import "./Bienvenida.css";
+import "../../styles/Bienvenida.css";
 
 function Bienvenida() {
   return (
