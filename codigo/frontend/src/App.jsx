@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -13,7 +12,7 @@ import Sugerencias from "./components/Sugerencias";
 import Contacto from "./components/Contacto";
 import Login from "./components/Login";
 
-import "./App.css";
+import "./styles/App.css";
 
 function Inicio() {
   return (
