@@ -1,4 +1,4 @@
-import "../styles/Sugerencias.css";
+import "../../styles/Sugerencias.css";
 
 function Sugerencias() {
   return (

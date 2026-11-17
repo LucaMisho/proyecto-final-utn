@@ -1,4 +1,4 @@
-import "../styles/QuienesSomos.css";
+import "../../styles/QuienesSomos.css";
 
 function QuienesSomos() {
   return (

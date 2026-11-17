@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../styles/Carrusel.css";
+import "../../styles/Carrusel.css";
 
 const diapositivas = [
   {

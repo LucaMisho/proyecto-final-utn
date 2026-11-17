@@ -1,46 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
-import Bienvenida from "./components/Bienvenida";
-import Noticias from "./components/Noticias";
-import Novedades from "./components/Novedades";
-import Carrusel from "./components/Carrusel";
-import QuienesSomos from "./components/QuienesSomos";
-import Sugerencias from "./components/Sugerencias";
-import Contacto from "./components/Contacto";
-import Login from "./components/Login";
+import MainLayout from "./layouts/MainLayout";
+
+import Inicio from "./pages/Inicio";
+import Login from "./pages/Login";
 
 import "./styles/App.css";
-
-function Inicio() {
-  return (
-    <>
-      <Header />
-
-      <main className="contenido-principal">
-        <Carrusel />
-        <SearchBar />
-        <Bienvenida />
-        <QuienesSomos />
-        <Novedades />
-        <Noticias />
-        <Sugerencias />
-        <Contacto />
-      </main>
-
-      <Footer />
-    </>
-  );
-}
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Inicio />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Inicio />} />
+          {/* acá van después: /talleres */}
+        </Route>
+
         <Route path="/login" element={<Login />} />
+        {/* y /registro */}
       </Routes>
     </BrowserRouter>
   );
