@@ -4,20 +4,6 @@ const cors = require("cors");
 
 // Creamos la app con Express
 const app = express();
-const pool = require("./data/conexion");
-
-// TEMPORAL: diagnóstico de la conexión (borrar cuando todo ande)
-app.get("/api/diagnostico", async (req, res) => {
-    try {
-        const pool = require("./data/conexion");
-        const r = await pool.query(
-            "SELECT current_database() AS base, (SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public') AS tablas"
-        );
-        res.json(r.rows[0]);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
 
 // Configuración de CORS
 const origenesPermitidos = [
@@ -108,7 +94,7 @@ app.get("/", (req, res) => {
 // TEMPORAL: diagnóstico de la conexión (borrar cuando todo ande)
 app.get("/api/diagnostico", async (req, res) => {
     try {
-        const pool = require("./data/db"); // <-- ajustar al nombre real del archivo del Pool
+        const pool = require("./data/conexion");
         const r = await pool.query(
             "SELECT current_database() AS base, (SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public') AS tablas"
         );
@@ -128,4 +114,3 @@ app.use(rutaNoEncontrada);
 app.use(manejarErrores);
 
 module.exports = app;
-
