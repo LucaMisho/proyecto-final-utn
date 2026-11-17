@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https:/proyecto-final-utn-owxg.vercel.app/api/:path*"
+      "destination": "proyecto-final-utn-wbis.vercel.app/api/:path*"
     },
     {
       "source": "/(.*)",
