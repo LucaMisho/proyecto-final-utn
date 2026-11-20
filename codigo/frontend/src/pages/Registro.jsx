@@ -1,3 +1,4 @@
+import API from "../config/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
@@ -62,7 +63,7 @@ function Registro() {
     try {
       setCargando(true);
 
-      const respuesta = await fetch("/api/auth/registro", {
+      const respuesta = await fetch(`${API}/auth/registro`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+import API from "../config/api";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
@@ -26,7 +27,7 @@ function Login() {
     try {
       setCargando(true);
 
-      const respuesta = await fetch("/api/auth/login", {
+      const respuesta = await fetch(`${API}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
