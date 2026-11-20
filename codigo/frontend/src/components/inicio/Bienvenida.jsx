@@ -1,9 +1,10 @@
+import Reveal from "./Reveal";
 import "../../styles/Bienvenida.css";
 
 function Bienvenida() {
   return (
     <section className="bienvenida">
-      <div className="bienvenida-contenido">
+      <Reveal className="bienvenida-contenido">
 
         <h1>¡Hola, bienvenido!</h1>
 
@@ -16,7 +17,7 @@ function Bienvenida() {
           Conocer más
         </a>
 
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -28,16 +28,29 @@ const diapositivas = [
   }
 ];
 
+function prefiereMenosMovimiento() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function Carrusel() {
   const [actual, setActual] = useState(0);
+  const [pausado, setPausado] = useState(prefiereMenosMovimiento);
+  const [encima, setEncima] = useState(false);
+
+  const enMovimiento = !pausado && !encima;
 
   useEffect(() => {
+    if (!enMovimiento) return undefined;
+
     const intervalo = setInterval(() => {
       setActual((anterior) => (anterior + 1) % diapositivas.length);
     }, 5000);
 
     return () => clearInterval(intervalo);
-  }, []);
+  }, [enMovimiento]);
 
   const anterior = () => {
     setActual((actual - 1 + diapositivas.length) % diapositivas.length);
@@ -47,27 +60,59 @@ function Carrusel() {
     setActual((actual + 1) % diapositivas.length);
   };
 
-  const diapositiva = diapositivas[actual];
-
   return (
-    <section className="carrusel" aria-label="Contenido destacado">
+    <section
+      className="carrusel"
+      aria-label="Contenido destacado"
+      aria-roledescription="carrusel"
+    >
 
-      <div className="carrusel-banner">
+      <div
+        className="carrusel-banner"
+        onMouseEnter={() => setEncima(true)}
+        onMouseLeave={() => setEncima(false)}
+        onFocus={() => setEncima(true)}
+        onBlur={() => setEncima(false)}
+      >
 
-        <img
-          src={diapositiva.imagen}
-          alt={diapositiva.titulo}
-          className="carrusel-fondo"
-        />
+        <div
+          className="carrusel-diapositivas"
+          aria-live={enMovimiento ? "off" : "polite"}
+        >
+          {diapositivas.map((item, indice) => (
+            <div
+              key={item.id}
+              className={
+                actual === indice
+                  ? "carrusel-diapositiva visible"
+                  : "carrusel-diapositiva"
+              }
+              role="group"
+              aria-roledescription="diapositiva"
+              aria-label={`${indice + 1} de ${diapositivas.length}`}
+              aria-hidden={actual === indice ? undefined : "true"}
+            >
+              <img
+                src={item.imagen}
+                alt={item.titulo}
+                className="carrusel-fondo"
+              />
 
-        <div className="carrusel-panel">
-          <h2>{diapositiva.titulo}</h2>
-          <p>{diapositiva.subtitulo}</p>
+              <div className="carrusel-panel">
+                <h2>{item.titulo}</h2>
+                <p>{item.subtitulo}</p>
+              </div>
+
+              <a
+                href={item.enlace}
+                className="carrusel-boton"
+                tabIndex={actual === indice ? undefined : -1}
+              >
+                {item.boton} →
+              </a>
+            </div>
+          ))}
         </div>
-
-        <a href={diapositiva.enlace} className="carrusel-boton">
-          {diapositiva.boton} →
-        </a>
 
         <button
           className="carrusel-flecha anterior"
@@ -83,6 +128,18 @@ function Carrusel() {
           aria-label="Imagen siguiente"
         >
           &#10095;
+        </button>
+
+        <button
+          className="carrusel-pausa"
+          onClick={() => setPausado(!pausado)}
+          aria-label={
+            pausado
+              ? "Reanudar el cambio automático de imágenes"
+              : "Pausar el cambio automático de imágenes"
+          }
+        >
+          <span aria-hidden="true">{pausado ? "▶" : "❚❚"}</span>
         </button>
 
       </div>

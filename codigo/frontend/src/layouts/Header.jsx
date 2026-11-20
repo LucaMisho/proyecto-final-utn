@@ -1,4 +1,6 @@
 import { useState } from "react";
+import logo from "../assets/logo.png";
+import SearchBar from "../components/inicio/SearchBar";
 import "../styles/Header.css";
 
 function Header() {
@@ -12,8 +14,8 @@ function Header() {
     <header className="header">
 
       {/* Logo */}
-      <a href="#inicio" className="header-logo" onClick={cerrarMenu}>
-        <img src="/logo.png" alt="Logo Barrio Cultura" />
+      <a href="/" className="header-logo" onClick={cerrarMenu}>
+        <img src={logo} alt="Logo Barrio Cultura" />
       </a>
 
       {/* Nombre del proyecto */}
@@ -26,12 +28,15 @@ function Header() {
       <nav
         className={`menu-navegacion ${menuAbierto ? "abierto" : ""}`}
       >
-        <a href="#inicio" onClick={cerrarMenu}>Inicio</a>
-        <a href="#talleres" onClick={cerrarMenu}>Talleres</a>
-        <a href="#novedades" onClick={cerrarMenu}>Novedades</a>
-        <a href="#noticias" onClick={cerrarMenu}>Noticias</a>
-        <a href="#contacto" onClick={cerrarMenu}>Contacto</a>
+        <a href="/" onClick={cerrarMenu}>Inicio</a>
+        <a href="/talleres" onClick={cerrarMenu}>Talleres</a>
+        <a href="/#novedades" onClick={cerrarMenu}>Novedades</a>
+        <a href="/#noticias" onClick={cerrarMenu}>Noticias</a>
+        <a href="/#contacto" onClick={cerrarMenu}>Contacto</a>
       </nav>
+
+      {/* Buscador compacto (lupa que se expande) */}
+      <SearchBar />
 
       {/* Inicio de sesión */}
       <a
