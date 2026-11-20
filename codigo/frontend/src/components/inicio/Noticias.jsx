@@ -1,5 +1,3 @@
-import Reveal from "./Reveal";
-import Deslizador from "./Deslizador";
 import "../../styles/Noticias.css";
 
 function Noticias() {
@@ -25,24 +23,19 @@ function Noticias() {
   ];
 
   return (
-    <section className="noticias banda banda--durazno" id="noticias">
-      <Reveal className="noticias-encabezado">
+    <section className="noticias" id="noticias">
+      <div className="noticias-encabezado">
         <div>
           <h2>Últimas noticias</h2>
           <p className="noticias-subtitulo">
             Enterate de las novedades de nuestra comunidad.
           </p>
         </div>
-      </Reveal>
+      </div>
 
-      <Deslizador etiqueta="Últimas noticias">
-        {noticias.map((noticia, index) => (
-          <Reveal
-            as="article"
-            className="noticia-card"
-            delay={index + 1}
-            key={noticia.id}
-          >
+      <div className="noticias-lista">
+        {noticias.map((noticia) => (
+          <article className="noticia-card" key={noticia.id}>
             <div className="noticia-imagen-contenedor">
               <img
                 src={noticia.imagen}
@@ -58,9 +51,9 @@ function Noticias() {
 
               <p>{noticia.descripcion}</p>
             </div>
-          </Reveal>
+          </article>
         ))}
-      </Deslizador>
+      </div>
     </section>
   );
 }

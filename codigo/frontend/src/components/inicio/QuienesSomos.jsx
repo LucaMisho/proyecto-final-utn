@@ -23,7 +23,7 @@ function QuienesSomos() {
           los vínculos y la participación en los barrios.
         </p>
 
-        <a href="/talleres" className="quienes-somos-boton">
+        <a href="#talleres" className="quienes-somos-boton">
           Conocé nuestros talleres
         </a>
       </div>

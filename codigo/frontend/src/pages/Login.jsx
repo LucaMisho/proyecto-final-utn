@@ -1,17 +1,22 @@
-import API from "../config/api";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSesion } from "../contexto/Sesion";
+import { useAvisos } from "../contexto/Avisos";
+import useTitulo from "../hooks/useTitulo";
 import "../styles/Login.css";
-import logo from "../assets/logo.png"
 
 function Login() {
+  useTitulo("Iniciar sesión");
+
+  const { iniciarSesion } = useSesion();
+  const { avisar } = useAvisos();
+
   const [username, setUsername] = useState("");
   const [clave, setClave] = useState("");
   const [verClave, setVerClave] = useState(false);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
-  const API = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -28,7 +33,7 @@ function Login() {
     try {
       setCargando(true);
 
-      const respuesta = await fetch(`${API}/auth/login`, {
+      const respuesta = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,13 +66,14 @@ function Login() {
         );
       }
 
-      localStorage.setItem("token", datos.token);
-      localStorage.setItem("usuario", JSON.stringify(datos.usuario));
-
       // Se muestra el mensaje de éxito y recién después se redirige.
       // El botón queda deshabilitado (cargando sigue en true) hasta navegar.
       setExito(true);
-      setTimeout(() => navigate("/"), 3000);
+      setTimeout(() => {
+        iniciarSesion(datos.token, datos.usuario);
+        avisar(`Iniciaste sesión como ${datos.usuario.username}.`, "exito");
+        navigate("/");
+      }, 3000);
     } catch (error) {
       setError(error.message || "No se pudo conectar con el servidor.");
       setCargando(false);
@@ -82,7 +88,7 @@ function Login() {
         </Link>
 
         <div className="login-encabezado">
-          <img src= {logo} alt="Logo Barrio Cultura" />
+          <img src="/logo.png" alt="Logo Barrio Cultura" />
 
           <h1>¡Bienvenido!</h1>
 

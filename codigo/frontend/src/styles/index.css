@@ -1,12 +1,4 @@
-<<<<<<< HEAD:codigo/frontend/src/index.css
-<<<<<<< HEAD
-@import "./estilos/variables.css"; /* Variables CSS */ 
-=======
-
-=======
->>>>>>> 924a475a3fffe5b62ec6dd2a0e5964127409c657:codigo/frontend/src/styles/index.css
 /* Configuración general */
->>>>>>> 21427447b06b24d4a683183e993894a67041ba41
 
 :root {
     font-family: 'Montserrat', Arial, sans-serif;
@@ -62,3 +54,19 @@ a {
     text-decoration: none;
 }
 
+
+/* Foco visible al navegar con teclado */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #720072;
+    outline-offset: 2px;
+}
+
+.header a:focus-visible,
+.header button:focus-visible,
+.footer a:focus-visible {
+    outline-color: #FFFFFF;
+}

@@ -6,11 +6,12 @@ const cors = require("cors");
 const app = express();
 
 // Configuración de CORS
-
 const origenesPermitidos = [
     "http://localhost:5173",
     process.env.FRONTEND_URL
-].filter(Boolean).map(origen => origen.trim().replace(/\/$/, ""));
+]
+    .filter(Boolean)
+    .map((o) => o.trim().replace(/\/$/, ""));
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -18,7 +19,7 @@ app.use(cors({
             return callback(null, true);
         }
 
-        console.log("CORS rechazó el origen:", origin);
+        console.log("CORS rechazó:", origin, "| permitidos:", origenesPermitidos);
         return callback(new Error("Origen no permitido por CORS"));
     }
 }));
