@@ -1,18 +1,12 @@
-import { useSesion } from "../../contexto/Sesion";
+import Reveal from "./Reveal";
 import "../../styles/Bienvenida.css";
 
 function Bienvenida() {
-  const { usuario } = useSesion();
-
   return (
     <section className="bienvenida">
-      <div className="bienvenida-contenido">
+      <Reveal className="bienvenida-contenido">
 
-        <h1>
-          {usuario
-            ? `¡Bienvenido, ${usuario.username}!`
-            : "¡Hola, bienvenido!"}
-        </h1>
+        <h1>¡Hola, bienvenido!</h1>
 
         <p>
           Conocé Barrio Cultura, un espacio para descubrir
@@ -23,7 +17,7 @@ function Bienvenida() {
           Conocer más
         </a>
 
-      </div>
+      </Reveal>
     </section>
   );
 }

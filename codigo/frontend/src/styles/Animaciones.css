@@ -1,0 +1,94 @@
+/* ANIMACIÓN DE ENTRADA (componente Reveal)
+   Usa animation (no transition) para no interferir con los
+   efectos hover de las tarjetas. */
+.reveal {
+  opacity: 0;
+}
+
+.reveal--visible {
+  opacity: 1;
+  animation: reveal-entrada 0.7s ease backwards;
+}
+
+@keyframes reveal-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Escalonado entre tarjetas hermanas (van después de .reveal--visible) */
+.reveal-d1 { animation-delay: 0.08s; }
+.reveal-d2 { animation-delay: 0.16s; }
+.reveal-d3 { animation-delay: 0.24s; }
+.reveal-d4 { animation-delay: 0.32s; }
+.reveal-d5 { animation-delay: 0.40s; }
+.reveal-d6 { animation-delay: 0.48s; }
+
+/* SKELETON (componente Skeleton, para cuando los datos vengan de la API) */
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(117, 0, 116, 0.12);
+}
+
+.skeleton {
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #F3E0F3 25%,
+    #FFFFFF 50%,
+    #F3E0F3 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-brillo 1.2s linear infinite;
+}
+
+.skeleton-imagen {
+  width: 100%;
+  height: 150px;
+  border-radius: 14px;
+}
+
+.skeleton-linea {
+  height: 12px;
+  width: 100%;
+}
+
+.skeleton-linea--titulo {
+  height: 18px;
+  width: 70%;
+}
+
+.skeleton-linea--corta {
+  width: 45%;
+}
+
+@keyframes skeleton-brillo {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Accesibilidad: sin movimiento si el usuario lo desactivó */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+  }
+
+  .reveal--visible {
+    animation: none;
+  }
+
+  .skeleton {
+    animation: none;
+  }
+}

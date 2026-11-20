@@ -18,9 +18,7 @@ const verPerfil = async (req, res) => {
 
 const actualizarPerfil = async (req, res) => {
   try {
-    const { username, email } = req.body;
-    // La clave puede llegar como contrasena, contraseña o password
-    const password = req.body.contrasena ?? req.body["contraseña"] ?? req.body.password;
+    const { username, email, password } = req.body;
 
     if (!username && !email && !password) {
       return res.status(400).json({ error: "No se enviaron datos para actualizar" });

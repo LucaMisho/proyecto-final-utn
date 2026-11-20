@@ -1,44 +1,55 @@
+/* Buscador compacto: vive dentro del header */
 .busqueda {
-    width: 100%;
-    padding: 10px;
-    background-color: #FAD5FA;
+    flex-shrink: 0;
+    margin-left: 10px;
 }
 
 .busqueda-form {
-    width: 100%;
-    height: 32px;
+    height: 38px;
 
     display: flex;
     align-items: center;
 
-    border: 1px solid #720072;
+    border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 20px;
 
-    padding: 0 10px;
-    background-color: #FFFF;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.14);
+
+    transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.busqueda-form:hover {
+    background-color: rgba(255, 255, 255, 0.24);
 }
 
 /* Icono de búsqueda */
 
 .busqueda-form button {
+    width: 36px;
+    height: 36px;
+
     border: none;
     background: transparent;
     padding: 0;
+
     display: flex;
     align-items: center;
+    justify-content: center;
+
     cursor: pointer;
-    color: #292929;
+    color: #FFFFFF;
 }
 
 .busqueda-form svg {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
 }
 
-/* Campo de texto */
+/* Campo de texto: cerrado por defecto */
 
 .busqueda-form input {
-    flex: 1;
+    width: 0;
     min-width: 0;
     height: 100%;
 
@@ -46,13 +57,49 @@
     outline: none;
     background: transparent;
 
-    padding-left: 8px;
+    padding: 0;
+    opacity: 0;
 
     font-family: inherit;
-    font-size: 11px;
-    color: #292929;
+    font-size: 12px;
+    color: #FFFFFF;
+
+    transition: width 0.3s, padding 0.3s, opacity 0.3s;
 }
 
 .busqueda-form input::placeholder {
-    color: #555555;
+    color: #F3DDF3;
+}
+
+/* Estado abierto */
+
+.busqueda--abierta .busqueda-form {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: #F3B9F3;
+    box-shadow: 0 0 0 3px rgba(243, 185, 243, 0.25);
+}
+
+.busqueda--abierta .busqueda-form input {
+    width: 190px;
+    padding: 0 14px 0 2px;
+    opacity: 1;
+}
+
+/* Celulares */
+
+@media (max-width: 767px) {
+    .busqueda {
+        margin-left: auto;
+    }
+
+    .busqueda--abierta .busqueda-form input {
+        width: 140px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .busqueda-form,
+    .busqueda-form input {
+        transition: none;
+    }
 }

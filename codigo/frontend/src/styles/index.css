@@ -54,19 +54,3 @@ a {
     text-decoration: none;
 }
 
-
-/* Foco visible al navegar con teclado */
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-    outline: 3px solid #720072;
-    outline-offset: 2px;
-}
-
-.header a:focus-visible,
-.header button:focus-visible,
-.footer a:focus-visible {
-    outline-color: #FFFFFF;
-}

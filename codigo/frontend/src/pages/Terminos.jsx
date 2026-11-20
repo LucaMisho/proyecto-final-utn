@@ -1,4 +1,3 @@
-import useTitulo from "../hooks/useTitulo";
 import "../styles/Terminos.css";
 
 const ULTIMA_ACTUALIZACION = "18 de noviembre de 2026";
@@ -102,8 +101,6 @@ const secciones = [
 ];
 
 function Terminos() {
-  useTitulo("Términos y condiciones");
-
   return (
     <section className="terminos-pagina">
       <article className="terminos-contenido">
