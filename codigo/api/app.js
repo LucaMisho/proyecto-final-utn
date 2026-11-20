@@ -6,20 +6,24 @@ const cors = require("cors");
 const app = express();
 
 // Configuración de CORS
-
 const origenesPermitidos = [
     "http://localhost:5173",
     process.env.FRONTEND_URL
-].filter(Boolean).map(origen => origen.trim().replace(/\/$/, ""));
+]
+    .filter(Boolean)
+    .map((o) => o.trim().replace(/\/$/, ""));
+
+// URLs de deployment de Vercel de este proyecto
+const regexVercel = /^https:\/\/proyecto-final-[a-z0-9]+-proyecto-final11\.vercel\.app$/;
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || origenesPermitidos.includes(origin)) {
+        if (!origin || origenesPermitidos.includes(origin) || regexVercel.test(origin)) {
             return callback(null, true);
         }
 
         console.log("CORS rechazó el origen:", origin);
-        return callback(new Error("Origen no permitido por CORS"));
+        return callback(null, false);
     }
 }));
 
