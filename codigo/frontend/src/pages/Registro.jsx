@@ -18,6 +18,7 @@ function Registro() {
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
+  const API = "https://proyecto-final-utn-23w6.onrender.com/api";
 
   const navigate = useNavigate();
 
