@@ -18,7 +18,7 @@ function Registro() {
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
-  const API = import.meta.env.VITE_API_URL;
+
 
   const navigate = useNavigate();
 
