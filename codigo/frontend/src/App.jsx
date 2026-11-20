@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Encabezado from "./componentes/Encabezado"; {/* Importación del componente Encabezado */}
 import Buscador from "./componentes/Buscador";
 
@@ -9,22 +10,19 @@ function App() {
       <Buscador /> {/* Renderizado del componente Buscador */}
 =======
 
+=======
+>>>>>>> 924a475a3fffe5b62ec6dd2a0e5964127409c657
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import SearchBar from "./components/SearchBar";
-import Bienvenida from "./components/Bienvenida";
-import Noticias from "./components/Noticias";
-import Novedades from "./components/Novedades";
-import Carrusel from "./components/Carrusel";
-import QuienesSomos from "./components/QuienesSomos";
-import Sugerencias from "./components/Sugerencias";
-import Contacto from "./components/Contacto";
-import Login from "./components/Login";
+import MainLayout from "./layouts/MainLayout";
 
-import "./App.css";
+import Inicio from "./pages/Inicio";
+import Talleres from "./pages/Talleres";
+import Registro from "./pages/Registro";
+import Login from "./pages/Login";
+import Terminos from "./pages/Terminos";
 
+<<<<<<< HEAD
 function Inicio() {
   return (
     <>
@@ -46,6 +44,9 @@ function Inicio() {
     </>
   );
 }
+=======
+import "./styles/App.css";
+>>>>>>> 924a475a3fffe5b62ec6dd2a0e5964127409c657
 
 <<<<<<< HEAD
 export default App;
@@ -54,8 +55,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Inicio />} />
+        <Route element={<MainLayout />}>
+          <Route path="/terminos" element={<Terminos />} />
+          <Route path="/" element={<Inicio />} />
+          <Route path="/talleres" element={<Talleres />} />
+        </Route>
+
         <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
       </Routes>
     </BrowserRouter>
   );

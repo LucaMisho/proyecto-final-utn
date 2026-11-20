@@ -94,8 +94,6 @@ const actualizarPerfil = async (id_usuario, { username, email, claveHash }) => {
   return resultado.rows[0];
 };
 
-
-
 module.exports = {
     listarUsuarios, 
     eliminarUsuario, 

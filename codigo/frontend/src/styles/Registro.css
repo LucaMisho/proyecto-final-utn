@@ -1,0 +1,170 @@
+/* Registro se carga después de Login.css y solo cambia lo que lo distingue:
+   fondo, tarjeta en dos columnas con panel lateral y color de acento cálido.
+   Para cambiar el acento, editá las variables de .registro-pagina. */
+
+/* ===== Fondo y variables ===== */
+.registro-pagina {
+  --registro-acento: #c2410c;
+  --registro-acento-oscuro: #9a3412;
+  --registro-acento-suave: rgba(194, 65, 12, 0.18);
+  --registro-acento-foco: rgba(194, 65, 12, 0.45);
+     background: linear-gradient(rgba(74, 0, 72, 0.85), rgba(179, 54, 13, 0.75)),
+       url("../assets/login-fondo.jpeg") center / cover no-repeat;
+  
+}
+
+/* ===== Tarjeta en dos columnas ===== */
+.registro-pagina .registro-contenedor {
+  max-width: 940px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  overflow: hidden;
+}
+
+.registro-contenido {
+  padding: 40px;
+}
+
+/* El "¿Ya tenés una cuenta?" del pie se oculta en escritorio,
+   porque ya aparece en el panel lateral */
+.registro-contenido .login-pie {
+  display: none;
+}
+
+/* ===== Panel lateral ===== */
+.registro-lateral {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 40px;
+  color: white;
+  background: linear-gradient(
+    160deg,
+    #5a005a 0%,
+    #8c1a6a 60%,
+    var(--registro-acento) 130%
+  );
+  overflow: hidden;
+}
+
+.registro-lateral::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  bottom: -90px;
+  width: 280px;
+  height: 280px;
+  border: 40px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.registro-lateral h2 {
+  margin: 0 0 14px;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.registro-lateral p {
+  max-width: 34ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.registro-lateral .registro-lateral-pie {
+  margin-top: 28px;
+}
+
+.registro-lateral a {
+  color: white;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.registro-lateral a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.registro-lateral a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ===== Acento cálido en el formulario ===== */
+.registro-pagina .login-volver,
+.registro-pagina .login-terminos a,
+.registro-pagina .login-pie a {
+  color: var(--registro-acento-oscuro);
+}
+
+.registro-pagina .login-campo input:focus {
+  border-color: var(--registro-acento);
+  box-shadow: 0 0 0 3px var(--registro-acento-suave);
+}
+
+.registro-pagina .login-ver {
+  color: var(--registro-acento-oscuro);
+}
+
+.registro-pagina .login-ver:hover {
+  background: var(--registro-acento-suave);
+}
+
+.registro-pagina .login-ver:focus-visible,
+.registro-pagina .login-terminos input:focus-visible {
+  outline: 2px solid var(--registro-acento);
+}
+
+.registro-pagina .login-terminos input {
+  accent-color: var(--registro-acento);
+}
+
+.registro-pagina .login-formulario button[type="submit"] {
+  background: var(--registro-acento);
+}
+
+.registro-pagina .login-formulario button[type="submit"]:hover {
+  background: var(--registro-acento-oscuro);
+}
+
+.registro-pagina .login-formulario button[type="submit"]:focus-visible {
+  outline: 3px solid var(--registro-acento-foco);
+}
+
+/* ===== Responsive: el panel pasa a ser una franja arriba ===== */
+@media (max-width: 800px) {
+  .registro-pagina .registro-contenedor {
+    max-width: 440px;
+    grid-template-columns: 1fr;
+  }
+
+  .registro-lateral {
+    padding: 22px;
+  }
+
+  .registro-lateral::after {
+    display: none;
+  }
+
+  .registro-lateral h2 {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  .registro-lateral p {
+    display: none;
+  }
+
+  .registro-contenido {
+    padding: 30px 22px;
+  }
+
+  .registro-contenido .login-pie {
+    display: block;
+  }
+}

@@ -1,0 +1,105 @@
+/* Buscador compacto: vive dentro del header */
+.busqueda {
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+.busqueda-form {
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 20px;
+
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.14);
+
+    transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.busqueda-form:hover {
+    background-color: rgba(255, 255, 255, 0.24);
+}
+
+/* Icono de búsqueda */
+
+.busqueda-form button {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.busqueda-form svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Campo de texto: cerrado por defecto */
+
+.busqueda-form input {
+    width: 0;
+    min-width: 0;
+    height: 100%;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    padding: 0;
+    opacity: 0;
+
+    font-family: inherit;
+    font-size: 12px;
+    color: #FFFFFF;
+
+    transition: width 0.3s, padding 0.3s, opacity 0.3s;
+}
+
+.busqueda-form input::placeholder {
+    color: #F3DDF3;
+}
+
+/* Estado abierto */
+
+.busqueda--abierta .busqueda-form {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: #F3B9F3;
+    box-shadow: 0 0 0 3px rgba(243, 185, 243, 0.25);
+}
+
+.busqueda--abierta .busqueda-form input {
+    width: 190px;
+    padding: 0 14px 0 2px;
+    opacity: 1;
+}
+
+/* Celulares */
+
+@media (max-width: 767px) {
+    .busqueda {
+        margin-left: auto;
+    }
+
+    .busqueda--abierta .busqueda-form input {
+        width: 140px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .busqueda-form,
+    .busqueda-form input {
+        transition: none;
+    }
+}

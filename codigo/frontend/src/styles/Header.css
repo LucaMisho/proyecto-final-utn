@@ -1,0 +1,260 @@
+/* ENCABEZADO */
+.header {
+  width: 100%;
+  min-height: 85px;
+  padding: 10px 5%;
+  background: linear-gradient(120deg, #4A0048 0%, #720072 55%, #990099 100%);
+  box-shadow: 0 6px 20px rgba(74, 0, 72, 0.35);
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  /* Queda fijo arriba al hacer scroll */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  isolation: isolate;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: url("../assets/muñecos-tile.webp") center / 480px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* LOGO */
+.header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-logo img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+  transition: transform 0.25s;
+}
+
+.header-logo:hover img {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+/* TÍTULO */
+.header-titulo {
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+}
+
+.header-titulo span:first-child {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.header-titulo span:last-child {
+  color: #F3DDF3;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* NAVEGACIÓN */
+.menu-navegacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-left: auto;
+}
+
+.menu-navegacion a {
+  position: relative;
+  padding: 6px 2px;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+/* Subrayado animado */
+.menu-navegacion a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #F3B9F3;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+
+.menu-navegacion a:hover {
+  color: #F3B9F3;
+}
+
+.menu-navegacion a:hover::after {
+  transform: scaleX(1);
+}
+
+/* INICIO DE SESIÓN */
+.header-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+  margin-left: 10px;
+  transition: transform 0.2s;
+}
+
+.header-login:hover {
+  transform: translateX(3px);
+}
+
+.header-login svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* BOTÓN HAMBURGUESA */
+.header-menu {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* TABLETS */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .header {
+    padding: 10px 2%;
+    gap: 10px;
+  }
+
+  .menu-navegacion {
+    gap: 12px;
+  }
+
+  .menu-navegacion a {
+    font-size: 11px;
+  }
+
+  .header-titulo span:first-child {
+    font-size: 15px;
+  }
+}
+
+/* CELULARES */
+@media (max-width: 767px) {
+  .header {
+    min-height: 70px;
+    padding: 8px 15px;
+    gap: 10px;
+  }
+
+  .header-logo img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .header-titulo {
+    min-width: 0;
+  }
+
+  .header-titulo span:first-child {
+    font-size: 15px;
+  }
+
+  .header-titulo span:last-child {
+    font-size: 9px;
+  }
+
+  /* Con el buscador abierto se oculta el título para dar lugar */
+  .header:has(.busqueda--abierta) .header-titulo {
+    display: none;
+  }
+
+  /* Menú desplegable */
+  .menu-navegacion {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 18px 22px;
+
+    background: linear-gradient(160deg, #720072, #4A0048);
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .menu-navegacion.abierto {
+    display: flex;
+    animation: menu-entrada 0.25s ease;
+  }
+
+  .menu-navegacion a {
+    font-size: 14px;
+  }
+
+  /* Hamburguesa */
+  .header-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px;
+    margin-left: 0;
+  }
+
+  .header-menu span {
+    width: 23px;
+    height: 2px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+  }
+
+  .header-login {
+    margin-left: 0;
+  }
+}
+
+@keyframes menu-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-logo img,
+  .header-login,
+  .menu-navegacion a::after {
+    transition: none;
+  }
+
+  .menu-navegacion.abierto {
+    animation: none;
+  }
+}

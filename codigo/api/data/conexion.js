@@ -2,14 +2,23 @@ require("dotenv").config();
 
 const { Pool, types } = require("pg");
 
-// Mantener DATE como texto AAAA-MM-DD
 types.setTypeParser(1082, (valor) => valor);
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL
-    ? { rejectUnauthorized: false }
-    : false
-});
+const pool = process.env.DATABASE_URL
+    ? new Pool({
+          connectionString: process.env.DATABASE_URL,
+          ssl: {
+              rejectUnauthorized: false
+          }
+      })
+    : new Pool({
+          host: process.env.DB_HOST || 'localhost',
+          port: process.env.DB_PORT || '5432',
+          user: process.env.DB_USER,
+          password: process.env.DB_PASSWORD,
+          database: process.env.DB_NAME
+      });
 
 module.exports = pool;
+
+

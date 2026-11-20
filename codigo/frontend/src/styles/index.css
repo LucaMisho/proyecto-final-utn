@@ -1,0 +1,64 @@
+<<<<<<< HEAD:codigo/frontend/src/index.css
+<<<<<<< HEAD
+@import "./estilos/variables.css"; /* Variables CSS */ 
+=======
+
+=======
+>>>>>>> 924a475a3fffe5b62ec6dd2a0e5964127409c657:codigo/frontend/src/styles/index.css
+/* Configuración general */
+>>>>>>> 21427447b06b24d4a683183e993894a67041ba41
+
+:root {
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #292929;
+    background-color: #FAD5FA;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Todos los elementos */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Página */
+
+html {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    min-height: 100%;
+    background-color: #FAD5FA;
+}
+
+/* Contenedor de React */
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+/* Títulos */
+
+h1, h2, h3, p {
+    margin-top: 0;
+}
+
+/* Enlaces */
+
+a {
+    text-decoration: none;
+}
+
