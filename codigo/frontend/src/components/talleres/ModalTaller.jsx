@@ -6,7 +6,7 @@ import {
   estaDisponible,
   textoEdades,
   textoHorario,
-} from "./utilidades";
+} from "./Utilidades.js";
 import "../../styles/ModalTaller.css";
 
 const DURACION_SALIDA = 250; // ms, igual que la animación de salida del CSS

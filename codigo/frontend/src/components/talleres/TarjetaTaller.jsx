@@ -1,6 +1,6 @@
 import Reveal from "../inicio/Reveal";
 import Icono from "./Icono";
-import { estaDisponible, textoHorario } from "./utilidades";
+import { estaDisponible, textoHorario } from "./Utilidades.js";
 
 function TarjetaTaller({ taller, barrio, delay, onVer }) {
   const disponible = estaDisponible(taller.estado);
