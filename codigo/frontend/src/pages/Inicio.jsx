@@ -1,5 +1,4 @@
 import Carrusel from "../components/inicio/Carrusel";
-import SearchBar from "../components/inicio/SearchBar";
 import Bienvenida from "../components/inicio/Bienvenida";
 import QuienesSomos from "../components/inicio/QuienesSomos";
 import Novedades from "../components/inicio/Novedades";
@@ -11,7 +10,6 @@ export default function Inicio() {
   return (
     <>
       <Carrusel />
-      <SearchBar />
       <Bienvenida />
       <QuienesSomos />
       <Novedades />

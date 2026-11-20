@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import "../styles/Registro.css";
+import logo from "../assets/logo.png";
 
 const LARGO_MINIMO_CLAVE = 8;
 const EMAIL_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,7 +123,7 @@ function Registro() {
           </Link>
 
           <div className="login-encabezado">
-            <img src="/logo.png" alt="Logo Barrio Cultura" />
+            <img src={logo} alt="Logo Barrio Cultura" />
 
             <h1>Crear cuenta</h1>
 

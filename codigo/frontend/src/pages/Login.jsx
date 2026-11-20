@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import logo from "../assets/logo.png"
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -79,7 +80,7 @@ function Login() {
         </Link>
 
         <div className="login-encabezado">
-          <img src="/logo.png" alt="Logo Barrio Cultura" />
+          <img src= {logo} alt="Logo Barrio Cultura" />
 
           <h1>¡Bienvenido!</h1>
 
