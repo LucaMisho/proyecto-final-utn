@@ -4,7 +4,7 @@ import Skeleton from "../components/inicio/Skeleton";
 import Icono from "../components/talleres/Icono";
 import TarjetaTaller from "../components/talleres/TarjetaTaller";
 import ModalTaller from "../components/talleres/ModalTaller";
-import { normalizar } from "../components/talleres/utilidades.js";
+import { normalizar } from "../components/talleres/Utilidades.js";
 import "../styles/Talleres.css";
 
 // Ajustá esta línea a la variable que ya usás en el Login
