@@ -1,4 +1,3 @@
-import Reveal from "./Reveal";
 import "../../styles/Novedades.css";
 
 function Novedades() {
@@ -31,8 +30,8 @@ function Novedades() {
   ];
 
   return (
-    <section className="novedades banda banda--celeste" id="novedades">
-      <Reveal className="novedades-encabezado">
+    <section className="novedades" id="novedades">
+      <div className="novedades-encabezado">
         <div>
           <h2>Novedades</h2>
           <p className="novedades-subtitulo">
@@ -43,14 +42,11 @@ function Novedades() {
         <a href="#todas-las-novedades" className="novedades-ver-todas">
           Ver todas →
         </a>
-      </Reveal>
+      </div>
 
       <div className="novedades-contenido">
         {/* Novedad principal */}
-        <Reveal
-          as="article"
-          className="novedad-card novedad-destacada"
-        >
+        <article className="novedad-card novedad-destacada">
           <img
             src={novedades[0].imagen}
             alt="Actividades de Barrio Cultura"
@@ -72,17 +68,12 @@ function Novedades() {
 
             <a href="#novedad-detalle">Conocer más →</a>
           </div>
-        </Reveal>
+        </article>
 
         {/* Novedades secundarias */}
         <div className="novedades-secundarias">
           {novedades.slice(1).map((novedad, index) => (
-            <Reveal
-              as="article"
-              className="novedad-card"
-              delay={index + 1}
-              key={index}
-            >
+            <article className="novedad-card" key={index}>
               <img
                 src={novedad.imagen}
                 alt={novedad.titulo}
@@ -104,7 +95,7 @@ function Novedades() {
 
                 <a href="#novedad-detalle">Conocer más →</a>
               </div>
-            </Reveal>
+            </article>
           ))}
         </div>
       </div>

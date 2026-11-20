@@ -1,0 +1,130 @@
+.perfil-pagina {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.perfil-pagina h1 {
+  color: #990099;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.perfil-tarjeta {
+  margin-bottom: 18px;
+  padding: 18px;
+  border-top: 4px solid #720072;
+  border-radius: 6px;
+  background-color: #FFE3FF;
+  box-shadow: 0 3px 12px rgba(80, 0, 80, 0.08);
+  transition: box-shadow 0.2s;
+}
+
+.perfil-tarjeta:hover,
+.perfil-tarjeta:focus-within {
+  box-shadow: 0 6px 16px rgba(80, 0, 80, 0.14);
+}
+
+.perfil-tarjeta h2 {
+  color: #4a0048;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.perfil-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.perfil-avatar {
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #720072;
+  color: #FFFFFF;
+  font-size: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfil-nombre {
+  margin-bottom: 2px;
+  color: #4a0048;
+  font-size: 20px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.perfil-correo {
+  margin: 0;
+  color: #5a3a5a;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.perfil-datos {
+  margin: 0;
+}
+
+.perfil-datos dt {
+  color: #5a3a5a;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.perfil-datos dd {
+  margin: 2px 0 0;
+  color: #292929;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.perfil-estado {
+  margin-bottom: 18px;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #4a0048;
+  font-size: 14px;
+}
+
+.perfil-error {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.perfil-error p {
+  margin-bottom: 10px;
+}
+
+.perfil-error button,
+.perfil-salir {
+  padding: 10px 22px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #720072;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.perfil-error button:hover,
+.perfil-salir:hover {
+  background-color: #720072;
+  color: #FFFFFF;
+}
+
+.perfil-salir {
+  display: block;
+  margin: 8px auto 0;
+}

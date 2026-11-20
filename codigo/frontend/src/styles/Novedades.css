@@ -1,11 +1,10 @@
-/* SECCIÓN NOVEDADES */
+/* SECCIÓN NOVE﻿DADES */
 .novedades {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 25px;
-  /* Sin fondo propio: deja ver la textura de muñecos del sitio */
-  background-color: transparent;
+  background-color: #FAD5FA;
   color: #292929;
 }
 
@@ -24,21 +23,9 @@
   margin-bottom: 5px;
 }
 
-/* Barra de acento bajo el título */
-.novedades h2::after {
-  content: "";
-  display: block;
-  width: 56px;
-  height: 4px;
-  margin-top: 8px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #990099, #FF9AD5);
-}
-
 .novedades-subtitulo {
-  color: #5A4A5A;
+  color: #665566;
   font-size: 13px;
-  margin-top: 8px;
 }
 
 .novedades-ver-todas {
@@ -46,11 +33,6 @@
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
-}
-
-.novedades-ver-todas:hover {
-  transform: translateX(4px);
 }
 
 /* CONTENIDO GENERAL */
@@ -63,17 +45,15 @@
 /* TARJETAS */
 .novedad-card {
   background-color: #FFFFFF;
-  border-radius: 20px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(117, 0, 116, 0.12);
-  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 3px 12px rgba(80, 0, 80, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .novedad-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 2px rgba(153, 0, 153, 0.45),
-    0 18px 40px rgba(117, 0, 116, 0.22);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(80, 0, 80, 0.13);
 }
 
 .novedad-imagen {
@@ -81,11 +61,6 @@
   width: 100%;
   height: 190px;
   object-fit: cover;
-  transition: transform 0.45s ease;
-}
-
-.novedad-card:hover .novedad-imagen {
-  transform: scale(1.05);
 }
 
 /* INFORMACIÓN */
@@ -101,7 +76,7 @@
 }
 
 .novedad-categoria {
-  background: linear-gradient(135deg, #F3DDF3, #FAD5FA);
+  background-color: #F3DDF3;
   color: #720072;
   padding: 5px 10px;
   border-radius: 20px;
@@ -122,7 +97,7 @@
 }
 
 .novedad-info p {
-  color: #666666;
+  color: #777777;
   font-size: 12px;
   line-height: 1.6;
   margin-bottom: 15px;
@@ -217,14 +192,6 @@
 
   .novedad-destacada .novedad-imagen {
     min-height: 320px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .novedad-card,
-  .novedad-imagen,
-  .novedades-ver-todas {
-    transition: none;
   }
 }
 
