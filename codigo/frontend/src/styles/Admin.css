@@ -1,0 +1,275 @@
+.admin-pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 5% 48px;
+  font-family: 'Montserrat', sans-serif;
+  color: #292929;
+}
+
+.admin-pagina h1 {
+  margin-bottom: 20px;
+  color: #720072;
+}
+
+.admin-panel h2 {
+  margin: 20px 0 14px;
+  color: #4A0048;
+  font-size: 22px;
+}
+
+/* Pestañas */
+.admin-pestanas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-pestanas button {
+  padding: 10px 16px;
+  border: 2px solid #720072;
+  border-radius: 999px;
+  background-color: #FFFFFF;
+  color: #720072;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-pestanas button:hover {
+  background-color: #F3DDF3;
+}
+
+.admin-pestanas button.activa {
+  background-color: #720072;
+  color: #FFFFFF;
+}
+
+/* Barra de búsqueda y agregar */
+.admin-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.admin-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-filtro input {
+  min-width: 240px;
+  padding: 9px 12px;
+  border: 2px solid #C9A3C9;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+/* Botones */
+.admin-boton {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #720072;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-boton:hover:not(:disabled) {
+  background-color: #4A0048;
+  border-color: #4A0048;
+}
+
+.admin-boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.admin-boton--secundario {
+  background-color: #FFFFFF;
+  color: #720072;
+}
+
+.admin-boton--secundario:hover:not(:disabled) {
+  background-color: #F3DDF3;
+  border-color: #720072;
+}
+
+.admin-boton--peligro {
+  background-color: #B3261E;
+  border-color: #B3261E;
+}
+
+.admin-boton--peligro:hover:not(:disabled) {
+  background-color: #8C1D18;
+  border-color: #8C1D18;
+}
+
+.admin-boton--chico {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Tabla */
+.admin-tabla-contenedor {
+  overflow-x: auto;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(117, 0, 116, 0.12);
+}
+
+.admin-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-tabla th,
+.admin-tabla td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #EBD7EB;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.admin-tabla th {
+  background-color: #720072;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.admin-tabla td select {
+  padding: 6px 8px;
+  border: 2px solid #C9A3C9;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.admin-acciones {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.admin-mensaje {
+  padding: 24px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.admin-mensaje p {
+  margin-bottom: 12px;
+}
+
+.admin-solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Ventanas */
+.admin-dialogo {
+  width: min(560px, 92vw);
+  max-height: 90vh;
+  padding: 24px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(74, 0, 72, 0.4);
+  font-family: 'Montserrat', sans-serif;
+  color: #292929;
+  overflow-y: auto;
+}
+
+.admin-dialogo::backdrop {
+  background-color: rgba(41, 0, 40, 0.55);
+}
+
+.admin-dialogo h2 {
+  margin: 0 0 16px;
+  color: #720072;
+  font-size: 22px;
+}
+
+.admin-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.admin-campo label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-campo input,
+.admin-campo select,
+.admin-campo textarea {
+  padding: 9px 12px;
+  border: 2px solid #C9A3C9;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.admin-ayuda {
+  color: #5A4A5A;
+}
+
+.admin-casilla {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.admin-casilla input {
+  width: 20px;
+  height: 20px;
+}
+
+.admin-error {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #FDE7E7;
+  color: #8C1D18;
+  font-weight: 600;
+}
+
+.admin-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .admin-filtro input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .admin-filtro,
+  .admin-barra .admin-boton {
+    width: 100%;
+  }
+}

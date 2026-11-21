@@ -109,15 +109,6 @@
   transform: scaleX(1);
 }
 
-/* Sección que se está viendo */
-.menu-navegacion a.activo {
-  color: #F3B9F3;
-}
-
-.menu-navegacion a.activo::after {
-  transform: scaleX(1);
-}
-
 /* INICIO DE SESIÓN */
 .header-login {
   display: flex;

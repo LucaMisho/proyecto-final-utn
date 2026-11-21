@@ -9,7 +9,6 @@ import Contacto from "../components/inicio/Contacto";
 
 export default function Inicio() {
   useTitulo("");
-
   return (
     <>
       <Carrusel />

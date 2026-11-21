@@ -55,89 +55,146 @@
 
 /* CONTENIDO GENERAL */
 .novedades-contenido {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
 }
 
 /* TARJETAS */
 .novedad-card {
-  background-color: #FFFFFF;
-  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(117, 0, 116, 0.12);
-  transition: transform 0.25s, box-shadow 0.25s;
+  border-radius: 18px;
+  background-color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(80, 0, 80, 0.14);
+  /* "translate" es independiente de "transform", así no pelea con la animación de Reveal */
+  transition: translate 0.25s, box-shadow 0.25s;
 }
 
 .novedad-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 0 0 2px rgba(153, 0, 153, 0.45),
-    0 18px 40px rgba(117, 0, 116, 0.22);
+  translate: 0 -6px;
+  box-shadow: 0 14px 30px rgba(80, 0, 80, 0.22);
+}
+
+/* Imagen con la misma proporción en todas */
+.novedad-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
 }
 
 .novedad-imagen {
   display: block;
   width: 100%;
-  height: 190px;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.45s ease;
+  transition: transform 0.5s;
 }
 
+
 .novedad-card:hover .novedad-imagen {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+.novedad-media::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(114, 0, 114, 0.45), transparent);
+  pointer-events: none;
 }
 
 /* INFORMACIÓN */
 .novedad-info {
-  padding: 18px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 24px;
+}
+
+.novedad-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("../assets/muñecos-tile.webp");
+  background-size: 180px;
+  opacity: 0.06;
+  pointer-events: none;
 }
 
 .novedad-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .novedad-categoria {
-  background: linear-gradient(135deg, #F3DDF3, #FAD5FA);
+  padding: 3px 12px;
+  border-radius: 999px;
+  background-color: #FFE3FF;
   color: #720072;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .novedad-fecha {
-  color: #777777;
-  font-size: 11px;
+  color: #5a3a5a;
+  font-size: 13px;
 }
 
 .novedad-info h3 {
+  margin: 0;
   color: #292929;
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 700;
-  margin-bottom: 9px;
+  line-height: 1.25;
+  display: -webkit-box;
+  --webkit-line-clamp: 2;
+  --webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .novedad-info p {
-  color: #666666;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-bottom: 15px;
+  margin: 0;
+  color: #5a3a5a;
+  font-size: 15px;
+  line-height: 1.5;
+  display: -webkit-box;
+  --webkit-line-clamp: 3;
+  --webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* "Conocer más" siempre al fondo, alineado en las tres tarjetas */
 .novedad-info a {
+  margin-top: auto;
+  padding-top: 8px;
   color: #720072;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
 }
 
 .novedad-info a:hover,
-.novedades-ver-todas:hover {
-  color: #990099;
+.novedad-info a:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .novedades-contenido {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
 }
 
 /* TARJETAS SECUNDARIAS */
@@ -152,6 +209,23 @@
   .novedades {
     padding: 50px 35px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novedad-card,
+  .novedad-imagen {
+    transition: none;
+  }
+
+  .novedad-card:hover {
+    translate: none;
+  }
+
+   .novedad-card:hover .novedad-imagen {
+    transform: none;
+  }
+
+
 
   .novedades h2 {
     font-size: 30px;
@@ -227,5 +301,3 @@
     transition: none;
   }
 }
-
-

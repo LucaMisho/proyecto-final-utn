@@ -1,20 +1,57 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import API from "../../config/api";
+import { useSesion } from "../../contexto/Sesion";
+import { useAvisos } from "../../contexto/Avisos";
 import Reveal from "./Reveal";
 import "../../styles/Sugerencias.css";
 
-
 const LIMITE = 500;
 
-function Sugerencias({ onEnviar }) {
+function Sugerencias() {
   const [texto, setTexto] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
-  function manejarEnvio(e) {
+  const { usuario, token, cerrarSesion } = useSesion();
+  const { avisar } = useAvisos();
+
+  async function manejarEnvio(e) {
     e.preventDefault();
-    if (!texto.trim()) return;
 
-    // Acá va la lógica de envío que ya tengas (fetch a /sugerencias, etc.)
-    if (onEnviar) onEnviar(texto.trim());
-    setTexto("");
+    const mensaje = texto.trim();
+    if (!mensaje || enviando) return;
+
+    setEnviando(true);
+
+    try {
+      const respuesta = await fetch(`${API}/sugerencias`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ mensaje }),
+      });
+
+      if (respuesta.status === 401) {
+        cerrarSesion();
+        avisar("Tu sesión venció. Iniciá sesión de nuevo.", "error");
+        return;
+      }
+
+      const datos = await respuesta.json().catch(() => ({}));
+
+      if (!respuesta.ok) {
+        throw new Error(datos.error || "No se pudo enviar la sugerencia.");
+      }
+
+      avisar("¡Gracias! Recibimos tu sugerencia.", "exito");
+      setTexto("");
+    } catch (error) {
+      avisar(error.message || "No se pudo conectar con el servidor.", "error");
+    } finally {
+      setEnviando(false);
+    }
   }
 
   return (
@@ -48,27 +85,42 @@ function Sugerencias({ onEnviar }) {
 
         {/* Columna del formulario */}
         <Reveal delay={2}>
-          <form className="sugerencias-form" onSubmit={manejarEnvio}>
-            <label htmlFor="sugerencia">Dejanos tu sugerencia</label>
+          {usuario ? (
+            <form className="sugerencias-form" onSubmit={manejarEnvio}>
+              <label htmlFor="sugerencia">Dejanos tu sugerencia</label>
 
-            <textarea
-              id="sugerencia"
-              placeholder="Escribí tu idea o propuesta..."
-              maxLength={LIMITE}
-              value={texto}
-              onChange={(e) => setTexto(e.target.value)}
-            />
+              <textarea
+                id="sugerencia"
+                placeholder="Escribí tu idea o propuesta..."
+                maxLength={LIMITE}
+                value={texto}
+                onChange={(e) => setTexto(e.target.value)}
+              />
 
-            <div className="sugerencias-pie">
-              <span className="sugerencias-contador">
-                {texto.length}/{LIMITE}
-              </span>
+              <div className="sugerencias-pie">
+                <span className="sugerencias-contador">
+                  {texto.length}/{LIMITE}
+                </span>
 
-              <button type="submit" disabled={!texto.trim()}>
-                Enviar sugerencia
-              </button>
+                <button type="submit" disabled={!texto.trim() || enviando}>
+                  {enviando ? "Enviando..." : "Enviar sugerencia"}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="sugerencias-form sugerencias-aviso">
+              <p>Para enviar una sugerencia necesitás tener una cuenta.</p>
+
+              <div className="sugerencias-aviso-acciones">
+                <Link to="/login" className="sugerencias-aviso-enlace">
+                  Iniciar sesión
+                </Link>
+                <Link to="/registro" className="sugerencias-aviso-enlace sugerencias-aviso-enlace--secundario">
+                  Crear cuenta
+                </Link>
+              </div>
             </div>
-          </form>
+          )}
         </Reveal>
 
       </div>

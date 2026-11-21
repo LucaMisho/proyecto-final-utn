@@ -1,6 +1,18 @@
 const bcrypt = require("bcryptjs");
 const usuariosRepositorio = require("../data/usuarios.repositorio");
+const pool = require("../data/conexion");
 
+const sugerenciasData = require("../data/sugerencias.repositorio");
+
+const verMisSugerencias = async (req, res) => {
+  try {
+    const lista = await sugerenciasData.listarSugerenciasPorUsuario(req.usuario.id_usuario);
+    res.status(200).json(lista);
+  } catch (error) {
+    console.error("Error al obtener sugerencias:", error.message);
+    res.status(500).json({ error: "Error interno" });
+  }
+};
 
 const verPerfil = async (req, res) => {
   try {
@@ -19,7 +31,6 @@ const verPerfil = async (req, res) => {
 const actualizarPerfil = async (req, res) => {
   try {
     const { username, email } = req.body;
-    // La clave puede llegar como contrasena, contraseña o password
     const password = req.body.contrasena ?? req.body["contraseña"] ?? req.body.password;
 
     if (!username && !email && !password) {
@@ -55,4 +66,4 @@ const actualizarPerfil = async (req, res) => {
   }
 };
 
-module.exports = { verPerfil, actualizarPerfil };
+module.exports = { verPerfil, actualizarPerfil, verMisSugerencias };

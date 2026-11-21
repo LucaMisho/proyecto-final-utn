@@ -12,13 +12,14 @@ function Login() {
 
   const { iniciarSesion } = useSesion();
   const { avisar } = useAvisos();
+  
   const [username, setUsername] = useState("");
   const [clave, setClave] = useState("");
   const [verClave, setVerClave] = useState(false);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
-  const API = import.meta.env.VITE_API_URL;
+  
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -68,6 +69,9 @@ function Login() {
         );
       }
 
+      localStorage.setItem("token", datos.token);
+      localStorage.setItem("usuario", JSON.stringify(datos.usuario));
+
       // Se muestra el mensaje de éxito y recién después se redirige.
       // El botón queda deshabilitado (cargando sigue en true) hasta navegar.
       setExito(true);
@@ -75,7 +79,8 @@ function Login() {
         iniciarSesion(datos.token, datos.usuario);
         avisar(`Iniciaste sesión como ${datos.usuario.username}.`, "exito");
         navigate("/");
-      }, 3000);
+      }, 3000);  
+    
     } catch (error) {
       setError(error.message || "No se pudo conectar con el servidor.");
       setCargando(false);

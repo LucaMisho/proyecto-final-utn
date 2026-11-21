@@ -11,29 +11,32 @@ import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Terminos from "./pages/Terminos";
 import Perfil from "./pages/Perfil";
+import Admin from "./pages/Admin";
 
 import "./styles/App.css";
 
 function App() {
   return (
-    <AvisosProvider>
+     <AvisosProvider>
       <SesionProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/terminos" element={<Terminos />} />
-              <Route path="/" element={<Inicio />} />
-              <Route path="/talleres" element={<Talleres />} />
-              <Route path="/perfil" element={<Perfil />} />
-            </Route>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/terminos" element={<Terminos />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/" element={<Inicio />} />
+          <Route path="/talleres" element={<Talleres />} />
+        </Route>
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/registro" element={<Registro />} />
-          </Routes>
-        </BrowserRouter>
-      </SesionProvider>
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
+      </Routes>
+    </BrowserRouter>
+    </SesionProvider>
     </AvisosProvider>
   );
 }
 
 export default App;
+

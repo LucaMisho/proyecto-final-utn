@@ -5,15 +5,11 @@ import Icono from "../components/talleres/Icono";
 import TarjetaTaller from "../components/talleres/TarjetaTaller";
 import ModalTaller from "../components/talleres/ModalTaller";
 import { normalizar } from "../components/talleres/Utilidades.js";
-import useTitulo from "../hooks/useTitulo";
 import "../styles/Talleres.css";
 
-// Ajustá esta línea a la variable que ya usás en el Login
 const API = import.meta.env.VITE_API_URL;
 
 function Talleres() {
-  useTitulo("Talleres");
-
   const [talleres, setTalleres] = useState([]);
   const [barrios, setBarrios] = useState([]);
   const [cargando, setCargando] = useState(true);

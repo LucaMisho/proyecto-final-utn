@@ -1,7 +1,6 @@
 import API from "../config/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useTitulo from "../hooks/useTitulo";
 import "../styles/Login.css";
 import "../styles/Registro.css";
 import logo from "../assets/logo.png";
@@ -10,8 +9,6 @@ const LARGO_MINIMO_CLAVE = 8;
 const EMAIL_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function Registro() {
-  useTitulo("Crear cuenta");
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [clave, setClave] = useState("");
