@@ -13,7 +13,7 @@
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url("/textura-envion.png");
+  background-image: url("../assets/muñecos-tile.webp");
   background-size: 240px;
   background-repeat: repeat;
   opacity: 0.07;

@@ -2,7 +2,7 @@ import "../../styles/QuienesSomos.css";
 
 function QuienesSomos() {
   return (
-    <section className="quienes-somos" id="quienes-somos">
+    <section className="quienes-somos banda banda--rosa" id="quienes-somos">
       <div className="quienes-somos-contenido">
         <span className="quienes-somos-etiqueta">
           CONOCÉ NUESTRO ESPACIO
