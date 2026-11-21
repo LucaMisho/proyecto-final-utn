@@ -11,6 +11,8 @@ import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Terminos from "./pages/Terminos";
 import Perfil from "./pages/Perfil";
+import Admin from "./pages/Admin";
+import TodasNovedades from "./pages/TodasNovedades";
 
 import "./styles/App.css";
 
@@ -23,8 +25,10 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/terminos" element={<Terminos />} />
           <Route path="/perfil" element={<Perfil />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<Inicio />} />
           <Route path="/talleres" element={<Talleres />} />
+          <Route path="/novedades" element={<TodasNovedades />} />
         </Route>
 
         <Route path="/login" element={<Login />} />

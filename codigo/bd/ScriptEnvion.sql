@@ -51,6 +51,16 @@ CREATE TABLE noticia (
     CONSTRAINT ck_noticia_estado CHECK (estado IN ('activa', 'inactiva', 'borrador'))
 );
 
+CREATE TABLE IF NOT EXISTS novedades (
+  id_novedad SERIAL PRIMARY KEY,
+  titulo VARCHAR(120) NOT NULL,
+  descripcion TEXT NOT NULL,
+  categoria VARCHAR(40) NOT NULL,
+  imagen VARCHAR(255),
+  fecha DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+
 -- ==========================================
 -- ALUMNO
 -- ==========================================

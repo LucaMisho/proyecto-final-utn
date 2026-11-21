@@ -25,7 +25,7 @@ function Noticias() {
   ];
 
   return (
-    <section className="noticias banda banda--durazno" id="noticias">
+    <section className="noticias banda banda--durazno banda--parallax" id="noticias">
       <Reveal className="noticias-encabezado">
         <div>
           <h2>Últimas noticias</h2>

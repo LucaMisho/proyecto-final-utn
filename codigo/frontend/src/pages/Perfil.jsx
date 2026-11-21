@@ -1,6 +1,6 @@
 import API from "../config/api";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
 import { useAvisos } from "../contexto/Avisos";
 import useTitulo from "../hooks/useTitulo";
@@ -230,6 +230,12 @@ export default function Perfil() {
             )}
           </div>
         </>
+      )}
+
+      {usuario.rol === "ADMINISTRADOR" && (
+        <Link to="/admin" className="perfil-salir perfil-admin">
+          Panel de administración
+        </Link>
       )}
 
       <button type="button" className="perfil-salir" onClick={salir}>

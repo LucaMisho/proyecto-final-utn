@@ -39,6 +39,14 @@ async function crear(req, res) {
 // Actualizar un usuario
 async function actualizar(req, res) {
     try {
+        // El administrador no puede quitarse el rol ni desactivar su propia cuenta
+        const esPropia = String(req.usuario.id_usuario) === String(req.params.id);
+        const cambiaRol = req.body.rol !== undefined && req.body.rol !== "ADMINISTRADOR";
+
+        if (esPropia && (cambiaRol || req.body.estado === false)) {
+            return res.status(403).json({ error: "No podés quitarte el rol de administrador ni desactivar tu propia cuenta" });
+        }
+
         const usuario = await usuarioService.actualizarUsuario(
             req.params.id,
             req.body
@@ -52,6 +60,10 @@ async function actualizar(req, res) {
 // Eliminar un usuario
 async function borrar(req, res) {
     try {
+        if (String(req.usuario.id_usuario) === String(req.params.id)) {
+            return res.status(403).json({ error: "No podés eliminar tu propia cuenta" });
+        }
+
         await usuarioService.borrarUsuario(req.params.id);
         res.status(200).json({
             mensaje: "Usuario eliminado correctamente"

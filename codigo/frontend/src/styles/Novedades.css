@@ -124,7 +124,7 @@
   z-index: -1;
   background-image: url("../assets/muñecos-tile.webp");
   background-size: 180px;
-  opacity: 0.06;
+  opacity: 0.15;
   pointer-events: none;
 }
 
@@ -299,5 +299,120 @@
   .novedad-imagen,
   .novedades-ver-todas {
     transition: none;
+  }
+}
+
+/* Si una novedad no tiene imagen, queda un bloque con degradé en lugar de un hueco */
+.novedad-media--vacia {
+  background: linear-gradient(135deg, #990099 0%, #f0bdf0 100%);
+}
+
+.novedades-estado {
+  margin: 0 0 18px;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #4a0048;
+  font-size: 14px;
+}
+
+.novedades-error {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.novedades-error p {
+  margin: 0 0 10px;
+}
+
+.novedades-error button {
+  padding: 8px 18px;
+  border: 2px solid #b71c1c;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #b71c1c;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.novedades-error button:hover {
+  background-color: #b71c1c;
+  color: #FFFFFF;
+}
+
+/* Sección centrada en un ancho máximo; el fondo de la banda sigue a pantalla completa */
+.novedades {
+  box-sizing: border-box;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 64px 24px 72px;
+}
+
+/* Título, barra y subtítulo al centro */
+.novedades-encabezado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.novedades-encabezado h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 12px auto 0;
+  border-radius: 4px;
+  background: #720072;
+}
+
+/* Tarjetas centradas, también la última fila si queda incompleta */
+.novedades-contenido {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.novedad-card {
+  flex: 0 1 calc((100% - 64px) / 3);
+  min-width: 280px;
+}
+
+/* "Ver todas" centrado debajo, como botón */
+.novedades-pie {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.novedades-ver-todas {
+  padding: 12px 28px;
+  border: 2px solid #720072;
+  border-radius: 999px;
+  background-color: #FFFFFF;
+  color: #720072;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.novedades-ver-todas:hover,
+.novedades-ver-todas:focus-visible {
+  background-color: #720072;
+  color: #FFFFFF;
+}
+
+@media (max-width: 720px) {
+  .novedades {
+    padding: 48px 18px 56px;
+  }
+
+  .novedad-card {
+    flex-basis: 100%;
+    min-width: 0;
   }
 }
