@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
 import logo from "../assets/logo.png";
+import SearchBar from "../components/inicio/SearchBar";
 import "../styles/Header.css";
 
 const SECCIONES = ["novedades", "noticias", "contacto"];
@@ -79,6 +80,7 @@ function Header() {
         <span>Envión - Quequén</span>
       </div>
 
+
       {/* Navegación */}
       <nav
         className={`menu-navegacion ${menuAbierto ? "abierto" : ""}`}
@@ -97,6 +99,10 @@ function Header() {
         <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>Noticias</a>
         <a href="/#contacto" onClick={cerrarMenu} {...propiedadesDe("contacto")}>Contacto</a>
       </nav>
+
+
+      {/* Buscador compacto (lupa que se expande) */}
+      <SearchBar />
 
       {/* Inicio de sesión o perfil */}
       {usuario ? (
