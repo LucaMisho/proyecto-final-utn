@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import API from "../config/api";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
 import { useAvisos } from "../contexto/Avisos";
@@ -22,7 +23,7 @@ function Perfil() {
     setCargando(true);
 
     try {
-      const respuesta = await fetch("/api/perfil", {
+      const respuesta = await fetch(`${API}/perfil`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

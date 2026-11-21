@@ -8,19 +8,23 @@ const app = express();
 // Configuración de CORS
 const origenesPermitidos = [
     "http://localhost:5173",
+    "https://proyecto-final-utn-sage.vercel.app",
     process.env.FRONTEND_URL
 ]
     .filter(Boolean)
     .map((o) => o.trim().replace(/\/$/, ""));
 
+// URLs de deployment de Vercel de este proyecto
+const regexVercel = /^https:\/\/proyecto-final-[a-z0-9]+-proyecto-final11\.vercel\.app$/;
+
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || origenesPermitidos.includes(origin)) {
+        if (!origin || origenesPermitidos.includes(origin) || regexVercel.test(origin)) {
             return callback(null, true);
         }
 
-        console.log("CORS rechazó:", origin, "| permitidos:", origenesPermitidos);
-        return callback(new Error("Origen no permitido por CORS"));
+        console.log("CORS rechazó el origen:", origin);
+        return callback(null, false);
     }
 }));
 

@@ -1,8 +1,10 @@
+import API from "../config/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useTitulo from "../hooks/useTitulo";
 import "../styles/Login.css";
 import "../styles/Registro.css";
+import logo from "../assets/logo.png";
 
 const LARGO_MINIMO_CLAVE = 8;
 const EMAIL_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,6 +21,7 @@ function Registro() {
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -64,7 +67,7 @@ function Registro() {
     try {
       setCargando(true);
 
-      const respuesta = await fetch("/api/auth/registro", {
+      const respuesta = await fetch(`${API}/auth/registro`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -125,7 +128,7 @@ function Registro() {
           </Link>
 
           <div className="login-encabezado">
-            <img src="/logo.png" alt="Logo Barrio Cultura" />
+            <img src={logo} alt="Logo Barrio Cultura" />
 
             <h1>Crear cuenta</h1>
 

@@ -38,26 +38,35 @@ function prefiereMenosMovimiento() {
 function Carrusel() {
   const [actual, setActual] = useState(0);
   const [pausado, setPausado] = useState(prefiereMenosMovimiento);
-  const [encima, setEncima] = useState(false);
+  const [manual, setManual] = useState(false);
+  const [reinicio, setReinicio] = useState(0);
 
-  const enMovimiento = !pausado && !encima;
+  const enMovimiento = !pausado;
 
+  // Cada cambio manual vuelve a empezar el conteo de 5 segundos
   useEffect(() => {
     if (!enMovimiento) return undefined;
 
     const intervalo = setInterval(() => {
+      setManual(false);
       setActual((anterior) => (anterior + 1) % diapositivas.length);
     }, 5000);
 
     return () => clearInterval(intervalo);
-  }, [enMovimiento]);
+  }, [enMovimiento, reinicio]);
+
+  const irA = (indice) => {
+    setManual(true);
+    setReinicio((valor) => valor + 1);
+    setActual(indice);
+  };
 
   const anterior = () => {
-    setActual((actual - 1 + diapositivas.length) % diapositivas.length);
+    irA((actual - 1 + diapositivas.length) % diapositivas.length);
   };
 
   const siguiente = () => {
-    setActual((actual + 1) % diapositivas.length);
+    irA((actual + 1) % diapositivas.length);
   };
 
   return (
@@ -67,17 +76,11 @@ function Carrusel() {
       aria-roledescription="carrusel"
     >
 
-      <div
-        className="carrusel-banner"
-        onMouseEnter={() => setEncima(true)}
-        onMouseLeave={() => setEncima(false)}
-        onFocus={() => setEncima(true)}
-        onBlur={() => setEncima(false)}
-      >
+      <div className="carrusel-banner">
 
         <div
           className="carrusel-diapositivas"
-          aria-live={enMovimiento ? "off" : "polite"}
+          aria-live={enMovimiento && !manual ? "off" : "polite"}
         >
           {diapositivas.map((item, indice) => (
             <div
@@ -149,7 +152,7 @@ function Carrusel() {
           <button
             key={item.id}
             className={actual === indice ? "indicador activo" : "indicador"}
-            onClick={() => setActual(indice)}
+            onClick={() => irA(indice)}
             aria-label={`Ir a la imagen ${indice + 1}`}
             aria-current={actual === indice ? "true" : undefined}
           />
@@ -161,3 +164,4 @@ function Carrusel() {
 }
 
 export default Carrusel;
+

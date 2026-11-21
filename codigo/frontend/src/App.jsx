@@ -6,6 +6,7 @@ import { SesionProvider } from "./contexto/Sesion";
 import MainLayout from "./layouts/MainLayout";
 
 import Inicio from "./pages/Inicio";
+import Talleres from "./pages/Talleres";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Terminos from "./pages/Terminos";
@@ -21,9 +22,9 @@ function App() {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/terminos" element={<Terminos />} />
-              <Route path="/perfil" element={<Perfil />} />
               <Route path="/" element={<Inicio />} />
-              {/* acá van después: /talleres */}
+              <Route path="/talleres" element={<Talleres />} />
+              <Route path="/perfil" element={<Perfil />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

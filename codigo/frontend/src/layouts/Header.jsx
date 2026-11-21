@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/logo.png";
+import SearchBar from "../components/inicio/SearchBar";
 import { useSesion } from "../contexto/Sesion";
 import "../styles/Header.css";
 
@@ -63,13 +65,14 @@ function Header() {
   }
 
   const inicioActivo = enInicio && seccionActiva === "";
+  const talleresActivo = pathname === "/talleres";
 
   return (
     <header className="header">
 
       {/* Logo */}
-      <Link to="/" className="header-logo" onClick={irAlInicio} aria-label="Ir al inicio">
-        <img src="/logo.png" alt="Logo Barrio Cultura" />
+      <Link to="/" className="header-logo" onClick={irAlInicio}>
+        <img src={logo} alt="Logo Barrio Cultura" />
       </Link>
 
       {/* Nombre del proyecto */}
@@ -91,11 +94,21 @@ function Header() {
         >
           Inicio
         </Link>
-        <a href="/#talleres" onClick={cerrarMenu}>Talleres</a>
+        <Link
+          to="/talleres"
+          onClick={cerrarMenu}
+          className={talleresActivo ? "activo" : undefined}
+          aria-current={talleresActivo ? "page" : undefined}
+        >
+          Talleres
+        </Link>
         <a href="/#novedades" onClick={cerrarMenu} {...propiedadesDe("novedades")}>Novedades</a>
         <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>Noticias</a>
         <a href="/#contacto" onClick={cerrarMenu} {...propiedadesDe("contacto")}>Contacto</a>
       </nav>
+
+      {/* Buscador compacto (lupa que se expande) */}
+      <SearchBar />
 
       {/* Inicio de sesión o perfil */}
       {usuario ? (

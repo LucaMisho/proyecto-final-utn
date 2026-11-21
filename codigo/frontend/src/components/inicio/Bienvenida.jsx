@@ -1,3 +1,4 @@
+import Reveal from "./Reveal";
 import { useSesion } from "../../contexto/Sesion";
 import "../../styles/Bienvenida.css";
 
@@ -6,7 +7,7 @@ function Bienvenida() {
 
   return (
     <section className="bienvenida">
-      <div className="bienvenida-contenido">
+      <Reveal className="bienvenida-contenido">
 
         <h1>
           {usuario
@@ -23,7 +24,7 @@ function Bienvenida() {
           Conocer más
         </a>
 
-      </div>
+      </Reveal>
     </section>
   );
 }

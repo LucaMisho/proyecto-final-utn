@@ -1,4 +1,5 @@
 import "../styles/Footer.css";
+import cerrarMenu from "./Header";
 
 function Footer() {
   return (
@@ -20,12 +21,12 @@ function Footer() {
         <div className="footer-enlaces">
           <h3>Navegación</h3>
 
-          <a href="#inicio">Inicio</a>
+          <a href="/" onClick={cerrarMenu}>Inicio</a>
           <a href="#quienes-somos">Quiénes somos</a>
-          <a href="#novedades">Novedades</a>
-          <a href="#noticias">Noticias</a>
-          <a href="#sugerencias">Sugerencias</a>
-          <a href="#contacto">Contacto</a>
+          <a href="/#novedades">Novedades</a>
+          <a href="/#noticias">Noticias</a>
+          <a href="/#sugerencias">Sugerencias</a>
+          <a href="/#contacto">Contacto</a>
         </div>
 
         {/* Redes sociales */}
@@ -40,7 +41,7 @@ function Footer() {
           <div className="footer-redes-iconos">
 
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/barrioculturanecochea/"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -50,7 +51,7 @@ function Footer() {
             </a>
 
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/people/CIC-Barrio-Norte-Necochea/100067140305835/"
               target="_blank"
               rel="noreferrer"
               aria-label="Facebook"

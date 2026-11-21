@@ -1,0 +1,102 @@
+.deslizador {
+  position: relative;
+}
+
+/* Pista con ajuste automático a cada tarjeta */
+.deslizador-pista {
+  display: flex;
+  gap: 22px;
+
+  /* El relleno deja lugar a las sombras y al efecto de levantarse */
+  padding: 14px 4px 30px;
+  margin: -14px -4px -30px;
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.deslizador-pista::-webkit-scrollbar {
+  display: none;
+}
+
+.deslizador-pista:focus-visible {
+  outline: 3px solid #FF9AD5;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+/* Celular: se asoma la tarjeta siguiente para invitar a deslizar */
+.deslizador-pista > * {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+}
+
+/* Flechas: solo en pantallas con mouse */
+.deslizador-flecha {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .deslizador-pista {
+    gap: 28px;
+  }
+
+  .deslizador-pista > * {
+    flex: 0 0 calc((100% - 28px) / 2);
+  }
+
+  .deslizador-flecha {
+    position: absolute;
+    top: 42%;
+    z-index: 5;
+
+    width: 46px;
+    height: 46px;
+
+    display: grid;
+    place-items: center;
+
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    color: #FFFFFF;
+    font-size: 26px;
+    line-height: 1;
+
+    background: linear-gradient(135deg, #720072, #990099);
+    box-shadow: 0 8px 18px rgba(117, 0, 116, 0.35);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+
+  .deslizador-flecha--atras {
+    left: -18px;
+  }
+
+  .deslizador-flecha--adelante {
+    right: -18px;
+  }
+
+  .deslizador-flecha:hover {
+    transform: scale(1.1);
+  }
+
+  .deslizador-flecha:focus-visible {
+    outline: 3px solid #FF9AD5;
+    outline-offset: 3px;
+  }
+
+  .deslizador-flecha--oculta {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deslizador-flecha {
+    transition: none;
+  }
+}

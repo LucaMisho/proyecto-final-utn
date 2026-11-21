@@ -4,6 +4,23 @@
   color: white;
   padding: 45px 7% 0;
   font-family: 'Montserrat', sans-serif;
+
+    /* Queda fijo arriba al hacer scroll */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  isolation: isolate;
+  font-family: 'Montserrat', sans-serif;
+}
+
+  .footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: url("../assets/muñecos-tile.webp") center / 480px;
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 /* CONTENIDO PRINCIPAL */
@@ -143,6 +160,7 @@
     margin-bottom: 0;
 }
   }
+
 
   
 

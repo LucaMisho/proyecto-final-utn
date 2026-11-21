@@ -1,22 +1,38 @@
+/* Banner flotante: separado del carrusel y con la textura del sitio alrededor */
 .bienvenida {
-    width: 100%;
-    min-height: 260px;
+    width: min(1100px, 92%);
+    margin: var(--espacio-seccion, clamp(3.5rem, 8vw, 6.5rem)) auto;
 
-    background-color: #990099;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(255, 154, 213, 0.35), transparent 45%),
+        linear-gradient(135deg, #4A0048 0%, #720072 55%, #990099 100%);
     color: white;
+    border-radius: 28px;
+    box-shadow: 0 18px 40px rgba(74, 0, 72, 0.28);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 30px 20px;
+    min-height: 260px;
+    padding: clamp(2.5rem, 6vw, 4.5rem) 24px;
     position: relative;
     overflow: hidden;
 }
 
+/* Textura de muñecos dentro del banner */
+.bienvenida::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../assets/munecos-tile.webp") center / 480px;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
 .bienvenida-contenido {
     width: 100%;
-    max-width: 500px;
+    max-width: 560px;
     text-align: center;
     position: relative;
     z-index: 1;
@@ -24,53 +40,62 @@
 
 .bienvenida h1 {
     color: white;
-    font-size: 26px;
+    font-size: clamp(26px, 4vw, 38px);
     font-weight: 700;
-    margin-bottom: 15px;
+    line-height: 1.2;
+    margin-bottom: 16px;
 }
 
 .bienvenida p {
-    color: white;
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 22px;
+    max-width: 52ch;
+    margin: 0 auto 28px;
+
+    color: #F3DDF3;
+    font-size: clamp(13px, 1.6vw, 16px);
+    line-height: 1.8;
 }
 
 .btn-conocer {
     display: inline-block;
 
     background-color: white;
-    color: #990099;
+    color: #720072;
 
-    padding: 10px 25px;
-    border-radius: 20px;
+    padding: 12px 30px;
+    border-radius: 999px;
 
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
 
-    transition: background-color 0.3s;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
 }
 
 .btn-conocer:hover {
     background-color: #FAD5FA;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.26);
 }
 
-/* Adaptación a escritorio */
+.btn-conocer:focus-visible {
+    outline: 3px solid #FF9AD5;
+    outline-offset: 3px;
+}
 
 @media (min-width: 768px) {
     .bienvenida {
-        min-height: 350px;
-    }
-
-    .bienvenida h1 {
-        font-size: 36px;
-    }
-
-    .bienvenida p {
-        font-size: 16px;
+        min-height: 320px;
     }
 
     .btn-conocer {
         font-size: 14px;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-conocer {
+        transition: none;
+    }
+}
+
