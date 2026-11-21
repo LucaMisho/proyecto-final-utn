@@ -63,4 +63,36 @@ async function obtenerSugerenciaPorId(id){
     return resultado.rows[0] || null;
 }
 
-module.exports = {listarSugerencias, eliminarSugerencia, crearSugerencia, actualizarSugerencia, obtenerSugerenciaPorId};
+//listarSugerenciasPorUsuario()
+async function listarSugerenciasPorUsuario(idUsuario){
+    const consulta = `
+    SELECT id_sugerencia, mensaje, estado, fecha
+    FROM sugerencia
+    WHERE id_usuario = $1
+    ORDER BY fecha DESC, id_sugerencia DESC;
+    `;
+
+    const resultado = await pool.query(consulta, [idUsuario]);
+    return resultado.rows;
+}
+
+//cambiarEstadoSugerencia()
+async function cambiarEstadoSugerencia(id, estado){
+    const consulta = `
+    UPDATE sugerencia
+    SET estado = $1
+    WHERE id_sugerencia = $2
+    RETURNING id_sugerencia, mensaje, estado, fecha;
+    `;
+
+    const resultado = await pool.query(consulta, [estado, id]);
+    return resultado.rows[0] || null;
+}
+
+module.exports = {listarSugerencias, 
+    eliminarSugerencia,
+     crearSugerencia,
+     actualizarSugerencia,
+     obtenerSugerenciaPorId,
+     listarSugerenciasPorUsuario,
+     cambiarEstadoSugerencia};

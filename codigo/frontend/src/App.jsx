@@ -7,24 +7,36 @@ import Talleres from "./pages/Talleres";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Terminos from "./pages/Terminos";
+import Perfil from "./pages/Perfil";
+import Admin from "./pages/Admin";
+
+import { AvisosProvider } from "./contexto/Avisos";
+import { SesionProvider } from "./contexto/Sesion";
 
 import "./styles/App.css";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/terminos" element={<Terminos />} />
-          <Route path="/" element={<Inicio />} />
-          <Route path="/talleres" element={<Talleres />} />
-        </Route>
+    <AvisosProvider>
+      <SesionProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/terminos" element={<Terminos />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/" element={<Inicio />} />
+              <Route path="/talleres" element={<Talleres />} />
+            </Route>
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
-      </Routes>
-    </BrowserRouter>
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Registro />} />
+          </Routes>
+        </BrowserRouter>
+      </SesionProvider>
+    </AvisosProvider>
   );
 }
 
 export default App;
+

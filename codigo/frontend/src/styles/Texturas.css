@@ -33,9 +33,25 @@ body {
   width: 100vw;
   transform: translateX(-50%);
   z-index: -1;
-  background: url("../assets/munecos-tile.webp") center / 560px;
+  background: url("../assets/muñecos-tile.webp") center / 560px;
   pointer-events: none;
 }
+
+/* Parallax: la textura queda fija respecto de la pantalla mientras la sección se desplaza */
+.banda--parallax::after {
+  /* Se centra sin transform: un transform en el mismo elemento suele anular background-attachment: fixed */
+  left: calc(50% - 50vw);
+  transform: none;
+  background-attachment: fixed;
+}
+
+/* Celulares, pantallas táctiles y quien prefiere menos movimiento: sin parallax */
+@media (max-width: 720px), (hover: none), (prefers-reduced-motion: reduce) {
+  .banda--parallax::after {
+    background-attachment: scroll;
+  }
+}
+
 
 /* Rosa: secciones intensas (Novedades, Sugerencias) */
 .banda--rosa::before {

@@ -10,7 +10,6 @@ function Novedades() {
       titulo: "Nueva jornada de talleres en Barrio Cultura",
       descripcion:
         "Sumate este sábado a las actividades al aire libre.",
-      destacada: true,
     },
     {
       imagen: "/novedad2.jpeg",
@@ -46,67 +45,39 @@ function Novedades() {
       </Reveal>
 
       <div className="novedades-contenido">
-        {/* Novedad principal */}
-        <Reveal
-          as="article"
-          className="novedad-card novedad-destacada"
-        >
-          <img
-            src={novedades[0].imagen}
-            alt="Actividades de Barrio Cultura"
-            className="novedad-imagen"
-          />
-
-          <div className="novedad-info">
-            <div className="novedad-meta">
-              <span className="novedad-categoria">
-                {novedades[0].categoria}
-              </span>
-              <span className="novedad-fecha">
-                {novedades[0].fecha}
-              </span>
-            </div>
-
-            <h3>{novedades[0].titulo}</h3>
-            <p>{novedades[0].descripcion}</p>
-
-            <a href="#novedad-detalle">Conocer más →</a>
-          </div>
-        </Reveal>
-
-        {/* Novedades secundarias */}
-        <div className="novedades-secundarias">
-          {novedades.slice(1).map((novedad, index) => (
-            <Reveal
-              as="article"
-              className="novedad-card"
-              delay={index + 1}
-              key={index}
-            >
+        {novedades.map((novedad, index) => (
+          <Reveal
+            as="article"
+            className="novedad-card"
+            delay={index}
+            key={index}
+          >
+            <div className="novedad-media">
               <img
                 src={novedad.imagen}
                 alt={novedad.titulo}
                 className="novedad-imagen"
+                loading="lazy"
               />
+            </div>
 
-              <div className="novedad-info">
-                <div className="novedad-meta">
-                  <span className="novedad-categoria">
-                    {novedad.categoria}
-                  </span>
-                  <span className="novedad-fecha">
-                    {novedad.fecha}
-                  </span>
-                </div>
-
-                <h3>{novedad.titulo}</h3>
-                <p>{novedad.descripcion}</p>
-
-                <a href="#novedad-detalle">Conocer más →</a>
+            <div className="novedad-info">
+              <div className="novedad-meta">
+                <span className="novedad-categoria">
+                  {novedad.categoria}
+                </span>
+                <span className="novedad-fecha">
+                  {novedad.fecha}
+                </span>
               </div>
-            </Reveal>
-          ))}
-        </div>
+
+              <h3>{novedad.titulo}</h3>
+              <p>{novedad.descripcion}</p>
+
+              <a href="#novedad-detalle">Conocer más →</a>
+            </div>
+          </Reveal>
+        ))}
       </div>
     </section>
   );

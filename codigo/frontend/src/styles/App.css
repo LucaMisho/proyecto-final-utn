@@ -1,6 +1,32 @@
+/* Parallax: la textura es una capa fija recortada al alto de la sección */
+.banda--parallax {
+  /* Recorta arriba y abajo, pero deja pasar el ancho completo de las bandas */
+  clip-path: inset(0 -100vw);
+}
 
-/* Contenido principal */
+.banda--parallax::after {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  transform: none;
+}
 
+/* Celulares, pantallas táctiles y quien prefiere menos movimiento: sin parallax */
+@media (max-width: 720px), (hover: none), (prefers-reduced-motion: reduce) {
+  .banda--parallax {
+    clip-path: none;
+  }
+
+  .banda--parallax::after {
+    position: absolute;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+  }
+}
+
+
+/*Contenido principal*/
 .contenido-principal {
   width: 100%;
   min-height: 100vh;
