@@ -188,3 +188,41 @@
     transition: none;
   }
 }
+
+.sugerencias-aviso {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+.sugerencias-aviso p {
+  margin: 0;
+}
+
+.sugerencias-aviso-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sugerencias-aviso-enlace {
+  padding: 10px 22px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #720072;
+  color: #FFFFFF;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sugerencias-aviso-enlace--secundario {
+  background-color: #FFFFFF;
+  color: #720072;
+}
+
+.sugerencias-aviso-enlace:hover,
+.sugerencias-aviso-enlace:focus-visible {
+  opacity: 0.85;
+}
