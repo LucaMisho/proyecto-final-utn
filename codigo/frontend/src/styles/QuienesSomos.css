@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 50px;
+  overflow-x: clip;
 }
 
 .quienes-somos-contenido {

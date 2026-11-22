@@ -10,7 +10,7 @@ function Noticias() {
   const noticias = items.map(normalizarNoticia);
 
   return (
-    <section className="noticias">
+    <section className="noticias" id="noticias">
 
       {/* FONDO GEOMÉTRICO ANIMADO */}
       <div className="noticias-fondo-3d" aria-hidden="true">

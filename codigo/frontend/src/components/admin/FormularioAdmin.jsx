@@ -2,8 +2,8 @@ import { useState } from "react";
 import Dialogo from "./Dialogo";
 import { ETIQUETAS, RECURSOS } from "./configuracion";
 
-function valorInicial(campo, fila) {
-  if (!fila) return campo.inicial ?? (campo.tipo === "casilla" ? false : "");
+function valorInicial(campo, fila, iniciales) {
+  if (!fila) return iniciales?.[campo.clave] ?? campo.inicial ?? (campo.tipo === "casilla" ? false : "");
 
   const v = fila[campo.clave];
 
@@ -15,11 +15,11 @@ function valorInicial(campo, fila) {
   return String(v);
 }
 
-function FormularioAdmin({ recurso, fila, datos, alGuardar, alCerrar }) {
+function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar }) {
   const editando = Boolean(fila);
 
   const [valores, setValores] = useState(() =>
-    Object.fromEntries(recurso.campos.map((c) => [c.clave, valorInicial(c, fila)]))
+    Object.fromEntries(recurso.campos.map((c) => [c.clave, valorInicial(c, fila, iniciales)]))
   );
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
