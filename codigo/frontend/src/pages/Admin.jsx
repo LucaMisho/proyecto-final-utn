@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
 import { useAvisos } from "../contexto/Avisos";
 import useTitulo from "../hooks/useTitulo";
 import TablaAdmin from "../components/admin/TablaAdmin";
-import PlanillaAsistencias from "../components/admin/PlanillaAsistencias";
 import { RECURSOS, ETIQUETAS } from "../components/admin/configuracion";
 import { pedir, ErrorDeSesion } from "../components/admin/pedir";
 import "../styles/Admin.css";
@@ -18,33 +17,13 @@ function Admin() {
   const { avisar } = useAvisos();
   const navigate = useNavigate();
 
-  const [activa, setActiva] = useState(() =>
-    usuario?.rol === "PERSONAL" ? "asistencias" : RECURSOS[0].clave
-  );
+  const [activa, setActiva] = useState(RECURSOS[0].clave);
   const [datos, setDatos] = useState(() =>
     Object.fromEntries(RECURSOS.map((r) => [r.clave, ESTADO_INICIAL]))
   );
   const botones = useRef({});
 
   const esAdministrador = usuario?.rol === "ADMINISTRADOR";
-  const esPersonal = usuario?.rol === "PERSONAL";
-  const puedeEntrar = esAdministrador || esPersonal;
-
-  // El personal solo ve la sección de asistencias; el administrador ve todo.
-  const recursosVisibles = useMemo(
-    () =>
-      esAdministrador
-        ? RECURSOS
-        : RECURSOS.filter((recurso) => recurso.clave === "asistencias"),
-    [esAdministrador]
-  );
-
-  useEffect(() => {
-    if (!puedeEntrar) return;
-    if (!recursosVisibles.some((recurso) => recurso.clave === activa)) {
-      setActiva(recursosVisibles[0].clave);
-    }
-  }, [puedeEntrar, recursosVisibles, activa]);
 
   const fallarSesion = useCallback(
     (error) => {
@@ -94,12 +73,12 @@ function Admin() {
 
   function etiquetaDe(relacion, id) {
     const recurso = RECURSOS.find((r) => r.clave === relacion);
-    const fila = (datos[relacion]?.filas ?? []).find((f) => f[recurso.id] === id);
+    const fila = datos[relacion].filas.find((f) => f[recurso.id] === id);
     return fila ? ETIQUETAS[relacion](fila) : `Nº ${id}`;
   }
 
   function moverPestana(e, indice) {
-    const ultimo = recursosVisibles.length - 1;
+    const ultimo = RECURSOS.length - 1;
     let destino = null;
 
     if (e.key === "ArrowRight") destino = indice === ultimo ? 0 : indice + 1;
@@ -110,7 +89,7 @@ function Admin() {
     if (destino === null) return;
 
     e.preventDefault();
-    const clave = recursosVisibles[destino].clave;
+    const clave = RECURSOS[destino].clave;
     setActiva(clave);
     botones.current[clave]?.focus();
   }
@@ -125,7 +104,7 @@ function Admin() {
     );
   }
 
-  if (!puedeEntrar) {
+  if (!esAdministrador) {
     return (
       <section className="admin-pagina">
         <h1>Administración</h1>
@@ -139,32 +118,14 @@ function Admin() {
     );
   }
 
-  const recursoActivo =
-    recursosVisibles.find((r) => r.clave === activa) ?? recursosVisibles[0];
-  const usaPlanilla = recursoActivo.vista === "planilla";
-
-  const tablaAdmin = (
-    <TablaAdmin
-      key={activa}
-      recurso={recursoActivo}
-      estado={datos[activa] ?? ESTADO_INICIAL}
-      datos={datos}
-      etiquetaDe={etiquetaDe}
-      sesion={usuario}
-      token={token}
-      avisar={avisar}
-      alCambiar={alCambiar}
-      alFallarSesion={fallarSesion}
-      alReintentar={cargar}
-    />
-  );
+  const recursoActivo = RECURSOS.find((r) => r.clave === activa);
 
   return (
     <section className="admin-pagina">
       <h1>Panel de administración</h1>
 
       <div className="admin-pestanas" role="tablist" aria-label="Secciones de administración">
-        {recursosVisibles.map((r, indice) => (
+        {RECURSOS.map((r, indice) => (
           <button
             key={r.clave}
             type="button"
@@ -193,24 +154,19 @@ function Admin() {
       >
         <h2 tabIndex={-1}>{recursoActivo.titulo}</h2>
 
-        {usaPlanilla ? (
-          <>
-            <PlanillaAsistencias
-              token={token}
-              avisar={avisar}
-              alFallarSesion={fallarSesion}
-            />
-
-            {esAdministrador && (
-              <details className="planilla-registros">
-                <summary>Registros de asistencia</summary>
-                {tablaAdmin}
-              </details>
-            )}
-          </>
-        ) : (
-          tablaAdmin
-        )}
+        <TablaAdmin
+          key={activa}
+          recurso={recursoActivo}
+          estado={datos[activa]}
+          datos={datos}
+          etiquetaDe={etiquetaDe}
+          sesion={usuario}
+          token={token}
+          avisar={avisar}
+          alCambiar={alCambiar}
+          alFallarSesion={fallarSesion}
+          alReintentar={cargar}
+        />
       </div>
     </section>
   );

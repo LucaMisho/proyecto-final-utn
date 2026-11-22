@@ -112,7 +112,6 @@ export const RECURSOS = [
     singular: "asistencia",
     ruta: "asistencias",
     id: "id_asistencia",
-    vista: "planilla",
     columnas: [
       { clave: "fecha", titulo: "Fecha", mostrar: fecha },
       { clave: "id_alumno", titulo: "Alumno", relacion: "alumnos" },
@@ -120,20 +119,10 @@ export const RECURSOS = [
       { clave: "presente", titulo: "Presente", mostrar: SI_NO },
     ],
     campos: [
-      {
-        clave: "id_taller",
-        etiqueta: "Taller",
-        tipo: "relacion",
-        relacion: "talleres",
-        requerido: true,
-      },
-      {
-        clave: "fecha",
-        etiqueta: "Fecha",
-        tipo: "texto",
-        inicial: new Date().toLocaleDateString("en-CA"),
-        requerido: true,
-      },
+      { clave: "id_alumno", etiqueta: "Alumno", tipo: "relacion", relacion: "alumnos", requerido: true },
+      { clave: "id_taller", etiqueta: "Taller", tipo: "relacion", relacion: "talleres", requerido: true },
+      { clave: "fecha", etiqueta: "Fecha", tipo: "fecha", requerido: true },
+      { clave: "presente", etiqueta: "Estuvo presente", tipo: "casilla", inicial: true },
     ],
     nombreDe: (a) => `asistencia del ${fecha(a.fecha)}`,
   },

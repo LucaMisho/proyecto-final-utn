@@ -1,309 +1,163 @@
-
-/* =========================================
-   SECCIÓN SUGERENCIAS
-========================================= */
-
+/* SECCIÓN SUGERENCIAS (la banda de color viene de texturas.css) */
 .sugerencias {
-  position: relative;
-  isolation: isolate;
   width: 100%;
   padding: var(--espacio-seccion, clamp(3.5rem, 8vw, 6.5rem)) 24px;
   font-family: 'Montserrat', sans-serif;
 }
 
-
-.sugerencias::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  z-index: -1;
-
-  background-image:
-    radial-gradient(
-      circle at 20% 25%,
-      rgba(255, 130, 230, 0.35),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 75%,
-      rgba(130, 80, 255, 0.35),
-      transparent 40%
-    ),
-    linear-gradient(
-      rgba(199, 110, 231, 0.75),
-      rgba(204, 124, 211, 0.75)),
-    url("../assets/fondo_sugerencias.png");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-}
-/* CONTENEDOR PRINCIPAL */
-
+/* Dos columnas: texto | formulario */
 .sugerencias-contenedor {
   max-width: 1100px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
+  grid-template-columns: 1fr 1.1fr;
   align-items: center;
-  gap: clamp(2.5rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 4rem);
 }
 
-/* =========================================
-   COLUMNA DE TEXTO
-========================================= */
-
+/* COLUMNA DE TEXTO */
 .sugerencias-texto {
   text-align: left;
 }
 
 .sugerencias-icono {
-  position: relative;
-  width: 62px;
-  height: 62px;
-  margin-bottom: 24px;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
 
   display: grid;
   place-items: center;
 
   color: #FFFFFF;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #720072, #A52BA5);
-  box-shadow: 0 12px 28px rgba(114, 0, 114, 0.22);
-
-  transform: rotate(-5deg);
-  transition: transform 0.3s ease;
-}
-
-.sugerencias-icono:hover {
-  transform: rotate(0deg) translateY(-3px);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #720072, #990099);
+  box-shadow: 0 10px 22px rgba(117, 0, 116, 0.3);
+  transform: rotate(-6deg);
 }
 
 .sugerencias-icono svg {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 .sugerencias-etiqueta {
-  display: inline-block;
-  margin-bottom: 12px;
+  display: block;
+  margin-bottom: 10px;
 
   color: #990099;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .sugerencias h2 {
-  max-width: 480px;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
 
-  color: #650065;
-  font-size: clamp(28px, 3.5vw, 42px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.035em;
+  color: #720072;
+  font-size: clamp(26px, 3.6vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .sugerencias-texto p {
-  max-width: 46ch;
+  max-width: 44ch;
   margin: 0;
 
-  color: #655568;
-  font-size: 14px;
-  line-height: 1.9;
+  color: #5A4A5A;
+  font-size: clamp(13px, 1.5vw, 15px);
+  line-height: 1.8;
 }
 
-/* DETALLES DECORATIVOS */
-
-.sugerencias-beneficios {
+/* TARJETA DEL FORMULARIO */
+.sugerencias-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.sugerencias-beneficio {
-  display: flex;
-  align-items: center;
   gap: 12px;
 
-  color: #604B65;
-  font-size: 13px;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FDF3FD 100%);
+  border: 1px solid rgba(153, 0, 153, 0.1);
+  border-radius: 24px;
+  box-shadow:
+    0 1px 2px rgba(74, 0, 72, 0.06),
+    0 18px 40px rgba(117, 0, 116, 0.18);
+}
+
+.sugerencias-form label {
+  color: #720072;
+  font-size: 14px;
   font-weight: 600;
 }
 
-.sugerencias-beneficio-icono {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-
-  display: grid;
-  place-items: center;
-
-  color: #850085;
-  background: rgba(153, 0, 153, 0.09);
-  border-radius: 10px;
-}
-
-/* =========================================
-   TARJETA DEL FORMULARIO
-========================================= */
-
-.sugerencias-form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  padding: clamp(24px, 3.5vw, 34px);
-
-  background: #FFFFFF;
-  border: 1px solid rgba(114, 0, 114, 0.09);
-  border-radius: 22px;
-
-  box-shadow:
-    0 3px 8px rgba(74, 0, 72, 0.03),
-    0 18px 45px rgba(74, 0, 72, 0.10);
-
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.sugerencias-form:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 5px 12px rgba(74, 0, 72, 0.04),
-    0 22px 50px rgba(74, 0, 72, 0.14);
-}
-
-/* ENCABEZADO DEL FORMULARIO */
-
-.sugerencias-form label {
-  color: #650065;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.sugerencias-form::before {
-  content: "COMPARTÍ TU IDEA";
-  display: block;
-
-  color: #A044A0;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-}
-
-/* ÁREA DE TEXTO */
-
 .sugerencias-form textarea {
   width: 100%;
-  min-height: 185px;
-  padding: 17px;
+  min-height: 170px;
+  padding: 14px 16px;
 
   resize: vertical;
   font-family: inherit;
-  font-size: 13px;
-  line-height: 1.8;
-  color: #352A38;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #292929;
 
-  background: #FCF9FC;
-  border: 1px solid #E9D9E9;
-  border-radius: 13px;
-
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    box-shadow 0.25s ease;
+  background-color: #FFFFFF;
+  border: 1px solid #E3B8E3;
+  border-radius: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .sugerencias-form textarea::placeholder {
-  color: #A497A6;
+  color: #8A7A8A;
 }
 
 .sugerencias-form textarea:focus {
   outline: none;
-  background: #FFFFFF;
   border-color: #990099;
-  box-shadow: 0 0 0 4px rgba(153, 0, 153, 0.09);
+  box-shadow: 0 0 0 4px rgba(153, 0, 153, 0.15);
 }
-
-/* PIE DEL FORMULARIO */
 
 .sugerencias-pie {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 12px;
 }
 
 .sugerencias-contador {
-  color: #958598;
-  font-size: 11px;
-  font-weight: 600;
+  color: #8A7A8A;
+  font-size: 12px;
 }
 
-/* BOTÓN */
-
 .sugerencias-form button {
-  padding: 13px 25px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  padding: 12px 28px;
 
   border: none;
-  border-radius: 10px;
+  border-radius: 999px;
   cursor: pointer;
 
   color: #FFFFFF;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
 
   background: linear-gradient(135deg, #720072, #990099);
-  box-shadow: 0 7px 18px rgba(114, 0, 114, 0.20);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
+  box-shadow: 0 8px 18px rgba(117, 0, 116, 0.3);
+  transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
 }
 
 .sugerencias-form button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 11px 23px rgba(114, 0, 114, 0.28);
-}
-
-.sugerencias-form button:active:not(:disabled) {
-  transform: translateY(0);
+  box-shadow: 0 12px 24px rgba(117, 0, 116, 0.38);
 }
 
 .sugerencias-form button:focus-visible {
-  outline: 3px solid #E7A8E7;
+  outline: 3px solid #FF9AD5;
   outline-offset: 3px;
 }
 
 .sugerencias-form button:disabled {
-<<<<<<< HEAD
-  opacity: 0.5;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* =========================================
-   AVISO PARA USUARIOS SIN SESIÓN
-========================================= */
-=======
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -334,22 +188,16 @@
     transition: none;
   }
 }
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 
 .sugerencias-aviso {
-  align-items: center;
-  justify-content: center;
-  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   text-align: center;
 }
 
 .sugerencias-aviso p {
-  max-width: 330px;
   margin: 0;
-
-  color: #655568;
-  font-size: 14px;
-  line-height: 1.8;
 }
 
 .sugerencias-aviso-acciones {
@@ -357,114 +205,24 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin-top: 8px;
 }
 
 .sugerencias-aviso-enlace {
-  padding: 11px 22px;
-
-  border: 1px solid #720072;
-  border-radius: 9px;
-
-  background: #720072;
+  padding: 10px 22px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #720072;
   color: #FFFFFF;
-
-  font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: none;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
 .sugerencias-aviso-enlace--secundario {
-  background: #FFFFFF;
+  background-color: #FFFFFF;
   color: #720072;
 }
 
-.sugerencias-aviso-enlace:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(114, 0, 114, 0.15);
-}
-
+.sugerencias-aviso-enlace:hover,
 .sugerencias-aviso-enlace:focus-visible {
-<<<<<<< HEAD
-  outline: 3px solid #E7A8E7;
-  outline-offset: 3px;
-}
-
-/* =========================================
-   TABLETS Y CELULARES
-========================================= */
-
-@media (max-width: 800px) {
-  .sugerencias-contenedor {
-    grid-template-columns: 1fr;
-    gap: 35px;
-    max-width: 620px;
-  }
-
-  .sugerencias-texto {
-    text-align: center;
-  }
-
-  .sugerencias-icono {
-    margin: 0 auto 22px;
-  }
-
-  .sugerencias h2 {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .sugerencias-texto p {
-    margin: 0 auto;
-  }
-
-  .sugerencias-beneficios {
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .sugerencias {
-    padding-left: 17px;
-    padding-right: 17px;
-  }
-
-  .sugerencias-form {
-    padding: 22px 18px;
-    border-radius: 17px;
-  }
-
-  .sugerencias-form textarea {
-    min-height: 160px;
-  }
-
-  .sugerencias-pie {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .sugerencias-form button {
-    width: 100%;
-  }
-}
-
-/* =========================================
-   ACCESIBILIDAD
-========================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .sugerencias *,
-  .sugerencias *::before,
-  .sugerencias *::after {
-    transition: none !important;
-    animation: none !important;
-  }
-=======
   opacity: 0.85;
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 }

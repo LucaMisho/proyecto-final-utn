@@ -1,34 +1,49 @@
-import { Link } from "react-router-dom";
-import useNovedades from "../../hooks/useNovedades";
-import NovedadesLista from "./NovedadesLista";
 import Reveal from "./Reveal";
 import "../../styles/Novedades.css";
 
 function Novedades() {
-  const { novedades, cargando, error, recargar } = useNovedades(3);
+  const novedades = [
+    {
+      imagen: "/novedad1.png",
+      fecha: "10 nov",
+      categoria: "Actividades",
+      titulo: "Nueva jornada de talleres en Barrio Cultura",
+      descripcion:
+        "Sumate este sábado a las actividades al aire libre.",
+    },
+    {
+      imagen: "/novedad2.jpeg",
+      fecha: "08 nov",
+      categoria: "Talleres",
+      titulo: "Nuevas propuestas para aprender",
+      descripcion:
+        "Conocé las actividades y talleres disponibles en nuestros barrios.",
+    },
+    {
+      imagen: "/novedad3.jpeg",
+      fecha: "05 nov",
+      categoria: "Comunidad",
+      titulo: "Seguimos creciendo juntos",
+      descripcion:
+        "Compartimos experiencias y momentos con nuestra comunidad.",
+    },
+  ];
 
   return (
-    <section className="novedades banda banda--celeste banda--parallax" id="novedades">
+    <section className="novedades banda banda--celeste" id="novedades">
       <Reveal className="novedades-encabezado">
-         <div>
-        <h2>Novedades</h2>
-        <p className="novedades-subtitulo">Lo último de nuestros barrios</p>
+        <div>
+          <h2>Novedades</h2>
+          <p className="novedades-subtitulo">
+            Lo último de nuestros barrios
+          </p>
         </div>
+
+        <a href="#todas-las-novedades" className="novedades-ver-todas">
+          Ver todas →
+        </a>
       </Reveal>
 
-<<<<<<< HEAD
-      <NovedadesLista
-        novedades={novedades}
-        cargando={cargando}
-        error={error}
-        onReintentar={recargar}
-      />
-
-      <div className="novedades-pie">
-        <Link to="/novedades" className="novedades-ver-todas">
-          Ver todas las novedades →
-        </Link>
-=======
       <div className="novedades-contenido">
         {novedades.map((novedad, index) => (
           <Reveal
@@ -63,9 +78,7 @@ function Novedades() {
             </div>
           </Reveal>
         ))}
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
       </div>
-
     </section>
   );
 }

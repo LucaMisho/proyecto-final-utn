@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../config/api";
@@ -56,9 +55,10 @@ function Sugerencias() {
   }
 
   return (
-    
     <section className="sugerencias banda banda--rosa" id="sugerencias">
       <div className="sugerencias-contenedor">
+
+        {/* Columna de texto */}
         <Reveal className="sugerencias-texto">
           <div className="sugerencias-icono" aria-hidden="true">
             <svg
@@ -73,7 +73,6 @@ function Sugerencias() {
               <path d="M9 11h6M9 14h4" />
             </svg>
           </div>
-          
 
           <span className="sugerencias-etiqueta">Participá y compartí</span>
           <h2>¡Tu opinión nos importa!</h2>
@@ -84,11 +83,7 @@ function Sugerencias() {
           </p>
         </Reveal>
 
-<<<<<<< HEAD
-
         {/* Columna del formulario */}
-=======
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
         <Reveal delay={2}>
           {usuario ? (
             <form className="sugerencias-form" onSubmit={manejarEnvio}>
@@ -112,9 +107,7 @@ function Sugerencias() {
                 </button>
               </div>
             </form>
-            
           ) : (
-            
             <div className="sugerencias-form sugerencias-aviso">
               <p>Para enviar una sugerencia necesitás tener una cuenta.</p>
 
@@ -122,22 +115,17 @@ function Sugerencias() {
                 <Link to="/login" className="sugerencias-aviso-enlace">
                   Iniciar sesión
                 </Link>
-                <Link
-                  to="/registro"
-                  className="sugerencias-aviso-enlace sugerencias-aviso-enlace--secundario"
-                >
+                <Link to="/registro" className="sugerencias-aviso-enlace sugerencias-aviso-enlace--secundario">
                   Crear cuenta
                 </Link>
               </div>
-              
             </div>
-            
           )}
         </Reveal>
+
       </div>
     </section>
   );
-  
 }
 
 export default Sugerencias;

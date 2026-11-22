@@ -56,41 +56,10 @@ async function borrar(req, res) {
     }
 }
 
-// Obtener planilla mensual de un taller
-async function obtenerPlanilla(req, res) {
-    try {
-        const planilla = await asistenciaService.obtenerPlanilla(
-            req.params.idTaller,
-            req.params.anio,
-            req.params.mes
-        );
-        res.status(200).json(planilla);
-    } catch (error) {
-        responderError(res, error);
-    }
-}
-
-// Guardar la planilla mensual de un taller
-async function guardarPlanilla(req, res) {
-    try {
-        const planilla = await asistenciaService.guardarPlanilla(
-            req.params.idTaller,
-            req.params.anio,
-            req.params.mes,
-            req.body?.marcas
-        );
-        res.status(200).json(planilla);
-    } catch (error) {
-        responderError(res, error);
-    }
-}
-
 module.exports = {
     listar,
     obtenerPorId,
     crear,
     actualizar,
-    borrar,
-    obtenerPlanilla,
-    guardarPlanilla
+    borrar
 };

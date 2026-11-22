@@ -88,9 +88,6 @@ app.use("/api/redes", redRoutes);
 const sugerenciaRoutes = require("./routes/sugerencias.routes");
 app.use("/api/sugerencias", sugerenciaRoutes);
 
-const novedadesRoutes = require("./routes/novedades.routes");
-app.use("/api/novedades", novedadesRoutes);
-
 // Ruta principal
 app.get("/", (req, res) => {
     res.status(200).json({

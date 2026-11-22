@@ -1,179 +1,98 @@
-
-/* =========================================
-   SECCIÓN NOVEDADES
-========================================= */
-
+/* SECCIÓN NOVEDADES */
 .novedades {
-  position: relative;
-  isolation: isolate;
-  z-index: 0;
-
-  box-sizing: border-box;
   width: 100%;
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 64px 24px 72px;
-  font-family: 'Montserrat', sans-serif;
+  padding: 40px 25px;
+  /* Sin fondo propio: deja ver la textura de muñecos del sitio */
+  background-color: transparent;
+  color: #292929;
 }
 
-/* FONDO VIOLETA A PANTALLA COMPLETA */
-
-.novedades::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  z-index: -1;
-
-  background-image:
-    radial-gradient(
-      circle at 20% 25%,
-      rgba(255, 130, 230, 0.35),
-      transparent 70%
-    ),
-    radial-gradient(
-      circle at 80% 75%,
-      rgba(130, 80, 255, 0.35),
-      transparent 40%
-    ),
-    linear-gradient(
-      rgba(126, 59, 122, 0.75),
-      rgba(145, 78, 151, 0.75)),
-    url("../assets/fondo_mounstros.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-/* =========================================
-   ENCABEZADO
-========================================= */
-
+/* ENCABEZADO */
 .novedades-encabezado {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
-  text-align: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
 }
 
 .novedades h2 {
-  color: #FFFFFF;
-  font-size: 30px;
+  color: #720072;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 5px;
-  text-shadow: 0 2px 8px rgba(50, 0, 70, 0.2);
 }
 
-/* Barra decorativa */
-
-.novedades-encabezado h2::after {
+/* Barra de acento bajo el título */
+.novedades h2::after {
   content: "";
   display: block;
   width: 56px;
   height: 4px;
-  margin: 12px auto 0;
+  margin-top: 8px;
   border-radius: 4px;
-  background: linear-gradient(90deg, #FF9AD5, #FFFFFF);
+  background: linear-gradient(90deg, #990099, #FF9AD5);
 }
 
 .novedades-subtitulo {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 14px;
+  color: #5A4A5A;
+  font-size: 13px;
   margin-top: 8px;
 }
 
-
-/* =========================================
-   CONTENIDO GENERAL
-========================================= */
-
-.novedades-contenido {
-  width: 100%;
-  max-width: 1120px;
-  margin: 45px auto 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  align-items: stretch;
+.novedades-ver-todas {
+  color: #720072;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
 }
 
+.novedades-ver-todas:hover {
+  transform: translateX(4px);
+}
 
-/* =========================================
-   TARJETAS
-========================================= */
+/* CONTENIDO GENERAL */
+.novedades-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
 
+/* TARJETAS */
 .novedad-card {
   display: flex;
   flex-direction: column;
-  min-width: 0;
-  height: 100%;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(0, 110, 160, 0.10);
   border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(20, 70, 100, 0.09);
-  transition: translate 0.35s ease, box-shadow 0.35s ease;
+  background-color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(80, 0, 80, 0.14);
+  /* "translate" es independiente de "transform", así no pelea con la animación de Reveal */
+  transition: translate 0.25s, box-shadow 0.25s;
 }
+
 .novedad-card:hover {
-  translate: 0 -8px;
-  box-shadow: 0 16px 35px rgba(20, 70, 100, 0.16);
+  translate: 0 -6px;
+  box-shadow: 0 14px 30px rgba(80, 0, 80, 0.22);
 }
 
-
-/* =========================================
-   IMÁGENES
-========================================= */
-.novedad-enlace {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: auto;
-  color: #087da8;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: gap 0.25s ease, color 0.25s ease;
-}
-
-.novedad-enlace:hover {
-  gap: 12px;
-  color: #075575;
-}
-
-
+/* Imagen con la misma proporción en todas */
 .novedad-media {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
   overflow: hidden;
-<<<<<<< HEAD
-  background: linear-gradient(135deg, #c5e9f5, #e5f5fa);
-=======
   aspect-ratio: 4 / 3;
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 }
 
 .novedad-imagen {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
-<<<<<<< HEAD
-  transition: transform 0.6s ease;
-}
-
-=======
   transition: transform 0.5s;
 }
 
 
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 .novedad-card:hover .novedad-imagen {
   transform: scale(1.06);
 }
@@ -183,59 +102,31 @@
   position: absolute;
   inset: auto 0 0 0;
   height: 40%;
-
-  background: linear-gradient(
-    to top,
-    rgba(114, 0, 114, 0.45),
-    transparent
-  );
-
+  background: linear-gradient(to top, rgba(114, 0, 114, 0.45), transparent);
   pointer-events: none;
 }
 
-/* Imagen faltante */
-
-.novedad-media--vacia {
-  background: linear-gradient(
-    135deg,
-    #990099 0%,
-    #f0bdf0 100%
-  );
-}
-
-
-/* =========================================
-   INFORMACIÓN DE LAS TARJETAS
-========================================= */
-
+/* INFORMACIÓN */
 .novedad-info {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex: 1;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 23px;
+  gap: 10px;
+  padding: 22px 24px 24px;
 }
-
-/* Textura de muñequitos */
 
 .novedad-info::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-
-  background-image: white;
+  background-image: url("../assets/muñecos-tile.webp");
   background-size: 180px;
-  background-repeat: repeat;
-
-  opacity: 0.15;
+  opacity: 0.06;
   pointer-events: none;
 }
-
-
-/* =========================================
-   CATEGORÍA Y FECHA
-========================================= */
 
 .novedad-meta {
   display: flex;
@@ -245,83 +136,48 @@
 }
 
 .novedad-categoria {
-<<<<<<< HEAD
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  padding: 7px 13px;
-  border-radius: 30px;
-  background: rgba(0, 105, 150, 0.90);
-  color: white;
-  font-size: 0.72rem;
-=======
   padding: 3px 12px;
   border-radius: 999px;
   background-color: #FFE3FF;
   color: #720072;
   font-size: 12px;
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
   font-weight: 700;
-  letter-spacing: 0.4px;
-  backdrop-filter: blur(8px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .novedad-fecha {
-  margin-bottom: 12px;
-  color: #71818b;
-  font-size: 0.78rem;
-  font-weight: 500;
+  color: #5a3a5a;
+  font-size: 13px;
 }
 
-
-/* =========================================
-   TÍTULOS Y DESCRIPCIONES
-========================================= */
-
 .novedad-info h3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  --webkit-line-clamp: 2;
-  overflow: hidden;
-  min-height: 3.2rem;
-  margin: 0 0 12px;
-  color: #174d68;
-  font-size: 1.18rem;
-  line-height: 1.35;
+  margin: 0;
+  color: #292929;
+  font-size: 21px;
   font-weight: 700;
+  line-height: 1.25;
+  display: -webkit-box;
+  --webkit-line-clamp: 2;
+  --webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .novedad-info p {
-<<<<<<< HEAD
-=======
   margin: 0;
   color: #5a3a5a;
   font-size: 15px;
   line-height: 1.5;
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
   display: -webkit-box;
-  -webkit-box-orient: vertical;
   --webkit-line-clamp: 3;
+  --webkit-box-orient: vertical;
   overflow: hidden;
-<<<<<<< HEAD
-  min-height: 4.5rem;
-  margin: 0 0 22px;
-  color: #586b76;
-  font-size: 0.91rem;
-  line-height: 1.6;
-=======
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 }
 
-
-/* =========================================
-   ENLACE CONOCER MÁS
-========================================= */
-
+/* "Conocer más" siempre al fondo, alineado en las tres tarjetas */
 .novedad-info a {
   margin-top: auto;
   padding-top: 8px;
-
   color: #720072;
   font-size: 14px;
   font-weight: 700;
@@ -333,143 +189,31 @@
   text-decoration: underline;
 }
 
+@media (max-width: 720px) {
+  .novedades-contenido {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 
-/* =========================================
-   BOTÓN VER TODAS
-========================================= */
-
-.novedades-pie {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
 }
 
-.novedades-ver-todas {
-  padding: 12px 28px;
-
-  border: 2px solid #FFFFFF;
-  border-radius: 999px;
-
-  background-color: #FFFFFF;
-  color: #720072;
-
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-
-  transition:
-    background-color 0.2s,
-    color 0.2s,
-    transform 0.2s;
-}
-
-.novedades-ver-todas:hover,
-.novedades-ver-todas:focus-visible {
-  background-color: #720072;
-  border-color: #FFFFFF;
-  color: #FFFFFF;
-}
-
-
-/* =========================================
-   ESTADOS DE CARGA Y ERROR
-========================================= */
-
-.novedades-estado {
-  margin: 0 0 18px;
-  padding: 14px;
-
-  border-radius: 8px;
-  background-color: #FFFFFF;
-  color: #4a0048;
-
-  font-size: 14px;
-}
-
-.novedades-error {
-  background-color: #ffebee;
-  color: #b71c1c;
-}
-
-.novedades-error p {
-  margin: 0 0 10px;
-}
-
-.novedades-error button {
-  padding: 8px 18px;
-
-  border: 2px solid #b71c1c;
-  border-radius: 8px;
-
-  background-color: #FFFFFF;
-  color: #b71c1c;
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-}
-
-.novedades-error button:hover {
-  background-color: #b71c1c;
-  color: #FFFFFF;
-}
-
-
-/* =========================================
-   TARJETAS DESTACADAS Y SECUNDARIAS
-========================================= */
-
+/* TARJETAS SECUNDARIAS */
 .novedades-secundarias {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-
-/* =========================================
-   ESCRITORIO
-========================================= */
-
-@media (max-width: 900px) {
-  .novedades-contenido {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* ESCRITORIO */
+@media (min-width: 768px) {
+  .novedades {
+    padding: 50px 35px;
   }
 }
 
-@media (max-width: 600px) {
-  .novedades-contenido {
-    grid-template-columns: 1fr;
-    max-width: 430px;
-    gap: 22px;
-  }
-
-  .novedad-info {
-    padding: 20px;
-  }
-}
-
-/* ACCESIBILIDAD */
 @media (prefers-reduced-motion: reduce) {
   .novedad-card,
-  .novedad-imagen,
-  .novedad-enlace {
-    transition: none;
-  }
-
-}
-
-
-/* =========================================
-   ACCESIBILIDAD: MOVIMIENTO REDUCIDO
-========================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .novedad-card,
-  .novedad-imagen,
-  .novedades-ver-todas {
+  .novedad-imagen {
     transition: none;
   }
 
@@ -477,22 +221,64 @@
     translate: none;
   }
 
-  .novedad-card:hover .novedad-imagen {
+   .novedad-card:hover .novedad-imagen {
     transform: none;
   }
 
+
+
+  .novedades h2 {
+    font-size: 30px;
+  }
+
+  .novedades-subtitulo {
+    font-size: 14px;
+  }
+
+  /* Tarjeta principal horizontal */
+  .novedad-destacada {
+    display: flex;
+    min-height: 280px;
+  }
+
+  .novedad-destacada .novedad-imagen {
+    width: 48%;
+    height: auto;
+    min-height: 280px;
+  }
+
+  .novedad-destacada .novedad-info {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .novedad-destacada .novedad-info h3 {
+    font-size: 22px;
+  }
+
+  .novedad-destacada .novedad-info p {
+    font-size: 14px;
+  }
+
+  /* Dos tarjetas secundarias */
+  .novedades-secundarias {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .novedades-secundarias .novedad-imagen {
+    height: 170px;
+  }
+
+  .novedades-secundarias .novedad-info {
+    padding: 20px;
+  }
 }
 
-<<<<<<< HEAD
-.novedad-placeholder {
-  color: #287b9d;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-
-=======
 /* PANTALLAS GRANDES */
 @media (min-width: 1100px) {
   .novedades {
@@ -515,4 +301,3 @@
     transition: none;
   }
 }
->>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c

@@ -1,27 +1,19 @@
-
-/* =========================================
-   CARRUSEL - ESTILO EDITORIAL
-========================================= */
-
-/* CONTENEDOR */
 .carrusel {
-  height: auto;
-  padding: 0;
+  width: 100%;
   margin: 0;
-  background: transparent;
+  padding: 0;
 }
 
-/* BANNER */
 .carrusel-banner {
   width: 100%;
-  height: clamp(380px, 55vh, 520px);
+  height: 340px;
   position: relative;
   overflow: hidden;
-  background: transparent;
-  border-radius: 0;
+  background-color: #720072;
 }
 
-/* DIAPOSITIVAS */
+/* Cada diapositiva está apilada; la visible aparece con un desvanecido */
+
 .carrusel-diapositivas {
   position: absolute;
   inset: 0;
@@ -41,198 +33,125 @@
   transition: opacity 0.9s ease, visibility 0s;
 }
 
-/* IMAGEN */
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-diapositiva,
+  .carrusel-diapositiva.visible {
+    transition: none;
+  }
+}
+
 .carrusel-fondo {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
-
-  filter: blur(3px) brightness(0.82);
-  transform: scale(1.04);
-
-  transition: filter 0.7s ease;
 }
 
-/* NITIDEZ AL PASAR EL MOUSE */
-@media (hover: hover) and (pointer: fine) {
-  .carrusel-banner:hover .carrusel-fondo {
-    filter: blur(0) brightness(1);
-  }
-}
+/* Panel violeta de la izquierda */
 
-/* DEGRADADO SOBRE LA FOTOGRAFÍA */
-.carrusel-diapositiva::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-
-  background: linear-gradient(
-    90deg,
-    rgba(15, 10, 25, 0.65) 0%,
-    rgba(15, 10, 25, 0.35) 45%,
-    rgba(15, 10, 25, 0.05) 100%
-  );
-
-  pointer-events: none;
-}
-
-/* PANEL EDITORIAL */
 .carrusel-panel {
   position: absolute;
-  z-index: 2;
-
-  top: 50%;
+  top: 0;
   left: 12%;
-  transform: translateY(-50%);
-
-  width: 48%;
-  max-width: 620px;
-  padding: 0;
-
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
+  width: 36%;
+  height: 100%;
+  padding: 35px;
+  background-color: rgba(114, 0, 114, 0.78);
+  color: white;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
-
-  color: white;
 }
 
-/* DETALLE VIOLETA */
-.carrusel-panel::before {
-  content: "";
-  width: 55px;
-  height: 4px;
-
-  background: #dba5ed;
-  border-radius: 5px;
-
-  margin-bottom: 22px;
-}
-
-/* TÍTULO */
 .carrusel-panel h2 {
-  font-size: clamp(38px, 5vw, 62px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-
-  margin: 0 0 20px;
-  color: white;
-
-  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.35);
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
-/* DESCRIPCIÓN */
 .carrusel-panel p {
-  max-width: 480px;
-
-  font-size: 17px;
-  line-height: 1.7;
-
+  font-size: 15px;
+  line-height: 1.6;
   margin: 0;
-  color: rgba(255, 255, 255, 0.96);
-
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* BOTÓN */
+/* Botón */
+
 .carrusel-boton {
   position: absolute;
-  z-index: 3;
-
-  left: 12%;
-  right: auto;
-  top: auto;
-  bottom: 65px;
-
-  padding: 12px 24px;
-
-  background: white;
-  color: #720072;
-
-  border-radius: 4px;
-
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.carrusel-boton:hover {
-  background: #720072;
-  color: white;
-}
-
-/* FLECHAS */
-.carrusel-flecha {
-  position: absolute;
-  z-index: 4;
-
+  right: 15%;
   top: 50%;
   transform: translateY(-50%);
 
-  width: 40px;
-  height: 40px;
+  padding: 13px 25px;
+  border-radius: 25px;
 
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
-
+  background-color: #720072;
   color: white;
-  cursor: pointer;
-  font-size: 16px;
 
-  transition: background 0.3s ease;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-.carrusel-flecha.anterior {
-  left: 18px;
+.carrusel-boton:hover {
+  background-color: #990099;
 }
 
-.carrusel-flecha.siguiente {
-  right: 18px;
-}
+/* Flechas */
 
-.carrusel-flecha:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-/* PAUSA */
-.carrusel-pausa {
+.carrusel-flecha {
   position: absolute;
-  z-index: 4;
+  top: 50%;
+  transform: translateY(-50%);
 
-  right: 18px;
-  bottom: 15px;
-
-  width: 36px;
-  height: 36px;
-
+  width: 38px;
+  height: 38px;
   border: none;
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.85);
   color: #720072;
+  cursor: pointer;
+  font-size: 16px;
+}
 
+.carrusel-flecha.anterior {
+  left: 15px;
+}
+
+.carrusel-flecha.siguiente {
+  right: 15px;
+}
+
+/* Botón de pausa */
+
+.carrusel-pausa {
+  position: absolute;
+  right: 15px;
+  bottom: 12px;
+
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #720072;
   cursor: pointer;
   font-size: 13px;
 }
 
-.carrusel-pausa:hover {
-  background: white;
+.carrusel-pausa:hover,
+.carrusel-flecha:hover {
+  background-color: #FFFFFF;
 }
 
-/* INDICADORES */
+/* Indicadores */
+
 .carrusel-indicadores {
   display: flex;
   justify-content: center;
@@ -243,85 +162,70 @@
 .indicador {
   width: 9px;
   height: 9px;
-
   padding: 0;
   border: none;
-  border-radius: 10px;
-
-  background: #c58bc5;
+  border-radius: 50%;
+  background-color: #c58bc5;
   cursor: pointer;
-
-  transition: width 0.3s ease, background 0.3s ease;
 }
 
 .indicador.activo {
   width: 23px;
-  background: #990099;
+  border-radius: 10px;
+  background-color: #990099;
 }
 
-/* ESCRITORIO GRANDE */
+/* Escritorio grande */
+
 @media (min-width: 1200px) {
   .carrusel-banner {
-    height: 520px;
-  }
-}
-
-/* CELULARES Y TABLETS */
-@media (max-width: 767px) {
-  .carrusel-banner {
-    height: 320px;
-  }
-
-  .carrusel-panel {
-    left: 8%;
-    width: 84%;
-    top: 45%;
-    transform: translateY(-50%);
-  }
-
-  .carrusel-panel::before {
-    width: 40px;
-    margin-bottom: 14px;
+    height: 380px;
   }
 
   .carrusel-panel h2 {
-    font-size: 34px;
-    letter-spacing: -0.8px;
-    margin-bottom: 10px;
+    font-size: 36px;
   }
 
   .carrusel-panel p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 16px;
+  }
+}
+
+/* Celulares y pantallas pequeñas */
+
+@media (max-width: 767px) {
+  .carrusel-banner {
+    height: 280px;
   }
 
-  .carrusel-boton {
-    left: 8%;
-    bottom: 25px;
-    padding: 10px 18px;
+  .carrusel-panel {
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    min-height: 125px;
+    padding: 20px 45px;
+    background-color: rgba(114, 0, 114, 0.82);
+  }
+
+  .carrusel-panel h2 {
+    font-size: 21px;
+    margin-bottom: 6px;
+  }
+
+  .carrusel-panel p {
     font-size: 12px;
   }
 
+  .carrusel-boton {
+    display: none;
+  }
+
   .carrusel-flecha {
-    width: 32px;
-    height: 32px;
-  }
-
-  .carrusel-flecha.anterior {
-    left: 8px;
-  }
-
-  .carrusel-flecha.siguiente {
-    right: 8px;
+    width: 30px;
+    height: 30px;
   }
 }
 
-/* ACCESIBILIDAD */
-@media (prefers-reduced-motion: reduce) {
-  .carrusel-diapositiva,
-  .carrusel-diapositiva.visible,
-  .carrusel-fondo,
-  .indicador {
-    transition: none;
-  }
-}
+
