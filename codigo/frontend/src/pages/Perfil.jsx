@@ -232,9 +232,9 @@ export default function Perfil() {
         </>
       )}
 
-      {usuario.rol === "ADMINISTRADOR" && (
+      {(usuario.rol === "ADMINISTRADOR" || usuario.rol === "PERSONAL") && (
         <Link to="/admin" className="perfil-salir perfil-admin">
-          Panel de administración
+          {usuario.rol === "ADMINISTRADOR" ? "Panel de administración" : "Planilla de asistencias"}
         </Link>
       )}
 

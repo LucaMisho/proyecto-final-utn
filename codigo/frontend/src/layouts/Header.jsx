@@ -1,7 +1,9 @@
+
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
 import logo from "../assets/logo.png";
+import SearchBar from "../components/inicio/SearchBar";
 import "../styles/Header.css";
 
 const SECCIONES = ["novedades", "noticias", "contacto"];
@@ -24,7 +26,6 @@ function Header() {
     window.scrollTo({ top: 0 });
   }
 
-  // Marca en el menú la sección que se está viendo en la página de inicio
   useEffect(() => {
     if (!enInicio) {
       setSeccionActiva("");
@@ -69,7 +70,12 @@ function Header() {
     <header className="header">
 
       {/* Logo */}
-      <Link to="/" className="header-logo" onClick={irAlInicio} aria-label="Ir al inicio">
+      <Link
+        to="/"
+        className="header-logo"
+        onClick={irAlInicio}
+        aria-label="Ir al inicio"
+      >
         <img src={logo} alt="Logo Barrio Cultura" />
       </Link>
 
@@ -78,6 +84,7 @@ function Header() {
         <span>Barrio Cultura</span>
         <span>Envión - Quequén</span>
       </div>
+
 
       {/* Navegación */}
       <nav
@@ -92,11 +99,27 @@ function Header() {
         >
           Inicio
         </Link>
-        <a href="/talleres" onClick={cerrarMenu}>Talleres</a>
-        <a href="/#novedades" onClick={cerrarMenu} {...propiedadesDe("novedades")}>Novedades</a>
-        <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>Noticias</a>
-        <a href="/#contacto" onClick={cerrarMenu} {...propiedadesDe("contacto")}>Contacto</a>
+
+        <Link to="/talleres" onClick={cerrarMenu}>
+          Talleres
+        </Link>
+
+        <a href="/#novedades" onClick={cerrarMenu} {...propiedadesDe("novedades")}>
+          Novedades
+        </a>
+
+        <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>
+          Noticias
+        </a>
+
+        <a href="/#contacto" onClick={cerrarMenu} {...propiedadesDe("contacto")}>
+          Contacto
+        </a>
       </nav>
+
+
+      {/* Buscador compacto (lupa que se expande) */}
+      <SearchBar />
 
       {/* Inicio de sesión o perfil */}
       {usuario ? (

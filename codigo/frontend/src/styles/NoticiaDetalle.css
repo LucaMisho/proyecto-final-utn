@@ -1,0 +1,114 @@
+.noticia-detalle-pagina {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.noticia-detalle-volver {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #720072;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.noticia-detalle-volver:hover,
+.noticia-detalle-volver:focus-visible {
+  text-decoration: underline;
+}
+
+.noticia-detalle {
+  overflow: hidden;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 6px 20px rgba(120, 50, 10, 0.14);
+}
+
+.noticia-detalle-imagen {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+}
+
+.noticia-detalle-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 28px 32px;
+}
+
+.noticia-detalle-fecha {
+  color: #5A3A5A;
+  font-size: 14px;
+}
+
+.noticia-detalle-cuerpo h1 {
+  margin: 0;
+  color: #292929;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.noticia-detalle-texto {
+  margin: 0;
+  color: #4a3a4a;
+  font-size: 17px;
+  line-height: 1.7;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.noticia-detalle-estado {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #4a0048;
+  font-size: 15px;
+}
+
+.noticia-detalle-estado p {
+  margin: 0 0 12px;
+}
+
+.noticia-detalle-error {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.noticia-detalle-error button,
+.noticia-detalle-boton {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #720072;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.noticia-detalle-error button:hover,
+.noticia-detalle-boton:hover {
+  background-color: #720072;
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .noticia-detalle-cuerpo {
+    padding: 20px 20px 28px;
+  }
+
+  .noticia-detalle-cuerpo h1 {
+    font-size: 24px;
+  }
+}

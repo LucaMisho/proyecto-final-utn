@@ -30,7 +30,7 @@ function QuienesSomos() {
 
       <div className="quienes-somos-imagen">
         <img
-          src="/quienes-somos.jpg"
+          src="/carrusel3.jpeg"
           alt="Actividades y encuentros de la comunidad"
         />
       </div>

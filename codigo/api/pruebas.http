@@ -274,6 +274,46 @@ Authorization: Bearer {{tokenUser}}
 GET {{baseUrl}}/asistencias/99999
 Authorization: Bearer {{tokenPersonal}}
 
+### Planilla mensual: consultar como personal -> 200
+GET {{baseUrl}}/asistencias/planilla/1/2026/11
+Authorization: Bearer {{tokenPersonal}}
+
+### Planilla mensual: guardar P y A como personal -> 200
+PUT {{baseUrl}}/asistencias/planilla/1/2026/11
+Authorization: Bearer {{tokenPersonal}}
+Content-Type: application/json
+
+{
+  "marcas": [
+    { "id_alumno": 1, "fecha": "2026-11-03", "presente": true },
+    { "id_alumno": 1, "fecha": "2026-11-05", "presente": false }
+  ]
+}
+
+### Planilla mensual: limpiar todas las marcas del mes -> 200
+PUT {{baseUrl}}/asistencias/planilla/1/2026/11
+Authorization: Bearer {{tokenPersonal}}
+Content-Type: application/json
+
+{
+  "marcas": []
+}
+
+### Planilla mensual: fecha fuera del mes -> 400
+PUT {{baseUrl}}/asistencias/planilla/1/2026/11
+Authorization: Bearer {{tokenPersonal}}
+Content-Type: application/json
+
+{
+  "marcas": [
+    { "id_alumno": 1, "fecha": "2026-12-01", "presente": true }
+  ]
+}
+
+### Planilla mensual: usuario común -> 403
+GET {{baseUrl}}/asistencias/planilla/1/2026/11
+Authorization: Bearer {{tokenUser}}
+
 ### ---------- 4.4 SEGUIMIENTOS ----------
 
 ### Éxito: listar como personal -> 200
@@ -367,3 +407,4 @@ Authorization: Bearer {{tokenUser}}
 Content-Type: application/json
 
 {}
+
