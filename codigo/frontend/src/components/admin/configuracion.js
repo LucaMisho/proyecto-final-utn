@@ -112,6 +112,7 @@ export const RECURSOS = [
     singular: "asistencia",
     ruta: "asistencias",
     id: "id_asistencia",
+    vista: "planilla",
     columnas: [
       { clave: "fecha", titulo: "Fecha", mostrar: fecha },
       { clave: "id_alumno", titulo: "Alumno", relacion: "alumnos" },

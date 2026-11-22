@@ -4,6 +4,7 @@ import { useSesion } from "../contexto/Sesion";
 import { useAvisos } from "../contexto/Avisos";
 import useTitulo from "../hooks/useTitulo";
 import TablaAdmin from "../components/admin/TablaAdmin";
+import PlanillaAsistencias from "../components/admin/PlanillaAsistencias";
 import { RECURSOS, ETIQUETAS } from "../components/admin/configuracion";
 import { pedir, ErrorDeSesion } from "../components/admin/pedir";
 import "../styles/Admin.css";
@@ -119,6 +120,23 @@ function Admin() {
   }
 
   const recursoActivo = RECURSOS.find((r) => r.clave === activa);
+  const usaPlanilla = recursoActivo.vista === "planilla";
+
+  const tablaAdmin = (
+    <TablaAdmin
+      key={activa}
+      recurso={recursoActivo}
+      estado={datos[activa]}
+      datos={datos}
+      etiquetaDe={etiquetaDe}
+      sesion={usuario}
+      token={token}
+      avisar={avisar}
+      alCambiar={alCambiar}
+      alFallarSesion={fallarSesion}
+      alReintentar={cargar}
+    />
+  );
 
   return (
     <section className="admin-pagina">
@@ -154,19 +172,18 @@ function Admin() {
       >
         <h2 tabIndex={-1}>{recursoActivo.titulo}</h2>
 
-        <TablaAdmin
-          key={activa}
-          recurso={recursoActivo}
-          estado={datos[activa]}
-          datos={datos}
-          etiquetaDe={etiquetaDe}
-          sesion={usuario}
-          token={token}
-          avisar={avisar}
-          alCambiar={alCambiar}
-          alFallarSesion={fallarSesion}
-          alReintentar={cargar}
-        />
+        {usaPlanilla ? (
+          <>
+            <PlanillaAsistencias />
+
+            <details className="planilla-registros">
+              <summary>Registros de asistencia</summary>
+              {tablaAdmin}
+            </details>
+          </>
+        ) : (
+          tablaAdmin
+        )}
       </div>
     </section>
   );
