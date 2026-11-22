@@ -1,4 +1,4 @@
-/* Planillas mensuales de asistencia - bloque visual de demostración */
+/* Planillas mensuales de asistencia */
 
 /* Selección de taller */
 .planilla-seleccion {
@@ -67,10 +67,76 @@
   font-weight: 600;
 }
 
+.planilla-talleres {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  max-width: 880px;
+}
+
+.planilla-talleres .planilla-taller {
+  max-width: none;
+}
+
+.planilla-taller__estado {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: #F3DDF3;
+  color: #720072;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .planilla-nota {
   margin: 14px 0 0;
   color: #5A4A5A;
   font-size: 13px;
+}
+
+/* Período consultado */
+.planilla-periodo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.planilla-barra .planilla-periodo {
+  margin-bottom: 0;
+}
+
+.planilla-periodo__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #5A4A5A;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.planilla-periodo__campo select {
+  min-width: 110px;
+  padding: 7px 10px;
+  border: 2px solid #C9A3C9;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #292929;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.planilla-periodo__campo select:focus-visible {
+  outline: 2px solid #720072;
+  outline-offset: 1px;
+}
+
+.planilla-periodo__campo select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Vista de la planilla */
@@ -80,7 +146,10 @@
 
 .planilla-barra {
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 14px;
 }
 
@@ -162,6 +231,57 @@
   border-color: #E4B7B3;
   background-color: #FDE7E7;
   color: #8C1D18;
+}
+
+/* Guardado y mensajes */
+.planilla-guardado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.planilla-guardado__mensajes {
+  flex: 1;
+  min-width: 200px;
+}
+
+.planilla-guardado__mensajes p {
+  margin: 0;
+}
+
+.planilla-alerta {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.planilla-alerta p {
+  margin: 0 0 8px;
+}
+
+.planilla-alerta p:last-child {
+  margin-bottom: 0;
+}
+
+.planilla-alerta--error {
+  border: 1px solid #E4B7B3;
+  background-color: #FDE7E7;
+  color: #8C1D18;
+}
+
+.planilla-alerta--exito {
+  border: 1px solid #B7DCC1;
+  background-color: #E7F6EB;
+  color: #1D6B32;
+}
+
+.planilla-estado {
+  margin: 14px 0;
+  color: #5A4A5A;
+  font-weight: 600;
 }
 
 /* Tabla */
@@ -270,6 +390,11 @@
   outline-offset: 1px;
 }
 
+.planilla-celda:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
 .planilla-celda--presente {
   border-color: #720072;
   background-color: #720072;
@@ -321,6 +446,23 @@
 
   .planilla-encabezado h3 {
     font-size: 20px;
+  }
+
+  .planilla-talleres {
+    grid-template-columns: 1fr;
+  }
+
+  .planilla-periodo {
+    width: 100%;
+  }
+
+  .planilla-periodo__campo {
+    flex: 1;
+  }
+
+  .planilla-periodo__campo select {
+    width: 100%;
+    min-width: 0;
   }
 
   .planilla-columna-nombre {
