@@ -120,19 +120,6 @@ function TablaAdmin({
         </select>
       );
     }
-    if (columna.tipo === "imagen") {
-  const url = fila[columna.clave];
-
-  return url ? (
-    <img
-      src={url}
-      alt={`Imagen de ${recurso.nombreDe(fila)}`}
-      className="admin-miniatura"
-    />
-  ) : (
-    <span className="admin-sin-imagen">Sin imagen</span>
-  );
-}
 
     return textoDeCelda(fila, columna);
   }
