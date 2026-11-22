@@ -197,17 +197,13 @@ export const RECURSOS = [
     columnas: [
       { clave: "nombre", titulo: "Nombre" },
       { clave: "fecha", titulo: "Fecha", mostrar: fecha },
-      { clave: "id_taller", titulo: "Taller", relacion: "talleres" },
-      { clave: "id_barrio", titulo: "Barrio", relacion: "barrios" },
       { clave: "estado", titulo: "Estado" },
     ],
     campos: [
       { clave: "nombre", etiqueta: "Nombre", tipo: "texto", requerido: true },
       { clave: "descripcion", etiqueta: "Descripción", tipo: "area" },
       { clave: "fecha", etiqueta: "Fecha", tipo: "fecha", requerido: true },
-      { clave: "id_taller", etiqueta: "Taller", tipo: "relacion", relacion: "talleres", requerido: true },
-      { clave: "id_barrio", etiqueta: "Barrio", tipo: "relacion", relacion: "barrios", requerido: true },
-      { clave: "estado", etiqueta: "Estado", tipo: "texto" },
+     { clave: "estado", etiqueta: "Estado", tipo: "texto" },
     ],
     nombreDe: (a) => a.nombre,
   },

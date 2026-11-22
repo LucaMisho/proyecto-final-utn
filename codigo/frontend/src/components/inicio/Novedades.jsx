@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import "../../styles/Novedades.css";
+import { Link } from "react-router-dom"; 
 
 function Novedades() {
   const novedades = [
@@ -10,6 +11,7 @@ function Novedades() {
       titulo: "Nueva jornada de talleres en Barrio Cultura",
       descripcion:
         "Sumate este sábado a las actividades al aire libre.",
+        ruta: "/actividades",
     },
     {
       imagen: "/novedad2.jpeg",
@@ -18,6 +20,7 @@ function Novedades() {
       titulo: "Nuevas propuestas para aprender",
       descripcion:
         "Conocé las actividades y talleres disponibles en nuestros barrios.",
+        ruta: "/talleres",
     },
     {
       imagen: "/novedad3.jpeg",
@@ -26,6 +29,7 @@ function Novedades() {
       titulo: "Seguimos creciendo juntos",
       descripcion:
         "Compartimos experiencias y momentos con nuestra comunidad.",
+        ruta: "/comunidad",
     },
   ];
 
@@ -39,9 +43,9 @@ function Novedades() {
           </p>
         </div>
 
-        <a href="#todas-las-novedades" className="novedades-ver-todas">
+       <Link to="/actividades" className="novedades-ver-todas">
           Ver todas →
-        </a>
+        </Link>
       </Reveal>
 
       <div className="novedades-contenido">
@@ -74,7 +78,7 @@ function Novedades() {
               <h3>{novedad.titulo}</h3>
               <p>{novedad.descripcion}</p>
 
-              <a href="#novedad-detalle">Conocer más →</a>
+              <Link to={novedad.ruta}>Conocer más →</Link>
             </div>
           </Reveal>
         ))}
