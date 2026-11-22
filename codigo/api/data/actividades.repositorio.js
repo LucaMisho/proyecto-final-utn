@@ -3,12 +3,12 @@ const pool = require ("./conexion");
 //crearActividad
 async function crearActividad(datos){
     const consulta = `
-    INSERT INTO actividad (id_taller, id_barrio, nombre, descripcion, fecha, estado)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado;
+    INSERT INTO actividad (id_barrio, nombre, descripcion, fecha, estado)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING id_actividad, id_barrio, nombre, descripcion, fecha, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.id_taller ?? null, datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null]);
+    const resultado = await pool.query(consulta, [datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null]);
     return resultado.rows[0];
 }
 
@@ -28,7 +28,7 @@ async function eliminarActividad(id){
 //listarActividades()
 async function listarActividades(){
     const consulta = `
-    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado
+    SELECT id_actividad, id_barrio, nombre, descripcion, fecha, estado
     FROM actividad
     ORDER BY id_actividad;
     `;
@@ -41,12 +41,12 @@ async function listarActividades(){
 async function actualizarActividad(id, datos){
     const consulta = `
     UPDATE actividad
-    SET id_taller = $1, id_barrio = $2, nombre = $3, descripcion = $4, fecha = $5, estado = $6
-    WHERE id_actividad = $7
-    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado;
+    SET id_barrio = $1, nombre = $2, descripcion = $3, fecha = $4, estado = $5
+    WHERE id_actividad = $6
+    RETURNING id_actividad, id_barrio, nombre, descripcion, fecha, estado;
     `;
 
-    const resultado = await pool.query(consulta, [datos.id_taller ?? null, datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null, id]);
+    const resultado = await pool.query(consulta, [datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null, id]);
     return resultado.rows[0] || null;
 
 }
@@ -54,7 +54,7 @@ async function actualizarActividad(id, datos){
 //obtenerActividadPorId()
 async function obtenerActividadPorId(id){
     const consulta = `
-    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado
+    SELECT id_actividad, id_barrio, nombre, descripcion, fecha, estado
     FROM actividad
     WHERE id_actividad = $1;
     `;
