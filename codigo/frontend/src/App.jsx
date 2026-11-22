@@ -9,7 +9,6 @@ import Inicio from "./pages/Inicio";
 import Talleres from "./pages/Talleres";
 import Registro from "./pages/Registro";
 import Login from "./pages/Login";
-import Terminos from "./pages/Terminos";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
 import TodasNovedades from "./pages/TodasNovedades";
@@ -27,7 +26,6 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/noticias" element={<TodasNoticias />} />
           <Route path="/noticias/:id" element={<NoticiaDetalle />} />
-          <Route path="/terminos" element={<Terminos />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/" element={<Inicio />} />

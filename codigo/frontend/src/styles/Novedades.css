@@ -40,10 +40,9 @@
       transparent 40%
     ),
     linear-gradient(
-      rgba(35, 0, 65, 0.12),
-      rgba(35, 0, 65, 0.12)
-    ),
-    url("../assets/fondo_mounstruos.jpeg");
+      rgba(145,50,180,.75),
+      rgba(145,50,180,.75)),
+    url("../assets/fondo_mounstros.jpg");
 
 background-size: cover;
 background-position: center;
@@ -208,7 +207,7 @@ background-repeat: no-repeat;
   inset: 0;
   z-index: -1;
 
-  background-image: url("../assets/muñecos-tile.webp");
+  background-image: white;
   background-size: 180px;
   background-repeat: repeat;
 
@@ -524,3 +523,5 @@ background-repeat: no-repeat;
   }
 
 }
+
+
