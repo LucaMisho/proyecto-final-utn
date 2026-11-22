@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSesion } from "../contexto/Sesion";
@@ -25,7 +29,10 @@ function Header() {
     window.scrollTo({ top: 0 });
   }
 
+<<<<<<< HEAD
   // Marca en el menú la sección que se está viendo en la página de inicio
+=======
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
   useEffect(() => {
     if (!enInicio) {
       setSeccionActiva("");
@@ -70,7 +77,16 @@ function Header() {
     <header className="header">
 
       {/* Logo */}
+<<<<<<< HEAD
       <Link to="/" className="header-logo" onClick={irAlInicio} aria-label="Ir al inicio">
+=======
+      <Link
+        to="/"
+        className="header-logo"
+        onClick={irAlInicio}
+        aria-label="Ir al inicio"
+      >
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
         <img src={logo} alt="Logo Barrio Cultura" />
       </Link>
 
@@ -94,6 +110,7 @@ function Header() {
         >
           Inicio
         </Link>
+<<<<<<< HEAD
         <a href="/talleres" onClick={cerrarMenu}>Talleres</a>
         <a href="/#novedades" onClick={cerrarMenu} {...propiedadesDe("novedades")}>Novedades</a>
         <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>Noticias</a>
@@ -102,6 +119,27 @@ function Header() {
 
 
       {/* Buscador compacto (lupa que se expande) */}
+=======
+
+        <Link to="/talleres" onClick={cerrarMenu}>
+          Talleres
+        </Link>
+
+        <a href="/#novedades" onClick={cerrarMenu} {...propiedadesDe("novedades")}>
+          Novedades
+        </a>
+
+        <a href="/#noticias" onClick={cerrarMenu} {...propiedadesDe("noticias")}>
+          Noticias
+        </a>
+
+        <a href="/#contacto" onClick={cerrarMenu} {...propiedadesDe("contacto")}>
+          Contacto
+        </a>
+      </nav>
+
+      {/* Buscador */}
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
       <SearchBar />
 
       {/* Inicio de sesión o perfil */}

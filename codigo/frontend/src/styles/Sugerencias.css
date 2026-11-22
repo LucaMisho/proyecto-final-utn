@@ -294,6 +294,7 @@
 }
 
 .sugerencias-form button:disabled {
+<<<<<<< HEAD
   opacity: 0.5;
   cursor: not-allowed;
   box-shadow: none;
@@ -302,6 +303,38 @@
 /* =========================================
    AVISO PARA USUARIOS SIN SESIÓN
 ========================================= */
+=======
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* CELULAR / TABLET: una sola columna */
+@media (max-width: 800px) {
+  .sugerencias-contenedor {
+    grid-template-columns: 1fr;
+  }
+
+  .sugerencias-texto {
+    text-align: center;
+  }
+
+  .sugerencias-icono {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sugerencias-texto p {
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sugerencias-form button,
+  .sugerencias-form textarea {
+    transition: none;
+  }
+}
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 
 .sugerencias-aviso {
   align-items: center;
@@ -357,6 +390,7 @@
 }
 
 .sugerencias-aviso-enlace:focus-visible {
+<<<<<<< HEAD
   outline: 3px solid #E7A8E7;
   outline-offset: 3px;
 }
@@ -430,4 +464,7 @@
     transition: none !important;
     animation: none !important;
   }
+=======
+  opacity: 0.85;
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 }

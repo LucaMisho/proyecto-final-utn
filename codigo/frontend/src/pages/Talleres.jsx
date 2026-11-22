@@ -7,6 +7,10 @@ import ModalTaller from "../components/talleres/ModalTaller";
 import { normalizar } from "../components/talleres/Utilidades.js";
 import "../styles/Talleres.css";
 
+<<<<<<< HEAD
+=======
+// Ajustá esta línea a la variable que ya usás en el Login
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 const API = import.meta.env.VITE_API_URL;
 
 function Talleres() {

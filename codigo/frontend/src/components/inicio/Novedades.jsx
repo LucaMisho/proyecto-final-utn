@@ -16,6 +16,7 @@ function Novedades() {
         </div>
       </Reveal>
 
+<<<<<<< HEAD
       <NovedadesLista
         novedades={novedades}
         cargando={cargando}
@@ -27,6 +28,42 @@ function Novedades() {
         <Link to="/novedades" className="novedades-ver-todas">
           Ver todas las novedades →
         </Link>
+=======
+      <div className="novedades-contenido">
+        {novedades.map((novedad, index) => (
+          <Reveal
+            as="article"
+            className="novedad-card"
+            delay={index}
+            key={index}
+          >
+            <div className="novedad-media">
+              <img
+                src={novedad.imagen}
+                alt={novedad.titulo}
+                className="novedad-imagen"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="novedad-info">
+              <div className="novedad-meta">
+                <span className="novedad-categoria">
+                  {novedad.categoria}
+                </span>
+                <span className="novedad-fecha">
+                  {novedad.fecha}
+                </span>
+              </div>
+
+              <h3>{novedad.titulo}</h3>
+              <p>{novedad.descripcion}</p>
+
+              <a href="#novedad-detalle">Conocer más →</a>
+            </div>
+          </Reveal>
+        ))}
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
       </div>
 
     </section>

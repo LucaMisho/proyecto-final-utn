@@ -12,13 +12,21 @@ function Login() {
 
   const { iniciarSesion } = useSesion();
   const { avisar } = useAvisos();
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
   const [username, setUsername] = useState("");
   const [clave, setClave] = useState("");
   const [verClave, setVerClave] = useState(false);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
   const [exito, setExito] = useState(false);
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -71,13 +79,21 @@ function Login() {
       localStorage.setItem("usuario", JSON.stringify(datos.usuario));
 
       setExito(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
       setTimeout(() => {
         iniciarSesion(datos.token, datos.usuario);
         avisar(`Iniciaste sesión como ${datos.usuario.username}.`, "exito");
         navigate("/");
+<<<<<<< HEAD
       }, 3000);
 
+=======
+      }, 3000);  
+    
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
     } catch (error) {
       setError(error.message || "No se pudo conectar con el servidor.");
       setCargando(false);

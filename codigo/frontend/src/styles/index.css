@@ -25,6 +25,8 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Tipografía general */
+
 body {
     margin: 0;
     padding: 0;
@@ -41,7 +43,6 @@ body {
     margin: 0;
 }
 
-
 /* Títulos */
 
 h1, h2, h3, p {
@@ -53,6 +54,7 @@ h1, h2, h3, p {
 a {
     text-decoration: none;
 }
+<<<<<<< HEAD
 
 /* TRANSICIÓN ENTRE NOVEDADES Y NOTICIAS */
 
@@ -164,3 +166,5 @@ a {
 }
 
 
+=======
+>>>>>>> 1239fbefcbdb8750fa98aaac735f7c93c0d3b87c
