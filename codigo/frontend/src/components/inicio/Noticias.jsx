@@ -10,14 +10,32 @@ function Noticias() {
   const noticias = items.map(normalizarNoticia);
 
   return (
-    <section className="noticias banda banda--durazno banda--parallax" id="noticias">
+    <section className="noticias">
+
+      {/* FONDO GEOMÉTRICO ANIMADO */}
+      <div className="noticias-fondo-3d" aria-hidden="true">
+        <span className="figura figura-esfera figura-1"></span>
+        <span className="figura figura-cubo figura-2"></span>
+        <span className="figura figura-anillo figura-3"></span>
+        <span className="figura figura-esfera figura-4"></span>
+        <span className="figura figura-cubo figura-5"></span>
+        <span className="figura figura-anillo figura-6"></span>
+      </div>
+
+      {/* ENCABEZADO */}
       <Reveal className="noticias-encabezado">
-        <h2>Últimas noticias</h2>
+        <span className="noticias-etiqueta">
+          BARRIO CULTURA · ACTUALIDAD
+        </span>
+
+        <h2>Noticias</h2>
+
         <p className="noticias-subtitulo">
-          Enterate de las novedades de nuestra comunidad.
+          Enterate de lo que sucede en nuestra comunidad.
         </p>
       </Reveal>
 
+      {/* LISTADO */}
       <NoticiasLista
         noticias={noticias}
         cargando={cargando}
@@ -25,11 +43,14 @@ function Noticias() {
         onReintentar={recargar}
       />
 
-      <div className="noticias-pie">
+      {/* PIE */}
+      <Reveal className="noticias-pie">
         <Link to="/noticias" className="noticias-ver-todas">
-          Ver todas las noticias →
+          Explorar todas las noticias
+          <span> →</span>
         </Link>
-      </div>
+      </Reveal>
+
     </section>
   );
 }

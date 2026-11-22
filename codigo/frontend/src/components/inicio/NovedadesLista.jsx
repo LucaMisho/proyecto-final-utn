@@ -1,36 +1,61 @@
-import { formatearFecha } from "../../utils/fecha";      // nuevo
+
+import { formatearFecha } from "../../utils/fecha";
 import Reveal from "./Reveal";
 
 function NovedadTarjeta({ novedad, delay }) {
   return (
     <Reveal as="article" className="novedad-card" delay={delay}>
-      <div className={`novedad-media ${novedad.imagen ? "" : "novedad-media--vacia"}`}>
-        {novedad.imagen && (
+      <div
+        className={`novedad-media ${
+          novedad.imagen ? "" : "novedad-media--vacia"
+        }`}
+      >
+        {novedad.imagen ? (
           <img
             src={novedad.imagen}
             alt={novedad.titulo}
             className="novedad-imagen"
             loading="lazy"
           />
+        ) : (
+          <span className="novedad-placeholder">
+            BARRIO CULTURA
+          </span>
         )}
+
+        <span className="novedad-categoria">
+          {novedad.categoria || "Comunidad"}
+        </span>
       </div>
 
       <div className="novedad-info">
-        <div className="novedad-meta">
-          <span className="novedad-categoria">{novedad.categoria}</span>
-          <span className="novedad-fecha">{formatearFecha(novedad.fecha)}</span>
-        </div>
+        {novedad.fecha && (
+          <time
+            className="novedad-fecha"
+            dateTime={String(novedad.fecha).slice(0, 10)}
+          >
+            {formatearFecha(novedad.fecha)}
+          </time>
+        )}
 
         <h3>{novedad.titulo}</h3>
+
         <p>{novedad.descripcion}</p>
 
-        <a href="#novedad-detalle">Conocer más →</a>
+        <a href="#novedad-detalle" className="novedad-enlace">
+          Conocer más <span>→</span>
+        </a>
       </div>
     </Reveal>
   );
 }
 
-export default function NovedadesLista({ novedades, cargando, error, onReintentar }) {
+export default function NovedadesLista({
+  novedades,
+  cargando,
+  error,
+  onReintentar,
+}) {
   return (
     <>
       {cargando && (
@@ -49,18 +74,22 @@ export default function NovedadesLista({ novedades, cargando, error, onReintenta
       )}
 
       {!cargando && !error && novedades.length === 0 && (
-        <p className="novedades-estado">Todavía no hay novedades.</p>
+        <p className="novedades-estado">
+          Todavía no hay novedades.
+        </p>
       )}
 
-      <div className="novedades-contenido">
-        {novedades.map((novedad, index) => (
-          <NovedadTarjeta
-            key={novedad.id_novedad}
-            novedad={novedad}
-            delay={index % 3}
-          />
-        ))}
-      </div>
+      {!cargando && !error && novedades.length > 0 && (
+        <div className="novedades-contenido">
+          {novedades.map((novedad, index) => (
+            <NovedadTarjeta
+              key={novedad.id_novedad}
+              novedad={novedad}
+              delay={index % 3}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }
