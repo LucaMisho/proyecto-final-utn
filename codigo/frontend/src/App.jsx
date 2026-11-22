@@ -13,6 +13,8 @@ import Terminos from "./pages/Terminos";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
 import TodasNovedades from "./pages/TodasNovedades";
+import TodasNoticias from "./pages/TodasNoticias";
+import NoticiaDetalle from "./pages/NoticiaDetalle";
 
 import "./styles/App.css";
 
@@ -23,6 +25,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
+          <Route path="/noticias" element={<TodasNoticias />} />
+          <Route path="/noticias/:id" element={<NoticiaDetalle />} />
           <Route path="/terminos" element={<Terminos />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/admin" element={<Admin />} />

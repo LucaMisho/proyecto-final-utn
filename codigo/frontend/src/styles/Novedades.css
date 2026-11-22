@@ -1,83 +1,144 @@
-/* SECCIÓN NOVEDADES */
+
+/* =========================================
+   SECCIÓN NOVEDADES
+========================================= */
+
 .novedades {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+
+  box-sizing: border-box;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 40px 25px;
-  /* Sin fondo propio: deja ver la textura de muñecos del sitio */
-  background-color: transparent;
-  color: #292929;
+  padding: 64px 24px 72px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* ENCABEZADO */
+/* FONDO VIOLETA A PANTALLA COMPLETA */
+
+.novedades::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: -1;
+
+  background-image:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(255, 130, 230, 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at 80% 75%,
+      rgba(130, 80, 255, 0.35),
+      transparent 40%
+    ),
+    linear-gradient(
+      rgba(35, 0, 65, 0.12),
+      rgba(35, 0, 65, 0.12)
+    ),
+    url("../assets/fondo_mounstruos.jpeg");
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+}
+
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
 .novedades-encabezado {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 22px;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .novedades h2 {
-  color: #720072;
-  font-size: 26px;
+  color: #FFFFFF;
+  font-size: 30px;
   font-weight: 700;
   margin-bottom: 5px;
+  text-shadow: 0 2px 8px rgba(50, 0, 70, 0.2);
 }
 
-/* Barra de acento bajo el título */
-.novedades h2::after {
+/* Barra decorativa */
+
+.novedades-encabezado h2::after {
   content: "";
   display: block;
   width: 56px;
   height: 4px;
-  margin-top: 8px;
+  margin: 12px auto 0;
   border-radius: 4px;
-  background: linear-gradient(90deg, #990099, #FF9AD5);
+  background: linear-gradient(90deg, #FF9AD5, #FFFFFF);
 }
 
 .novedades-subtitulo {
-  color: #5A4A5A;
-  font-size: 13px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
   margin-top: 8px;
 }
 
-.novedades-ver-todas {
-  color: #720072;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
-}
 
-.novedades-ver-todas:hover {
-  transform: translateX(4px);
-}
+/* =========================================
+   CONTENIDO GENERAL
+========================================= */
 
-/* CONTENIDO GENERAL */
 .novedades-contenido {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 32px;
 }
 
-/* TARJETAS */
+
+/* =========================================
+   TARJETAS
+========================================= */
+
 .novedad-card {
   display: flex;
   flex-direction: column;
+  flex: 0 1 calc((100% - 64px) / 3);
+  min-width: 280px;
+
   overflow: hidden;
   border-radius: 18px;
+
   background-color: #FFFFFF;
-  box-shadow: 0 6px 20px rgba(80, 0, 80, 0.14);
-  /* "translate" es independiente de "transform", así no pelea con la animación de Reveal */
-  transition: translate 0.25s, box-shadow 0.25s;
+  border: 1px solid rgba(114, 0, 114, 0.08);
+
+  box-shadow:
+    0 8px 25px rgba(30, 0, 50, 0.20),
+    0 2px 6px rgba(30, 0, 50, 0.08);
+
+  transition:
+    translate 0.25s,
+    box-shadow 0.25s;
 }
 
 .novedad-card:hover {
   translate: 0 -6px;
-  box-shadow: 0 14px 30px rgba(80, 0, 80, 0.22);
+
+  box-shadow:
+    0 16px 35px rgba(30, 0, 50, 0.28);
 }
 
-/* Imagen con la misma proporción en todas */
+
+/* =========================================
+   IMÁGENES
+========================================= */
+
 .novedad-media {
   position: relative;
   overflow: hidden;
@@ -92,7 +153,6 @@
   transition: transform 0.5s;
 }
 
-
 .novedad-card:hover .novedad-imagen {
   transform: scale(1.06);
 }
@@ -102,31 +162,64 @@
   position: absolute;
   inset: auto 0 0 0;
   height: 40%;
-  background: linear-gradient(to top, rgba(114, 0, 114, 0.45), transparent);
+
+  background: linear-gradient(
+    to top,
+    rgba(114, 0, 114, 0.45),
+    transparent
+  );
+
   pointer-events: none;
 }
 
-/* INFORMACIÓN */
+/* Imagen faltante */
+
+.novedad-media--vacia {
+  background: linear-gradient(
+    135deg,
+    #990099 0%,
+    #f0bdf0 100%
+  );
+}
+
+
+/* =========================================
+   INFORMACIÓN DE LAS TARJETAS
+========================================= */
+
 .novedad-info {
   position: relative;
   isolation: isolate;
+
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 10px;
+
   padding: 22px 24px 24px;
+  background-color: #FFFFFF;
 }
+
+/* Textura de muñequitos */
 
 .novedad-info::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
+
   background-image: url("../assets/muñecos-tile.webp");
   background-size: 180px;
+  background-repeat: repeat;
+
   opacity: 0.15;
   pointer-events: none;
 }
+
+
+/* =========================================
+   CATEGORÍA Y FECHA
+========================================= */
 
 .novedad-meta {
   display: flex;
@@ -138,8 +231,10 @@
 .novedad-categoria {
   padding: 3px 12px;
   border-radius: 999px;
+
   background-color: #FFE3FF;
   color: #720072;
+
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -151,33 +246,49 @@
   font-size: 13px;
 }
 
+
+/* =========================================
+   TÍTULOS Y DESCRIPCIONES
+========================================= */
+
 .novedad-info h3 {
   margin: 0;
+
   color: #292929;
   font-size: 21px;
   font-weight: 700;
   line-height: 1.25;
+
   display: -webkit-box;
   --webkit-line-clamp: 2;
-  --webkit-box-orient: vertical;
+  -webkit-box-orient: vertical;
+
   overflow: hidden;
 }
 
 .novedad-info p {
   margin: 0;
+
   color: #5a3a5a;
   font-size: 15px;
   line-height: 1.5;
+
   display: -webkit-box;
   --webkit-line-clamp: 3;
-  --webkit-box-orient: vertical;
+  -webkit-box-orient: vertical;
+
   overflow: hidden;
 }
 
-/* "Conocer más" siempre al fondo, alineado en las tres tarjetas */
+
+/* =========================================
+   ENLACE CONOCER MÁS
+========================================= */
+
 .novedad-info a {
   margin-top: auto;
   padding-top: 8px;
+
   color: #720072;
   font-size: 14px;
   font-weight: 700;
@@ -189,53 +300,113 @@
   text-decoration: underline;
 }
 
-@media (max-width: 720px) {
-  .novedades-contenido {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
 
+/* =========================================
+   BOTÓN VER TODAS
+========================================= */
+
+.novedades-pie {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
-/* TARJETAS SECUNDARIAS */
+.novedades-ver-todas {
+  padding: 12px 28px;
+
+  border: 2px solid #FFFFFF;
+  border-radius: 999px;
+
+  background-color: #FFFFFF;
+  color: #720072;
+
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.novedades-ver-todas:hover,
+.novedades-ver-todas:focus-visible {
+  background-color: #720072;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+
+/* =========================================
+   ESTADOS DE CARGA Y ERROR
+========================================= */
+
+.novedades-estado {
+  margin: 0 0 18px;
+  padding: 14px;
+
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #4a0048;
+
+  font-size: 14px;
+}
+
+.novedades-error {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.novedades-error p {
+  margin: 0 0 10px;
+}
+
+.novedades-error button {
+  padding: 8px 18px;
+
+  border: 2px solid #b71c1c;
+  border-radius: 8px;
+
+  background-color: #FFFFFF;
+  color: #b71c1c;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.novedades-error button:hover {
+  background-color: #b71c1c;
+  color: #FFFFFF;
+}
+
+
+/* =========================================
+   TARJETAS DESTACADAS Y SECUNDARIAS
+========================================= */
+
 .novedades-secundarias {
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 
-/* ESCRITORIO */
+
+/* =========================================
+   ESCRITORIO
+========================================= */
+
 @media (min-width: 768px) {
+
   .novedades {
     padding: 50px 35px;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .novedad-card,
-  .novedad-imagen {
-    transition: none;
-  }
-
-  .novedad-card:hover {
-    translate: none;
-  }
-
-   .novedad-card:hover .novedad-imagen {
-    transform: none;
-  }
-
-
-
-  .novedades h2 {
-    font-size: 30px;
-  }
-
-  .novedades-subtitulo {
-    font-size: 14px;
-  }
 
   /* Tarjeta principal horizontal */
+
   .novedad-destacada {
     display: flex;
     min-height: 280px;
@@ -250,6 +421,7 @@
   .novedad-destacada .novedad-info {
     flex: 1;
     padding: 30px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -265,6 +437,7 @@
   }
 
   /* Dos tarjetas secundarias */
+
   .novedades-secundarias {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -279,8 +452,13 @@
   }
 }
 
-/* PANTALLAS GRANDES */
+
+/* =========================================
+   PANTALLAS GRANDES
+========================================= */
+
 @media (min-width: 1100px) {
+
   .novedades {
     padding: 55px 40px;
   }
@@ -294,125 +472,55 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .novedad-card,
-  .novedad-imagen,
-  .novedades-ver-todas {
-    transition: none;
-  }
-}
 
-/* Si una novedad no tiene imagen, queda un bloque con degradé en lugar de un hueco */
-.novedad-media--vacia {
-  background: linear-gradient(135deg, #990099 0%, #f0bdf0 100%);
-}
-
-.novedades-estado {
-  margin: 0 0 18px;
-  padding: 14px;
-  border-radius: 8px;
-  background-color: #FFFFFF;
-  color: #4a0048;
-  font-size: 14px;
-}
-
-.novedades-error {
-  background-color: #ffebee;
-  color: #b71c1c;
-}
-
-.novedades-error p {
-  margin: 0 0 10px;
-}
-
-.novedades-error button {
-  padding: 8px 18px;
-  border: 2px solid #b71c1c;
-  border-radius: 8px;
-  background-color: #FFFFFF;
-  color: #b71c1c;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.novedades-error button:hover {
-  background-color: #b71c1c;
-  color: #FFFFFF;
-}
-
-/* Sección centrada en un ancho máximo; el fondo de la banda sigue a pantalla completa */
-.novedades {
-  box-sizing: border-box;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 64px 24px 72px;
-}
-
-/* Título, barra y subtítulo al centro */
-.novedades-encabezado {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.novedades-encabezado h2::after {
-  content: "";
-  display: block;
-  width: 56px;
-  height: 4px;
-  margin: 12px auto 0;
-  border-radius: 4px;
-  background: #720072;
-}
-
-/* Tarjetas centradas, también la última fila si queda incompleta */
-.novedades-contenido {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px;
-}
-
-.novedad-card {
-  flex: 0 1 calc((100% - 64px) / 3);
-  min-width: 280px;
-}
-
-/* "Ver todas" centrado debajo, como botón */
-.novedades-pie {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.novedades-ver-todas {
-  padding: 12px 28px;
-  border: 2px solid #720072;
-  border-radius: 999px;
-  background-color: #FFFFFF;
-  color: #720072;
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.novedades-ver-todas:hover,
-.novedades-ver-todas:focus-visible {
-  background-color: #720072;
-  color: #FFFFFF;
-}
+/* =========================================
+   MÓVILES
+========================================= */
 
 @media (max-width: 720px) {
+
   .novedades {
     padding: 48px 18px 56px;
+  }
+
+  .novedades-contenido {
+    gap: 24px;
   }
 
   .novedad-card {
     flex-basis: 100%;
     min-width: 0;
   }
+
+  .novedades h2 {
+    font-size: 26px;
+  }
+
+  .novedades-subtitulo {
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================================
+   ACCESIBILIDAD: MOVIMIENTO REDUCIDO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .novedad-card,
+  .novedad-imagen,
+  .novedades-ver-todas {
+    transition: none;
+  }
+
+  .novedad-card:hover {
+    translate: none;
+  }
+
+  .novedad-card:hover .novedad-imagen {
+    transform: none;
+  }
+
 }
