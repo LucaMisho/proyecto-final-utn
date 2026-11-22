@@ -182,6 +182,7 @@ export const RECURSOS = [
     id: "id_taller",
     columnas: [
       { clave: "nombre", titulo: "Nombre" },
+      { clave: "imagen", titulo: "Imagen", tipo: "imagen" },
       { clave: "id_barrio", titulo: "Barrio", relacion: "barrios" },
       { clave: "dia", titulo: "Días" },
       { clave: "hora_inicio", titulo: "Desde", mostrar: hora },
@@ -199,14 +200,20 @@ export const RECURSOS = [
       { clave: "edad_minima", etiqueta: "Edad mínima", tipo: "numero" },
       { clave: "edad_maxima", etiqueta: "Edad máxima", tipo: "numero" },
       { clave: "cupo", etiqueta: "Cupo", tipo: "numero", requerido: true, minimo: 1 },
-      {
-        clave: "equipo_disponible",
-        etiqueta: "Equipo disponible",
-        tipo: "texto",
-        ayuda: 'Escribí "sí" si el taller cuenta con equipo.',
-      },
-      { clave: "estado", etiqueta: "Estado", tipo: "opciones", opciones: ["activo", "inactivo"], inicial: "activo" },
-    ],
+  {
+    clave: "equipo_disponible",
+    etiqueta: "Equipo disponible",
+    tipo: "texto",
+    ayuda: 'Escribí "sí" si el taller cuenta con equipo.',
+  },
+  {
+    clave: "imagen",
+    etiqueta: "Imagen",
+    tipo: "archivo",
+    ayuda: "Elegí una foto de tu computadora (JPG, PNG o WebP, hasta 5 MB). Mejor si mide al menos 1600 px de ancho.",
+  },
+  { clave: "estado", etiqueta: "Estado", tipo: "opciones", opciones: ["activo", "inactivo"], inicial: "activo" },
+],
     nombreDe: (t) => t.nombre,
   },
   {

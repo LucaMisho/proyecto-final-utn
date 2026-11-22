@@ -6,10 +6,13 @@ import { formatearFecha } from "../utils/fecha";
 import { normalizarNoticia } from "../utils/noticias";
 import "../styles/NoticiaDetalle.css";
 
+const FORMATO_FECHA = { day: "numeric", month: "long", year: "numeric" };
+
 export default function NoticiaDetalle() {
   const { id } = useParams();
 
   const [noticia, setNoticia] = useState(null);
+  const [otras, setOtras] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [noExiste, setNoExiste] = useState(false);
@@ -65,11 +68,35 @@ export default function NoticiaDetalle() {
     window.scrollTo(0, 0);
   }, [cargar]);
 
+  // "Seguir leyendo": secundario, si falla no afecta a la noticia
+  useEffect(() => {
+    let activo = true;
+
+    fetch(`${API}/noticias`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((datos) => {
+        if (!activo || !Array.isArray(datos)) return;
+        setOtras(
+          datos
+            .map(normalizarNoticia)
+            .filter((n) => String(n.id) !== String(id))
+            .slice(0, 6)
+        );
+      })
+      .catch(() => {});
+
+    return () => {
+      activo = false;
+    };
+  }, [id]);
+
   return (
     <section className="noticia-detalle-pagina banda banda--durazno banda--parallax">
-      <Link to="/noticias" className="noticia-detalle-volver">
-        ← Volver a noticias
-      </Link>
+      {!noticia && (
+        <Link to="/noticias" className="noticia-detalle-volver noticia-detalle-volver--suelto">
+          ← Volver a noticias
+        </Link>
+      )}
 
       {cargando && (
         <p className="noticia-detalle-estado" role="status">
@@ -97,32 +124,52 @@ export default function NoticiaDetalle() {
 
       {noticia && (
         <article className="noticia-detalle">
-          {noticia.imagen && (
-            <img
-              src={noticia.imagen}
-              alt={noticia.titulo}
-              className="noticia-detalle-imagen"
-            />
+          <header className="noticia-detalle-portada">
+            {noticia.imagen && (
+  <>
+              <img src={noticia.imagen} alt="" aria-hidden="true" className="noticia-detalle-fondo" />
+              <img src={noticia.imagen} alt={noticia.titulo} className="noticia-detalle-imagen" />
+            </>
           )}
+            <div className="noticia-detalle-portada-texto">
+              <Link to="/noticias" className="noticia-detalle-volver">
+                ← Volver a noticias
+              </Link>
+              {noticia.fecha && (
+                <time
+                  className="noticia-detalle-fecha"
+                  dateTime={String(noticia.fecha).slice(0, 10)}
+                >
+                  {formatearFecha(noticia.fecha, FORMATO_FECHA)}
+                </time>
+              )}
+              <h1>{noticia.titulo}</h1>
+            </div>
+          </header>
 
           <div className="noticia-detalle-cuerpo">
-            {noticia.fecha && (
-              <time
-                className="noticia-detalle-fecha"
-                dateTime={String(noticia.fecha).slice(0, 10)}
-              >
-                {formatearFecha(noticia.fecha, {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </time>
-            )}
-
-            <h1>{noticia.titulo}</h1>
             <p className="noticia-detalle-texto">{noticia.contenido}</p>
           </div>
         </article>
+      )}
+
+      {noticia && otras.length > 0 && (
+        <section className="noticia-detalle-mas">
+          <h2>Seguir leyendo</h2>
+          <div className="noticia-detalle-grilla">
+            {otras.map((n) => (
+              <Link key={n.id} to={`/noticias/${n.id}`} className="noticia-detalle-item">
+                {n.imagen && <img src={n.imagen} alt="" />}
+                {n.fecha && (
+                  <time dateTime={String(n.fecha).slice(0, 10)}>
+                    {formatearFecha(n.fecha, FORMATO_FECHA)}
+                  </time>
+                )}
+                <h3>{n.titulo}</h3>
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
     </section>
   );

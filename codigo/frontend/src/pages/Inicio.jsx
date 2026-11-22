@@ -1,4 +1,4 @@
-
+import ResumenAdmin from "../components/inicio/ResumenAdmin";
 import useTitulo from "../hooks/useTitulo";
 import Carrusel from "../components/inicio/Carrusel";
 import QuienesSomos from "../components/inicio/QuienesSomos";
@@ -31,7 +31,11 @@ export default function Inicio() {
       <Carrusel />
 
       <TransicionSeccion>
+
+        <ResumenAdmin />
+
         <QuienesSomos />
+        
 
         <SeparadorBurbujas />
 

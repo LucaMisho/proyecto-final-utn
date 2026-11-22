@@ -1,27 +1,31 @@
-const pool = require ("./conexion");
+const pool = require("./conexion");
+
+const COLUMNAS = `id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado, imagen`;
 
 //crearTaller
 async function crearTaller(datos){
     const consulta = `
-    INSERT INTO taller (nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-    RETURNING id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado;
+    INSERT INTO taller (nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado, imagen)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+    RETURNING ${COLUMNAS};
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre ?? null,
-     datos.descripcion ?? null,
-     datos.dia ?? null, 
-     datos.hora_inicio ?? null,
-     datos.hora_fin ?? null, 
-     datos.edad_minima ?? null,
-     datos.edad_maxima ?? null, 
-     datos.id_barrio ?? null, 
-     datos.cupo ?? null,
-     datos.equipo_disponible ?? null,
-     datos.estado ?? "activo"]);
+    const resultado = await pool.query(consulta, [
+        datos.nombre ?? null,
+        datos.descripcion ?? null,
+        datos.dia ?? null,
+        datos.hora_inicio ?? null,
+        datos.hora_fin ?? null,
+        datos.edad_minima ?? null,
+        datos.edad_maxima ?? null,
+        datos.id_barrio ?? null,
+        datos.cupo ?? null,
+        datos.equipo_disponible ?? null,
+        datos.estado ?? "activo",
+        datos.imagen ?? null,
+    ]);
     return resultado.rows[0];
 }
-
 
 //eliminarTaller
 async function eliminarTaller(id){
@@ -38,7 +42,7 @@ async function eliminarTaller(id){
 //listarTalleres()
 async function listarTalleres(){
     const consulta = `
-    SELECT id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado
+    SELECT ${COLUMNAS}
     FROM taller
     ORDER BY id_taller;
     `;
@@ -53,20 +57,34 @@ async function actualizarTaller(id, datos){
     UPDATE taller
     SET nombre = $1, descripcion = $2, dia = $3, hora_inicio = $4, hora_fin = $5, edad_minima = $6, edad_maxima = $7, id_barrio = $8, cupo = $9,
     equipo_disponible = $10,
-    estado = $11
-    WHERE id_taller = $12
-    RETURNING id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado;
+    estado = $11,
+    imagen = COALESCE($12, imagen)
+    WHERE id_taller = $13
+    RETURNING ${COLUMNAS};
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre ?? null, datos.descripcion ?? null, datos.dia ?? null, datos.hora_inicio ?? null, datos.hora_fin ?? null, datos.edad_minima ?? null, datos.edad_maxima ?? null, datos.id_barrio ?? null, datos.cupo ?? null, datos.equipo_disponible ?? null, datos.estado ?? "activo", id]);
+    const resultado = await pool.query(consulta, [
+        datos.nombre ?? null,
+        datos.descripcion ?? null,
+        datos.dia ?? null,
+        datos.hora_inicio ?? null,
+        datos.hora_fin ?? null,
+        datos.edad_minima ?? null,
+        datos.edad_maxima ?? null,
+        datos.id_barrio ?? null,
+        datos.cupo ?? null,
+        datos.equipo_disponible ?? null,
+        datos.estado ?? "activo",
+        datos.imagen ?? null,
+        id,
+    ]);
     return resultado.rows[0] || null;
-
 }
 
 //obtenerTallerPorId()
 async function obtenerTallerPorId(id){
     const consulta = `
-    SELECT id_taller, nombre, descripcion, dia, hora_inicio, hora_fin, edad_minima, edad_maxima, id_barrio, cupo, equipo_disponible, estado
+    SELECT ${COLUMNAS}
     FROM taller
     WHERE id_taller = $1;
     `;

@@ -6,14 +6,17 @@ export class ErrorDeSesion extends Error {}
 export async function pedir(ruta, { metodo = "GET", cuerpo, token } = {}) {
   let respuesta;
 
+  // Con FormData (archivos) el navegador pone el Content-Type con su boundary
+  const esFormData = cuerpo instanceof FormData;
+
   try {
     respuesta = await fetch(`${API}/${ruta}`, {
       method: metodo,
       headers: {
         Authorization: `Bearer ${token}`,
-        ...(cuerpo ? { "Content-Type": "application/json" } : {}),
+        ...(cuerpo && !esFormData ? { "Content-Type": "application/json" } : {}),
       },
-      body: cuerpo ? JSON.stringify(cuerpo) : undefined,
+      body: cuerpo ? (esFormData ? cuerpo : JSON.stringify(cuerpo)) : undefined,
     });
   } catch {
     throw new Error("No se pudo conectar con el servidor.");
