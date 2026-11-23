@@ -85,6 +85,7 @@ function Header() {
         <span>Envión - Quequén</span>
       </div>
 
+
       {/* Navegación */}
       <nav
         className={`menu-navegacion ${menuAbierto ? "abierto" : ""}`}
@@ -116,7 +117,8 @@ function Header() {
         </a>
       </nav>
 
-      {/* Buscador */}
+
+      {/* Buscador compacto (lupa que se expande) */}
       <SearchBar />
 
       {/* Inicio de sesión o perfil */}

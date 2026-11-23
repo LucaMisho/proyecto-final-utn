@@ -30,12 +30,12 @@ function Admin() {
   const esPersonal = usuario?.rol === "PERSONAL";
   const puedeEntrar = esAdministrador || esPersonal;
 
-  // El personal solo ve la sección de asistencias; el administrador ve todo.
+  // El administrador ve todas las secciones; el personal solo las que su rol puede usar.
   const recursosVisibles = useMemo(
     () =>
       esAdministrador
-        ? RECURSOS
-        : RECURSOS.filter((recurso) => recurso.clave === "asistencias"),
+        ? RECURSOS.filter((recurso) => !recurso.oculto)
+        : RECURSOS.filter((recurso) => recurso.personal === "pestana"),
     [esAdministrador]
   );
 
@@ -82,9 +82,12 @@ function Admin() {
   );
 
   useEffect(() => {
-    if (!esAdministrador) return;
-    RECURSOS.forEach((r) => cargar(r.clave));
-  }, [esAdministrador, cargar]);
+    if (!puedeEntrar) return;
+    RECURSOS.forEach((r) => {
+      const leePersonal = r.personal === "datos" || (r.personal === "pestana" && r.vista !== "planilla");
+      if (esAdministrador || leePersonal) cargar(r.clave);
+    });
+  }, [puedeEntrar, esAdministrador, cargar]);
 
   function alCambiar(clave) {
     cargar(clave);

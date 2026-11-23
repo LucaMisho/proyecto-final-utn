@@ -296,3 +296,54 @@
   text-decoration: none;
   box-sizing: border-box;
 }
+
+@keyframes perfil-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .perfil-tarjeta {
+    animation: none;
+    transition: none;
+  }
+
+  .perfil-sugerencia {
+    transition: none;
+  }
+}
+.perfil-error-interno {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #ffebee;
+  color: #b71c1c;
+  font-size: 14px;
+}
+
+.perfil-error-interno p {
+  margin: 0 0 10px;
+}
+
+.perfil-error-interno button {
+  padding: 8px 18px;
+  border: 2px solid #b71c1c;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #b71c1c;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.perfil-error-interno button:hover {
+  background-color: #b71c1c;
+  color: #FFFFFF;
+}
+

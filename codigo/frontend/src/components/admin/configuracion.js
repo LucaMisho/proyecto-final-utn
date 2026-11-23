@@ -4,6 +4,7 @@ export const ETIQUETAS = {
   alumnos: (a) => `${a.apellido}, ${a.nombre}`,
   talleres: (t) => t.nombre,
   barrios: (b) => b.nombre,
+  personal: (p) => `${p.apellido}, ${p.nombre}`,
 };
 
 export const ROLES = ["USUARIO", "PERSONAL", "ADMINISTRADOR"];
@@ -54,6 +55,7 @@ export const RECURSOS = [
     titulo: "Alumnos",
     singular: "alumno",
     ruta: "alumnos",
+    personal: "pestana",
     id: "id_alumno",
     columnas: [
       { clave: "apellido", titulo: "Apellido" },
@@ -79,6 +81,7 @@ export const RECURSOS = [
     titulo: "Inscripciones",
     singular: "inscripción",
     ruta: "inscripciones",
+    personal: "pestana",
     id: "id_inscripcion",
     columnas: [
       { clave: "id_alumno", titulo: "Alumno", relacion: "alumnos" },
@@ -111,6 +114,7 @@ export const RECURSOS = [
     titulo: "Asistencias",
     singular: "asistencia",
     ruta: "asistencias",
+    personal: "pestana",
     id: "id_asistencia",
     vista: "planilla",
     columnas: [
@@ -120,6 +124,7 @@ export const RECURSOS = [
       { clave: "presente", titulo: "Presente", mostrar: SI_NO },
     ],
     campos: [
+      { clave: "id_alumno", etiqueta: "Alumno", tipo: "relacion", relacion: "alumnos", requerido: true },
       {
         clave: "id_taller",
         etiqueta: "Taller",
@@ -138,13 +143,46 @@ export const RECURSOS = [
     nombreDe: (a) => `asistencia del ${fecha(a.fecha)}`,
   },
   {
+    clave: "seguimientos",
+    titulo: "Seguimientos",
+    singular: "seguimiento",
+    ruta: "seguimientos",
+    id: "id_seguimiento",
+    personal: "pestana",
+    columnas: [
+      { clave: "fecha", titulo: "Fecha", mostrar: fecha },
+      { clave: "id_alumno", titulo: "Alumno", relacion: "alumnos" },
+      { clave: "id_personal", titulo: "Personal", relacion: "personal" },
+      { clave: "observacion", titulo: "Observación" },
+    ],
+    campos: [
+      { clave: "id_alumno", etiqueta: "Alumno", tipo: "relacion", relacion: "alumnos", requerido: true },
+      { clave: "id_personal", etiqueta: "Personal", tipo: "relacion", relacion: "personal", requerido: true },
+      {
+        clave: "fecha",
+        etiqueta: "Fecha",
+        tipo: "fecha",
+        inicial: new Date().toLocaleDateString("en-CA"),
+        requerido: true,
+      },
+      { clave: "observacion", etiqueta: "Observación", tipo: "area", requerido: true },
+    ],
+    iniciales: (datos, sesion) => {
+      const propio = (datos.personal?.filas ?? []).find((p) => p.id_usuario === sesion.id_usuario);
+      return propio ? { id_personal: String(propio.id_personal) } : {};
+    },
+    nombreDe: (s) => `seguimiento del ${fecha(s.fecha)}`,
+  },
+  {
     clave: "talleres",
     titulo: "Talleres",
     singular: "taller",
     ruta: "talleres",
+    personal: "datos",
     id: "id_taller",
     columnas: [
       { clave: "nombre", titulo: "Nombre" },
+      { clave: "imagen", titulo: "Imagen", tipo: "imagen" },
       { clave: "id_barrio", titulo: "Barrio", relacion: "barrios" },
       { clave: "dia", titulo: "Días" },
       { clave: "hora_inicio", titulo: "Desde", mostrar: hora },
@@ -162,14 +200,20 @@ export const RECURSOS = [
       { clave: "edad_minima", etiqueta: "Edad mínima", tipo: "numero" },
       { clave: "edad_maxima", etiqueta: "Edad máxima", tipo: "numero" },
       { clave: "cupo", etiqueta: "Cupo", tipo: "numero", requerido: true, minimo: 1 },
-      {
-        clave: "equipo_disponible",
-        etiqueta: "Equipo disponible",
-        tipo: "texto",
-        ayuda: 'Escribí "sí" si el taller cuenta con equipo.',
-      },
-      { clave: "estado", etiqueta: "Estado", tipo: "opciones", opciones: ["activo", "inactivo"], inicial: "activo" },
-    ],
+  {
+    clave: "equipo_disponible",
+    etiqueta: "Equipo disponible",
+    tipo: "texto",
+    ayuda: 'Escribí "sí" si el taller cuenta con equipo.',
+  },
+  {
+    clave: "imagen",
+    etiqueta: "Imagen",
+    tipo: "archivo",
+    ayuda: "Elegí una foto de tu computadora (JPG, PNG o WebP, hasta 5 MB). Mejor si mide al menos 1600 px de ancho.",
+  },
+  { clave: "estado", etiqueta: "Estado", tipo: "opciones", opciones: ["activo", "inactivo"], inicial: "activo" },
+],
     nombreDe: (t) => t.nombre,
   },
   {
@@ -226,5 +270,17 @@ export const RECURSOS = [
     ],
     conservar: ["id_usuario"],
     nombreDe: (s) => `sugerencia ${s.id_sugerencia}`,
+  },
+  {
+    clave: "personal",
+    titulo: "Personal",
+    singular: "persona",
+    ruta: "personal",
+    id: "id_personal",
+    personal: "datos",
+    oculto: true,
+    columnas: [],
+    campos: [],
+    nombreDe: (p) => `${p.apellido}, ${p.nombre}`,
   },
 ];

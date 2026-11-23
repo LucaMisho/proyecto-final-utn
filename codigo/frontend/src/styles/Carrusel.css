@@ -1,19 +1,27 @@
+
+/* =========================================
+   CARRUSEL - ESTILO EDITORIAL
+========================================= */
+
+/* CONTENEDOR */
 .carrusel {
-  width: 100%;
-  margin: 0;
+  height: auto;
   padding: 0;
+  margin: 0;
+  background: transparent;
 }
 
+/* BANNER */
 .carrusel-banner {
   width: 100%;
-  height: 340px;
+  height: clamp(380px, 55vh, 520px);
   position: relative;
   overflow: hidden;
-  background-color: #720072;
+  background: transparent;
+  border-radius: 0;
 }
 
-/* Cada diapositiva está apilada; la visible aparece con un desvanecido */
-
+/* DIAPOSITIVAS */
 .carrusel-diapositivas {
   position: absolute;
   inset: 0;
@@ -33,125 +41,198 @@
   transition: opacity 0.9s ease, visibility 0s;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .carrusel-diapositiva,
-  .carrusel-diapositiva.visible {
-    transition: none;
-  }
-}
-
+/* IMAGEN */
 .carrusel-fondo {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+
+  filter: blur(3px) brightness(0.82);
+  transform: scale(1.04);
+
+  transition: filter 0.7s ease;
 }
 
-/* Panel violeta de la izquierda */
+/* NITIDEZ AL PASAR EL MOUSE */
+@media (hover: hover) and (pointer: fine) {
+  .carrusel-banner:hover .carrusel-fondo {
+    filter: blur(0) brightness(1);
+  }
+}
 
+/* DEGRADADO SOBRE LA FOTOGRAFÍA */
+.carrusel-diapositiva::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: linear-gradient(
+    90deg,
+    rgba(15, 10, 25, 0.65) 0%,
+    rgba(15, 10, 25, 0.35) 45%,
+    rgba(15, 10, 25, 0.05) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* PANEL EDITORIAL */
 .carrusel-panel {
   position: absolute;
-  top: 0;
+  z-index: 2;
+
+  top: 50%;
   left: 12%;
-  width: 36%;
-  height: 100%;
-  padding: 35px;
-  background-color: rgba(114, 0, 114, 0.78);
-  color: white;
+  transform: translateY(-50%);
+
+  width: 48%;
+  max-width: 620px;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
+
+  color: white;
 }
 
+/* DETALLE VIOLETA */
+.carrusel-panel::before {
+  content: "";
+  width: 55px;
+  height: 4px;
+
+  background: #dba5ed;
+  border-radius: 5px;
+
+  margin-bottom: 22px;
+}
+
+/* TÍTULO */
 .carrusel-panel h2 {
-  font-family: inherit;
-  font-size: 30px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
+  font-size: clamp(38px, 5vw, 62px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
 
-.carrusel-panel p {
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Botón */
-
-.carrusel-boton {
-  position: absolute;
-  right: 15%;
-  top: 50%;
-  transform: translateY(-50%);
-
-  padding: 13px 25px;
-  border-radius: 25px;
-
-  background-color: #720072;
+  margin: 0 0 20px;
   color: white;
 
-  font-size: 13px;
-  font-weight: 600;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* DESCRIPCIÓN */
+.carrusel-panel p {
+  max-width: 480px;
+
+  font-size: 17px;
+  line-height: 1.7;
+
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* BOTÓN */
+.carrusel-boton {
+  position: absolute;
+  z-index: 3;
+
+  left: 12%;
+  right: auto;
+  top: auto;
+  bottom: 65px;
+
+  padding: 12px 24px;
+
+  background: white;
+  color: #720072;
+
+  border-radius: 4px;
+
+  font-size: 14px;
+  font-weight: 700;
   text-decoration: none;
-  transition: background-color 0.3s;
+
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .carrusel-boton:hover {
-  background-color: #990099;
+  background: #720072;
+  color: white;
 }
 
-/* Flechas */
-
+/* FLECHAS */
 .carrusel-flecha {
   position: absolute;
+  z-index: 4;
+
   top: 50%;
   transform: translateY(-50%);
 
-  width: 38px;
-  height: 38px;
-  border: none;
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
 
-  background-color: rgba(255, 255, 255, 0.85);
-  color: #720072;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+
+  color: white;
   cursor: pointer;
   font-size: 16px;
+
+  transition: background 0.3s ease;
 }
 
 .carrusel-flecha.anterior {
-  left: 15px;
+  left: 18px;
 }
 
 .carrusel-flecha.siguiente {
-  right: 15px;
+  right: 18px;
 }
 
-/* Botón de pausa */
+.carrusel-flecha:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
+/* PAUSA */
 .carrusel-pausa {
   position: absolute;
-  right: 15px;
-  bottom: 12px;
+  z-index: 4;
+
+  right: 18px;
+  bottom: 15px;
 
   width: 36px;
   height: 36px;
+
   border: none;
   border-radius: 50%;
 
-  background-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.8);
   color: #720072;
+
   cursor: pointer;
   font-size: 13px;
 }
 
-.carrusel-pausa:hover,
-.carrusel-flecha:hover {
-  background-color: #FFFFFF;
+.carrusel-pausa:hover {
+  background: white;
 }
 
-/* Indicadores */
-
+/* INDICADORES */
 .carrusel-indicadores {
   display: flex;
   justify-content: center;
@@ -162,70 +243,85 @@
 .indicador {
   width: 9px;
   height: 9px;
+
   padding: 0;
   border: none;
-  border-radius: 50%;
-  background-color: #c58bc5;
+  border-radius: 10px;
+
+  background: #c58bc5;
   cursor: pointer;
+
+  transition: width 0.3s ease, background 0.3s ease;
 }
 
 .indicador.activo {
   width: 23px;
-  border-radius: 10px;
-  background-color: #990099;
+  background: #990099;
 }
 
-/* Escritorio grande */
-
+/* ESCRITORIO GRANDE */
 @media (min-width: 1200px) {
   .carrusel-banner {
-    height: 380px;
-  }
-
-  .carrusel-panel h2 {
-    font-size: 36px;
-  }
-
-  .carrusel-panel p {
-    font-size: 16px;
+    height: 520px;
   }
 }
 
-/* Celulares y pantallas pequeñas */
-
+/* CELULARES Y TABLETS */
 @media (max-width: 767px) {
   .carrusel-banner {
-    height: 280px;
+    height: 320px;
   }
 
   .carrusel-panel {
-    left: 0;
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    height: auto;
-    min-height: 125px;
-    padding: 20px 45px;
-    background-color: rgba(114, 0, 114, 0.82);
+    left: 8%;
+    width: 84%;
+    top: 45%;
+    transform: translateY(-50%);
+  }
+
+  .carrusel-panel::before {
+    width: 40px;
+    margin-bottom: 14px;
   }
 
   .carrusel-panel h2 {
-    font-size: 21px;
-    margin-bottom: 6px;
+    font-size: 34px;
+    letter-spacing: -0.8px;
+    margin-bottom: 10px;
   }
 
   .carrusel-panel p {
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .carrusel-boton {
-    display: none;
+    left: 8%;
+    bottom: 25px;
+    padding: 10px 18px;
+    font-size: 12px;
   }
 
   .carrusel-flecha {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .carrusel-flecha.anterior {
+    left: 8px;
+  }
+
+  .carrusel-flecha.siguiente {
+    right: 8px;
   }
 }
 
-
+/* ACCESIBILIDAD */
+@media (prefers-reduced-motion: reduce) {
+  .carrusel-diapositiva,
+  .carrusel-diapositiva.visible,
+  .carrusel-fondo,
+  .indicador {
+    transition: none;
+  }
+}

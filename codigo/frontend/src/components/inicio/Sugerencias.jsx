@@ -56,6 +56,7 @@ function Sugerencias() {
   }
 
   return (
+    
     <section className="sugerencias banda banda--rosa" id="sugerencias">
       <div className="sugerencias-contenedor">
         <Reveal className="sugerencias-texto">
@@ -72,6 +73,7 @@ function Sugerencias() {
               <path d="M9 11h6M9 14h4" />
             </svg>
           </div>
+          
 
           <span className="sugerencias-etiqueta">Participá y compartí</span>
           <h2>¡Tu opinión nos importa!</h2>
@@ -82,6 +84,8 @@ function Sugerencias() {
           </p>
         </Reveal>
 
+
+        {/* Columna del formulario */}
         <Reveal delay={2}>
           {usuario ? (
             <form className="sugerencias-form" onSubmit={manejarEnvio}>
@@ -105,7 +109,9 @@ function Sugerencias() {
                 </button>
               </div>
             </form>
+            
           ) : (
+            
             <div className="sugerencias-form sugerencias-aviso">
               <p>Para enviar una sugerencia necesitás tener una cuenta.</p>
 
@@ -120,12 +126,15 @@ function Sugerencias() {
                   Crear cuenta
                 </Link>
               </div>
+              
             </div>
+            
           )}
         </Reveal>
       </div>
     </section>
   );
+  
 }
 
 export default Sugerencias;

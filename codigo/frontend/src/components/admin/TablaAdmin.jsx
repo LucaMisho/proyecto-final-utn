@@ -23,10 +23,11 @@ function TablaAdmin({
   const [cambioRol, setCambioRol] = useState(null);
 
   const filas = estado.filas;
+  const puedeEliminar = sesion.rol === "ADMINISTRADOR";
 
   function textoDeCelda(fila, columna) {
     const valor = fila[columna.clave];
-    if (columna.relacion) return etiquetaDe(columna.relacion, valor);
+    if (columna.tipo === "imagen") return "";
     if (columna.mostrar) return columna.mostrar(valor);
     return valor === null || valor === undefined ? "" : String(valor);
   }
@@ -119,6 +120,19 @@ function TablaAdmin({
         </select>
       );
     }
+    if (columna.tipo === "imagen") {
+  const url = fila[columna.clave];
+
+  return url ? (
+    <img
+      src={url}
+      alt={`Imagen de ${recurso.nombreDe(fila)}`}
+      className="admin-miniatura"
+    />
+  ) : (
+    <span className="admin-sin-imagen">Sin imagen</span>
+  );
+}
 
     return textoDeCelda(fila, columna);
   }
@@ -191,19 +205,21 @@ function TablaAdmin({
                       >
                         Editar
                       </button>
-                      <button
-                        type="button"
-                        className="admin-boton admin-boton--chico admin-boton--peligro"
-                        aria-label={
-                          propia
-                            ? "No podés eliminar tu propia cuenta"
-                            : `Eliminar ${recurso.nombreDe(fila)}`
-                        }
-                        disabled={propia}
-                        onClick={() => setAEliminar(fila)}
-                      >
-                        Eliminar
-                      </button>
+                      {puedeEliminar && (
+                        <button
+                          type="button"
+                          className="admin-boton admin-boton--chico admin-boton--peligro"
+                          aria-label={
+                            propia
+                              ? "No podés eliminar tu propia cuenta"
+                              : `Eliminar ${recurso.nombreDe(fila)}`
+                          }
+                          disabled={propia}
+                          onClick={() => setAEliminar(fila)}
+                        >
+                          Eliminar
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -241,6 +257,7 @@ function TablaAdmin({
           recurso={recurso}
           fila={formulario.fila}
           datos={datos}
+          iniciales={recurso.iniciales?.(datos, sesion)}
           alGuardar={guardar}
           alCerrar={() => setFormulario(null)}
         />

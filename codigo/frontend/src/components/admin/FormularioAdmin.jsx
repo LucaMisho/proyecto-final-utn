@@ -1,9 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Dialogo from "./Dialogo";
 import { ETIQUETAS, RECURSOS } from "./configuracion";
 
-function valorInicial(campo, fila) {
-  if (!fila) return campo.inicial ?? (campo.tipo === "casilla" ? false : "");
+const TIPOS_IMAGEN = ["image/jpeg", "image/png", "image/webp"];
+const MAX_MB = 5;
+
+function CampoArchivo({ id, archivo, actual, descripcionId, alElegir, alRechazar }) {
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (!archivo) {
+      setUrl("");
+      return undefined;
+    }
+    const nueva = URL.createObjectURL(archivo);
+    setUrl(nueva);
+    return () => URL.revokeObjectURL(nueva);
+  }, [archivo]);
+
+  function elegir(e) {
+    const elegido = e.target.files?.[0];
+
+    if (!elegido) {
+      alElegir("");
+      return;
+    }
+    if (!TIPOS_IMAGEN.includes(elegido.type)) {
+      alRechazar("La imagen tiene que ser JPG, PNG o WebP.");
+      e.target.value = "";
+      return;
+    }
+    if (elegido.size > MAX_MB * 1024 * 1024) {
+      alRechazar(`La imagen pesa más de ${MAX_MB} MB.`);
+      e.target.value = "";
+      return;
+    }
+    alElegir(elegido);
+  }
+
+  const mostrada = url || actual;
+
+  return (
+    <>
+      {mostrada && (
+        <img src={mostrada} alt="Vista previa de la imagen" className="admin-vista-previa" />
+      )}
+      <input
+        id={id}
+        type="file"
+        accept={TIPOS_IMAGEN.join(",")}
+        aria-describedby={descripcionId}
+        onChange={elegir}
+      />
+    </>
+  );
+}
+
+function valorInicial(campo, fila, iniciales) {
+  if (campo.tipo === "archivo") return "";
+
+  if (!fila) return iniciales?.[campo.clave] ?? campo.inicial ?? (campo.tipo === "casilla" ? false : "");
 
   const v = fila[campo.clave];
 
@@ -15,11 +71,11 @@ function valorInicial(campo, fila) {
   return String(v);
 }
 
-function FormularioAdmin({ recurso, fila, datos, alGuardar, alCerrar }) {
+function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar }) {
   const editando = Boolean(fila);
 
   const [valores, setValores] = useState(() =>
-    Object.fromEntries(recurso.campos.map((c) => [c.clave, valorInicial(c, fila)]))
+    Object.fromEntries(recurso.campos.map((c) => [c.clave, valorInicial(c, fila, iniciales)]))
   );
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
@@ -43,6 +99,7 @@ function FormularioAdmin({ recurso, fila, datos, alGuardar, alCerrar }) {
     const cuerpo = {};
 
     recurso.campos.forEach((c) => {
+      if (c.tipo === "archivo") return;
       const v = valores[c.clave];
 
       if (c.tipo === "casilla") cuerpo[c.clave] = Boolean(v);
@@ -60,7 +117,20 @@ function FormularioAdmin({ recurso, fila, datos, alGuardar, alCerrar }) {
       cuerpo[clave] = fila[clave];
     });
 
-    return recurso.alGuardar ? recurso.alGuardar(cuerpo, fila) : cuerpo;
+    const final = recurso.alGuardar ? recurso.alGuardar(cuerpo, fila) : cuerpo;
+
+    // Sin archivo nuevo se envía JSON como siempre; con archivo, FormData
+    const archivos = recurso.campos.filter(
+      (c) => c.tipo === "archivo" && valores[c.clave] instanceof File
+    );
+    if (archivos.length === 0) return final;
+
+    const formData = new FormData();
+    Object.entries(final).forEach(([clave, valor]) => {
+      if (valor !== null && valor !== undefined) formData.append(clave, valor);
+    });
+    archivos.forEach((c) => formData.append(c.clave, valores[c.clave]));
+    return formData;
   }
 
   async function enviar(e) {
@@ -159,6 +229,20 @@ function FormularioAdmin({ recurso, fila, datos, alGuardar, alCerrar }) {
             </option>
           ))}
         </select>
+      );
+    } else if (c.tipo === "archivo") {
+      control = (
+        <CampoArchivo
+          id={id}
+          archivo={valor}
+          actual={fila?.[c.clave] || ""}
+          descripcionId={c.ayuda ? `${id}-ayuda` : undefined}
+          alElegir={(archivo) => {
+            setError("");
+            cambiar(c.clave, archivo);
+          }}
+          alRechazar={setError}
+        />
       );
     } else {
       const tipoInput = {

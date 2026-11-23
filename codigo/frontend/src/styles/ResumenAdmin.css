@@ -1,0 +1,201 @@
+.resumen-admin {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 56px 24px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.resumen-admin-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto 28px;
+}
+
+/* Etiqueta con puntito que pulsa */
+.resumen-admin-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background-color: #720072;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.resumen-admin-etiqueta::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+  animation: resumen-pulso 2s ease-out infinite;
+}
+
+@keyframes resumen-pulso {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.resumen-admin-encabezado h2 {
+  margin: 0;
+  color: #4a0048;
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+/* Enlace con subrayado que avanza */
+.resumen-admin-enlace {
+  padding-bottom: 3px;
+  color: #720072;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 2px;
+  transition: background-size 0.3s ease;
+}
+
+.resumen-admin-enlace:hover,
+.resumen-admin-enlace:focus-visible {
+  background-size: 100% 2px;
+}
+
+.resumen-admin-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ---------- Tarjetas ---------- */
+.resumen-dato {
+  position: relative;
+  overflow: hidden;
+  padding: 32px 24px 26px;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 6px 20px rgba(120, 50, 10, 0.14);
+  opacity: 0;
+}
+
+.resumen-dato:nth-child(2) { --retraso: 0.15s; }
+.resumen-dato:nth-child(3) { --retraso: 0.3s; }
+
+.resumen-dato > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Entrada: sube y hace un pequeño zoom */
+.resumen-dato--visible {
+  opacity: 1;
+  animation: resumen-entrada 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: var(--retraso, 0s);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes resumen-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.95);
+  }
+}
+
+.resumen-dato--visible:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(114, 0, 114, 0.22);
+}
+
+/* Barra de color arriba, se dibuja de izquierda a derecha */
+.resumen-dato::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #4a0048, #b5309f);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s ease;
+}
+
+.resumen-dato--visible::before {
+  transform: scaleX(1);
+  transition-delay: calc(var(--retraso, 0s) + 0.3s);
+}
+
+/* Círculo difuso decorativo en la esquina */
+.resumen-dato::after {
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: -34px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(181, 48, 159, 0.22), transparent 70%);
+  transform: scale(0);
+  transition: transform 0.9s ease;
+  pointer-events: none;
+}
+
+.resumen-dato--visible::after {
+  transform: scale(1);
+  transition-delay: calc(var(--retraso, 0s) + 0.4s);
+}
+
+/* Número con degradé */
+.resumen-dato-numero {
+  display: block;
+  color: #720072;
+  font-size: clamp(46px, 6vw, 62px);
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #4a0048, #b5309f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.resumen-dato h3 {
+  margin: 14px 0 4px;
+  color: #292929;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.resumen-dato p {
+  margin: 0;
+  color: #5A3A5A;
+  font-size: 14px;
+}
+
+/* Sin animaciones para quien las desactivó en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  .resumen-admin-etiqueta::before,
+  .resumen-dato--visible {
+    animation: none;
+  }
+
+  .resumen-dato,
+  .resumen-dato::before,
+  .resumen-dato::after,
+  .resumen-admin-enlace {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -16,7 +16,7 @@ const diapositivas = [
     titulo: "Talleres para la comunidad",
     subtitulo: "Descubrí nuevas propuestas en nuestros barrios.",
     boton: "Ver talleres",
-    enlace: "#talleres"
+    enlace: "/talleres"
   },
   {
     id: 3,

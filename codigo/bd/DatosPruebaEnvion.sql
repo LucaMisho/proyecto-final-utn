@@ -30,6 +30,13 @@ INSERT INTO noticia (titulo, contenido, fecha_publicacion, imagen, estado) VALUE
 ('Nuevo taller de robotica (borrador)', 'Estamos evaluando sumar un taller de robotica educativa.', '2026-10-25 12:00', NULL, 'borrador');
 
 -- ==========================================
+-- NOVEDADES
+-- ==========================================
+INSERT INTO novedades (titulo, descripcion, categoria, imagen, fecha) VALUES
+  ('Nueva jornada de talleres en Barrio Cultura', 'Sumate este sábado a las actividades al aire libre.', 'Actividades', '/novedad1.png', '2026-11-10'),
+  ('Nuevas propuestas para aprender', 'Conocé las actividades y talleres disponibles en nuestros barrios.', 'Talleres', '/novedad2.jpeg', '2026-11-08'),
+  ('Seguimos creciendo juntos', 'Compartimos experiencias y momentos con nuestra comunidad.', 'Comunidad', '/novedad3.jpeg', '2026-11-05');
+-- ==========================================
 -- ALUMNO
 -- ==========================================
 INSERT INTO alumno (nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio) VALUES

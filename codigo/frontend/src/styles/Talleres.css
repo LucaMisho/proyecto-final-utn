@@ -1,19 +1,66 @@
-/* PÁGINA TALLERES (la banda de color viene de texturas.css) */
+
+/* =========================================
+   PÁGINA TALLERES
+========================================= */
+
 .talleres {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: clamp(2rem, 5vw, 4rem) 20px clamp(3rem, 7vw, 5rem);
+
   font-family: 'Montserrat', sans-serif;
 }
 
+/* FONDO */
+.talleres::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: -1;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(255, 130, 230, 0.35),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 75%,
+      rgba(85, 30, 224, 0.35),
+      transparent 40%
+    ),
+    linear-gradient(
+      rgba(190, 90, 182, 0.75),
+      rgba(155, 75, 175, 0.75)
+    ),
+    url("../assets/fondo_noticias.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ICONOS */
 .icono {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
 }
 
-/* ENCABEZADO Y BUSCADOR */
+/* =========================================
+   ENCABEZADO Y BUSCADOR
+========================================= */
+
 .talleres-encabezado {
   display: flex;
   flex-direction: column;
@@ -39,6 +86,7 @@
   background: linear-gradient(90deg, #990099, #FF9AD5);
 }
 
+/* BUSCADOR */
 .talleres-buscador {
   display: flex;
   align-items: center;
@@ -53,6 +101,7 @@
   background-color: #FFFFFF;
   border: 1.5px solid #720072;
   border-radius: 999px;
+
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
@@ -79,125 +128,184 @@
   color: #6B5B6B;
 }
 
-/* LISTADO: 1 columna en celular, más columnas en pantallas grandes */
+/* =========================================
+   LISTADO DE TALLERES
+========================================= */
+
 .talleres-lista {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
 }
 
-@media (min-width: 700px) {
-  .talleres-lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-}
+/* =========================================
+   TARJETAS
+========================================= */
 
-@media (min-width: 1050px) {
-  .talleres-lista {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-/* TARJETA DE TALLER */
 .taller-card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
 
-  padding: 14px;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+
   background: #FFFFFF;
-  border: 1px solid rgba(153, 0, 153, 0.1);
+  border: 1px solid rgba(114, 0, 114, 0.10);
   border-radius: 20px;
-  box-shadow:
-    0 1px 2px rgba(74, 0, 72, 0.06),
-    0 10px 28px rgba(117, 0, 116, 0.12);
-  transition: transform 0.25s, box-shadow 0.25s;
+
+  box-shadow: 0 8px 25px rgba(74, 0, 72, 0.09);
+
+  transition: translate 0.3s ease, box-shadow 0.3s ease;
 }
 
 .taller-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 1px 2px rgba(74, 0, 72, 0.06),
-    0 18px 40px rgba(117, 0, 116, 0.22);
+  translate: 0 -7px;
+  box-shadow: 0 16px 35px rgba(74, 0, 72, 0.16);
+}
+
+/* =========================================
+   IMÁGENES
+========================================= */
+
+.taller-media {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #720072, #c16ab5);
 }
 
 .taller-imagen {
   display: block;
   width: 100%;
-  height: 170px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: 14px;
+
+  transition: transform 0.55s ease;
 }
 
-/* Sin foto: bloque con degradado y la inicial */
+.taller-card:hover .taller-imagen {
+  transform: scale(1.05);
+}
+
+/* SIN IMAGEN */
 .taller-imagen--vacia {
   display: grid;
   place-items: center;
 
-  color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  color: white;
   font-size: 64px;
   font-weight: 700;
 
   background:
-    radial-gradient(circle at 80% 20%, rgba(255, 154, 213, 0.45), transparent 50%),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 154, 213, 0.45),
+      transparent 50%
+    ),
     linear-gradient(135deg, #720072, #990099);
 }
 
-.taller-card h3 {
-  margin: 0;
-  padding: 0 4px;
-  color: #292929;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.35;
-}
+/* =========================================
+   ESTADO DEL TALLER
+========================================= */
 
-/* ESTADO */
 .taller-estado {
-  display: inline-block;
-  margin-left: 4px;
-  padding: 5px 14px;
-  border-radius: 8px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 13px;
+  border-radius: 30px;
+
   color: #FFFFFF;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
+
+  backdrop-filter: blur(8px);
 }
 
 .taller-estado--disponible {
-  background-color: #1F7A3A;
+  background: rgba(31, 122, 58, 0.92);
 }
 
 .taller-estado--inactivo {
-  background-color: #6B6B6B;
+  background: rgba(85, 85, 85, 0.92);
 }
 
-/* DATOS */
-.taller-meta {
-  width: 100%;
-  margin: 0;
-  padding: 0 4px;
-  list-style: none;
+/* =========================================
+   INFORMACIÓN
+========================================= */
 
+.taller-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+  min-width: 0;
+  padding: 23px;
+  gap: 14px;
+}
+
+/* TÍTULO */
+.taller-card h3 {
+  margin: 0;
+
+  color: #3d1742;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* =========================================
+   DATOS DEL TALLER
+========================================= */
+
+.taller-meta {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
 }
 
 .taller-meta li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: #333333;
-  font-size: 14px;
+  gap: 11px;
+
+  color: #625766;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .taller-meta .icono {
-  color: #720072;
+  color: #990099;
 }
 
-/* BOTÓN */
+/* =========================================
+   BOTÓN
+========================================= */
+
 .taller-boton {
   width: 100%;
   margin-top: auto;
@@ -209,17 +317,18 @@
 
   color: #FFFFFF;
   font-family: inherit;
-  font-size: 15px;
+  font-size: 0.92rem;
   font-weight: 700;
 
   background: linear-gradient(135deg, #720072, #990099);
-  box-shadow: 0 8px 18px rgba(117, 0, 116, 0.28);
-  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 6px 16px rgba(117, 0, 116, 0.20);
+
+  transition: translate 0.25s ease, box-shadow 0.25s ease;
 }
 
 .taller-boton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(117, 0, 116, 0.36);
+  translate: 0 -2px;
+  box-shadow: 0 10px 22px rgba(117, 0, 116, 0.30);
 }
 
 .taller-boton:focus-visible {
@@ -234,17 +343,51 @@
   cursor: not-allowed;
 }
 
-/* MENSAJES */
+/* =========================================
+   MENSAJES Y ESTADOS
+========================================= */
+
 .talleres-mensaje {
   padding: 28px;
+
   text-align: center;
   color: #5A4A5A;
-  background-color: rgba(255, 255, 255, 0.75);
+
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 20px;
 }
 
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+  .talleres-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .talleres-lista {
+    grid-template-columns: 1fr;
+    max-width: 430px;
+    margin: 0 auto;
+    gap: 22px;
+  }
+
+  .taller-info {
+    padding: 20px;
+  }
+}
+
+/* =========================================
+   ACCESIBILIDAD
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .taller-card,
+  .taller-imagen,
   .taller-boton,
   .talleres-buscador {
     transition: none;

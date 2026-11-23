@@ -1,170 +1,325 @@
-/* Registro se carga después de Login.css y solo cambia lo que lo distingue:
-   fondo, tarjeta en dos columnas con panel lateral y color de acento cálido.
-   Para cambiar el acento, editá las variables de .registro-pagina. */
 
-/* ===== Fondo y variables ===== */
+/* ===== REGISTRO ===== */
+
 .registro-pagina {
-  --registro-acento: #c2410c;
-  --registro-acento-oscuro: #9a3412;
-  --registro-acento-suave: rgba(194, 65, 12, 0.18);
-  --registro-acento-foco: rgba(194, 65, 12, 0.45);
-     background: linear-gradient(rgba(74, 0, 72, 0.85), rgba(179, 54, 13, 0.75)),
-       url("../assets/login-fondo.jpeg") center / cover no-repeat;
-  
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
-/* ===== Tarjeta en dos columnas ===== */
-.registro-pagina .registro-contenedor {
-  max-width: 940px;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 5fr 6fr;
-  overflow: hidden;
+.registro-layout {
+  max-width: 1100px;
+  min-height: 720px;
+}
+
+.registro-visual {
+  background-position: center;
+}
+
+.registro-contenedor {
+  justify-content: center;
+  padding: 35px 55px;
 }
 
 .registro-contenido {
-  padding: 40px;
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
 }
 
-/* El "¿Ya tenés una cuenta?" del pie se oculta en escritorio,
-   porque ya aparece en el panel lateral */
+.registro-contenido .login-encabezado {
+  margin-bottom: 27px;
+}
+
+.registro-contenido .login-encabezado img {
+  width: 62px;
+  height: 62px;
+  margin-bottom: 12px;
+}
+
+.registro-contenido .login-encabezado h1 {
+  font-size: 27px;
+}
+
+.registro-formulario {
+  gap: 15px;
+}
+
+.registro-formulario .login-campo {
+  gap: 7px;
+}
+
+.registro-formulario .login-campo input {
+  padding: 12px 14px;
+}
+
+.registro-formulario .login-terminos {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 2px;
+  color: #716a75;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.registro-formulario .login-terminos input {
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  accent-color: #720072;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.registro-formulario .login-terminos label {
+  cursor: pointer;
+}
+
+.registro-formulario .login-terminos a {
+  color: #720072;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.registro-formulario .login-terminos a:hover {
+  text-decoration: underline;
+}
+
+.registro-formulario button[type="submit"] {
+  margin-top: 3px;
+}
+
 .registro-contenido .login-pie {
-  display: none;
+  margin-top: 23px;
 }
 
-/* ===== Panel lateral ===== */
-.registro-lateral {
-  position: relative;
+/* ===== TABLETS ===== */
+
+@media (max-width: 850px) {
+  .registro-layout {
+    min-height: 700px;
+  }
+
+  .registro-contenedor {
+    padding: 35px 28px;
+  }
+}
+
+/* ===== CELULARES ===== */
+
+@media (max-width: 600px) {
+  .registro-layout {
+    min-height: auto;
+  }
+
+  .registro-visual {
+    min-height: 220px;
+  }
+
+  .registro-contenedor {
+    padding: 32px 25px;
+  }
+
+  .registro-contenido .login-encabezado {
+    margin-bottom: 24px;
+  }
+
+  .registro-formulario {
+    gap: 15px;
+  }
+}
+
+/* ===== ENLACE A TÉRMINOS ===== */
+
+.registro-link-terminos {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #720072;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registro-link-terminos:hover {
+  text-decoration: underline;
+}
+
+/* ===== FONDO DEL MODAL ===== */
+
+.terminos-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(25, 12, 30, 0.65);
+  backdrop-filter: blur(5px);
+  animation: terminos-aparecer 0.2s ease;
+}
+
+/* ===== VENTANA ===== */
+
+.terminos-modal {
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 48px 40px;
-  color: white;
-  background: linear-gradient(
-    160deg,
-    #5a005a 0%,
-    #8c1a6a 60%,
-    var(--registro-acento) 130%
-  );
   overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: terminos-subir 0.25s ease;
 }
 
-.registro-lateral::after {
-  content: "";
-  position: absolute;
-  right: -90px;
-  bottom: -90px;
-  width: 280px;
-  height: 280px;
-  border: 40px solid rgba(255, 255, 255, 0.08);
+/* ===== ENCABEZADO ===== */
+
+.terminos-modal-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 24px 28px;
+  border-bottom: 1px solid #eee8f0;
+}
+
+.terminos-etiqueta {
+  color: #91449e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.terminos-modal-encabezado h2 {
+  margin: 7px 0 0;
+  color: #45204f;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.terminos-cerrar {
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  border: none;
   border-radius: 50%;
-  pointer-events: none;
+  background: #f4eff5;
+  color: #65466c;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.registro-lateral h2 {
-  margin: 0 0 14px;
-  font-size: 30px;
-  line-height: 1.2;
+.terminos-cerrar:hover {
+  background: #eaddec;
 }
 
-.registro-lateral p {
-  max-width: 34ch;
+/* ===== CONTENIDO ===== */
+
+.terminos-modal-contenido {
+  padding: 25px 28px;
+  overflow-y: auto;
+  color: #69616d;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.terminos-modal-contenido h3 {
+  margin: 22px 0 7px;
+  color: #54265f;
   font-size: 14px;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
+  font-weight: 800;
 }
 
-.registro-lateral .registro-lateral-pie {
-  margin-top: 28px;
+.terminos-modal-contenido h3:first-of-type {
+  margin-top: 20px;
 }
 
-.registro-lateral a {
+.terminos-modal-contenido p {
+  margin: 0 0 12px;
+}
+
+/* ===== PIE ===== */
+
+.terminos-modal-pie {
+  display: flex;
+  justify-content: flex-end;
+  padding: 17px 28px;
+  border-top: 1px solid #eee8f0;
+}
+
+.terminos-btn-cerrar {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 7px;
+  background: #720072;
   color: white;
+  font-family: inherit;
+  font-size: 12px;
   font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.registro-lateral a:hover {
-  text-decoration-thickness: 2px;
+.terminos-btn-cerrar:hover {
+  background: #8b278b;
 }
 
-.registro-lateral a:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 3px;
-  border-radius: 2px;
+/* ===== ANIMACIONES ===== */
+
+@keyframes terminos-aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* ===== Acento cálido en el formulario ===== */
-.registro-pagina .login-volver,
-.registro-pagina .login-terminos a,
-.registro-pagina .login-pie a {
-  color: var(--registro-acento-oscuro);
-}
-
-.registro-pagina .login-campo input:focus {
-  border-color: var(--registro-acento);
-  box-shadow: 0 0 0 3px var(--registro-acento-suave);
-}
-
-.registro-pagina .login-ver {
-  color: var(--registro-acento-oscuro);
-}
-
-.registro-pagina .login-ver:hover {
-  background: var(--registro-acento-suave);
-}
-
-.registro-pagina .login-ver:focus-visible,
-.registro-pagina .login-terminos input:focus-visible {
-  outline: 2px solid var(--registro-acento);
-}
-
-.registro-pagina .login-terminos input {
-  accent-color: var(--registro-acento);
-}
-
-.registro-pagina .login-formulario button[type="submit"] {
-  background: var(--registro-acento);
-}
-
-.registro-pagina .login-formulario button[type="submit"]:hover {
-  background: var(--registro-acento-oscuro);
-}
-
-.registro-pagina .login-formulario button[type="submit"]:focus-visible {
-  outline: 3px solid var(--registro-acento-foco);
-}
-
-/* ===== Responsive: el panel pasa a ser una franja arriba ===== */
-@media (max-width: 800px) {
-  .registro-pagina .registro-contenedor {
-    max-width: 440px;
-    grid-template-columns: 1fr;
+@keyframes terminos-subir {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
   }
-
-  .registro-lateral {
-    padding: 22px;
-  }
-
-  .registro-lateral::after {
-    display: none;
-  }
-
-  .registro-lateral h2 {
-    margin: 0;
-    font-size: 22px;
-  }
-
-  .registro-lateral p {
-    display: none;
-  }
-
-  .registro-contenido {
-    padding: 30px 22px;
-  }
-
-  .registro-contenido .login-pie {
-    display: block;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+/* ===== CELULARES ===== */
+
+@media (max-width: 600px) {
+  .terminos-overlay {
+    padding: 12px;
+  }
+
+  .terminos-modal {
+    max-height: 90vh;
+  }
+
+  .terminos-modal-encabezado {
+    padding: 20px;
+  }
+
+  .terminos-modal-encabezado h2 {
+    font-size: 19px;
+  }
+
+  .terminos-modal-contenido {
+    padding: 20px;
+  }
+
+  .terminos-modal-pie {
+    padding: 15px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminos-overlay,
+  .terminos-modal {
+    animation: none;
+  }
+}
+
