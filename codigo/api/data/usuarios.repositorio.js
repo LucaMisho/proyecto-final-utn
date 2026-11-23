@@ -3,9 +3,9 @@ const pool = require ("./conexion");
 //crearUsuario
 async function crearUsuario(datos, claveHash){
     const consulta = `
-    INSERT INTO usuario (username, email, contraseña, rol, email_verificado)
+    INSERT INTO usuario (username, email, contraseña, rol, correo_verificado)
     VALUES ($1, $2, $3, $4, FALSE)
-    RETURNING id_usuario, username, email, rol, fecha_registro, estado,email_verificado;
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado, correo_verificado;
     `;
 
     const resultado = await pool.query(consulta, [datos.username, datos.email, claveHash, datos.rol ?? "USUARIO"]);
@@ -54,7 +54,7 @@ async function actualizarUsuario(id, datos, claveHash){
 //obtenerUsuarioPorId()
 async function obtenerUsuarioPorId(id){
     const consulta = `
-    SELECT id_usuario, username, email, rol, estado
+    SELECT id_usuario, username, email, rol, estado, email_verificado
     FROM usuario
     WHERE id_usuario = $1;
     `;

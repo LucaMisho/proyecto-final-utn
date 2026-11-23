@@ -24,18 +24,16 @@ async function iniciarSesion(req, res) {
 // Registrar
 async function registrar(req, res, next) {
     try {
-        const { username, email, clave } = req.body;
-
-        // Crear usuario
-        const usuario = await usuarioRepositorio.crearUsuario(
-            { username, email },
-            claveHash
-        );
+        // El servicio valida los datos y cifra la contraseña
+        const usuario = await authService.registrar(req.body);
 
         // Generar token de verificación
         const token = jwt.sign(
-            { email: usuario.email, tipo: "verificar" },
-            process.env.JWT_SECRET,
+            {
+                email: usuario.email,
+                tipo: "verificar"
+            },
+            process.env.JWT_SECRETO,
             { expiresIn: "24h" }
         );
 
@@ -43,7 +41,10 @@ async function registrar(req, res, next) {
         try {
             await enviarVerificacion(usuario.email, token);
         } catch (errorCorreo) {
-            console.error("Error al enviar correo:", errorCorreo);
+            console.error(
+                "No se pudo enviar el correo:",
+                errorCorreo
+            );
         }
 
         return res.status(201).json({
@@ -53,7 +54,6 @@ async function registrar(req, res, next) {
     } catch (error) {
         next(error);
     }
-    
 }
 
 async function verificarCorreo(req, res, next) {
