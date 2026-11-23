@@ -19,7 +19,7 @@ async function obtenerActividad(id) {
 
 //crearActividad()
 async function crearActividad(datos) {
-    for (const campo of ["id_taller", "id_barrio", "nombre", "fecha"]) {
+    for (const campo of ["nombre", "fecha"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
@@ -36,7 +36,7 @@ async function actualizarActividad(id, datos) {
         throw new ErrorNoEncontrado("Actividad no encontrada");
     }
 
-    for (const campo of ["id_taller", "id_barrio", "nombre", "fecha"]) {
+    for (const campo of ["nombre", "fecha"]) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }

@@ -137,8 +137,8 @@ CREATE TABLE taller (
 -- ==========================================
 CREATE TABLE actividad (
     id_actividad INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_taller    INTEGER NOT NULL,
-    id_barrio    INTEGER NOT NULL,
+    id_taller    INTEGER,
+    id_barrio    INTEGER,
     nombre       VARCHAR(150) NOT NULL,
     descripcion  TEXT,
     fecha        DATE NOT NULL,

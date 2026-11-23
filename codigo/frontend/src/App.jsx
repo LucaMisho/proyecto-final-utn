@@ -8,12 +8,18 @@ import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
+<<<<<<< HEAD
 import TodasNovedades from "./pages/TodasNovedades";
 import TodasNoticias from "./pages/TodasNoticias";
 import NoticiaDetalle from "./pages/NoticiaDetalle";
+=======
+import Actividades from "./pages/Actividades";
+import Comunidad from "./pages/Comunidad";
+>>>>>>> cande-rama
 
 import { AvisosProvider } from "./contexto/Avisos";
 import { SesionProvider } from "./contexto/Sesion";
+
 
 import "./styles/App.css";
 
@@ -30,9 +36,14 @@ function App() {
               <Route path="/admin" element={<Admin />} />
               <Route path="/" element={<Inicio />} />
               <Route path="/talleres" element={<Talleres />} />
+<<<<<<< HEAD
               <Route path="/novedades" element={<TodasNovedades />} />
+=======
+              
+              <Route path="/actividades" element={<Actividades />} />
+              <Route path="/comunidad" element={<Comunidad />} />
+>>>>>>> cande-rama
             </Route>
-
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Registro />} />
           </Routes>
