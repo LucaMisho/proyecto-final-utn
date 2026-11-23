@@ -98,7 +98,7 @@ const actualizarPerfil = async (id_usuario, { username, email, claveHash }) => {
 async function verificarCorreo(email) {
     const consulta = `
         UPDATE usuario
-        SET email_verificado = TRUE
+        SET correo_verificado = TRUE
         WHERE email = $1
         RETURNING id_usuario, username, email, correo_verificado;
     `;
