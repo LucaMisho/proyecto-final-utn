@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../styles/QuienesSomos.css";
 
 function QuienesSomos() {
@@ -23,15 +24,19 @@ function QuienesSomos() {
           los vínculos y la participación en los barrios.
         </p>
 
-        <a href="/talleres" className="quienes-somos-boton">
+        <Link to="/talleres" className="quienes-somos-boton">
           Conocé nuestros talleres
-        </a>
+        </Link>
       </div>
 
       <div className="quienes-somos-imagen">
         <img
-          src="/carrusel3.jpeg"
+          src="/quienes-somos.jpg"
           alt="Actividades y encuentros de la comunidad"
+          width="1000"
+          height="640"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     </section>
