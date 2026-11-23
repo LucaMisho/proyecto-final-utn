@@ -22,9 +22,10 @@ async function iniciarSesion(req, res) {
     }
 }
 // Registrar
+
 async function registrar(req, res, next) {
     try {
-        // El servicio valida los datos y cifra la contraseña
+        // Crear usuario
         const usuario = await authService.registrar(req.body);
 
         // Generar token de verificación
@@ -37,19 +38,23 @@ async function registrar(req, res, next) {
             { expiresIn: "24h" }
         );
 
-        // Enviar correo
+        // Intentar enviar correo
         try {
             await enviarVerificacion(usuario.email, token);
-        } catch (errorCorreo) {
-            console.error(
-                "No se pudo enviar el correo:",
-                errorCorreo
-            );
-        }
 
-        return res.status(201).json({
-            mensaje: "Cuenta creada. Revisá tu correo para confirmarla."
-        });
+            return res.status(201).json({
+                mensaje: "Cuenta creada. Revisá tu correo para confirmarla.",
+                correoEnviado: true
+            });
+
+        } catch (errorCorreo) {
+            console.error("No se pudo enviar el correo:", errorCorreo);
+
+            return res.status(201).json({
+                mensaje: "Tu cuenta fue creada, pero no pudimos enviar el correo de verificación. Por el momento, solo podemos enviar correos a la dirección de prueba.",
+                correoEnviado: false
+            });
+        }
 
     } catch (error) {
         next(error);

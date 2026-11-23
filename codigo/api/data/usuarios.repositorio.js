@@ -4,7 +4,7 @@ const pool = require ("./conexion");
 async function crearUsuario(datos, claveHash){
     const consulta = `
     INSERT INTO usuario (username, email, contraseña, rol, correo_verificado)
-    VALUES ($1, $2, $3, $4, FALSE)
+    VALUES ($1, $2, $3, $4, TRUE)
     RETURNING id_usuario, username, email, rol, fecha_registro, estado, correo_verificado;
     `;
 
