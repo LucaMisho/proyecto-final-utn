@@ -237,7 +237,6 @@ export const RECURSOS = [
     titulo: "Actividades",
     singular: "actividad",
     ruta: "actividades",
-    id: "id_barrio",
     id: "id_actividad",
     columnas: [
       { clave: "nombre", titulo: "Nombre" },
