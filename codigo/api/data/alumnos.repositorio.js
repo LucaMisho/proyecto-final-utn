@@ -3,12 +3,15 @@ const pool = require ("./conexion");
 //crearAlumno
 async function crearAlumno(datos){
     const consulta = `
-    INSERT INTO alumno (nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
-    RETURNING id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio;
+    INSERT INTO alumno (nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio, fecha_nacimiento)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    RETURNING 
+        id_alumno, nombre, apellido, dni, telefono, 
+        tiene_beca, estudios_completos, colegio, fecha_nacimiento, 
+        (EXTRACT(YEAR FROM AGE(CURRENT_DATE, fecha_nacimiento)))::int AS edad;
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre , datos.apellido , datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null]);
+    const resultado = await pool.query(consulta, [datos.nombre , datos.apellido , datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null, datos.fecha_nacimiento ?? null]);
     return resultado.rows[0];
 }
 
@@ -27,7 +30,8 @@ async function eliminarAlumno(id){
 //listarAlumnos()
 async function listarAlumnos(){
     const consulta = `
-    SELECT id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio
+    SELECT id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio, fecha_nacimiento, 
+    (EXTRACT(YEAR FROM AGE(CURRENT_DATE, fecha_nacimiento)))::int AS edad
     FROM alumno
     ORDER BY id_alumno;
     `;
@@ -40,12 +44,13 @@ async function listarAlumnos(){
 async function actualizarAlumno(id, datos){
     const consulta = `
     UPDATE alumno
-    SET nombre = $1, apellido = $2, dni = $3, telefono = $4, tiene_beca = $5, estudios_completos = $6, colegio = $7
-    WHERE id_alumno = $8
-    RETURNING id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio;
+    SET nombre = $1, apellido = $2, dni = $3, telefono = $4, tiene_beca = $5, estudios_completos = $6, colegio = $7, fecha_nacimiento = $8
+    WHERE id_alumno = $9
+    RETURNING id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio, fecha_nacimiento, 
+    (EXTRACT(YEAR FROM AGE(CURRENT_DATE, fecha_nacimiento)))::int AS edad;
     `;
 
-    const resultado = await pool.query(consulta, [datos.nombre, datos.apellido, datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null, id]);
+    const resultado = await pool.query(consulta, [datos.nombre, datos.apellido, datos.dni, datos.telefono ?? null, datos.tiene_beca ?? false, datos.estudios_completos ?? false, datos.colegio ?? null, datos.fecha_nacimiento ?? null, id]);
     return resultado.rows[0] || null;
 
 }
@@ -53,7 +58,8 @@ async function actualizarAlumno(id, datos){
 //obtenerAlumnoPorId()
 async function obtenerAlumnoPorId(id){
     const consulta = `
-    SELECT id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio
+    SELECT id_alumno, nombre, apellido, dni, telefono, tiene_beca, estudios_completos, colegio, fecha_nacimiento, 
+    (EXTRACT(YEAR FROM AGE(CURRENT_DATE, fecha_nacimiento)))::int AS edad
     FROM alumno
     WHERE id_alumno = $1;
     `;
