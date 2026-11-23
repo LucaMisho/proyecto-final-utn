@@ -29,10 +29,8 @@ export default function Inicio() {
   return (
     <>
       <Carrusel />
-
+<ResumenAdmin />
       <TransicionSeccion>
-
-        <ResumenAdmin />
 
         <QuienesSomos />
         

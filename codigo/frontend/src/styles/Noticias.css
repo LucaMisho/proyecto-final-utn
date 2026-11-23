@@ -1,12 +1,6 @@
 /* =========================================
-   SECCIÓN NOTICIAS: AURORA
+   SECCIÓN NOTICIAS
 ========================================= */
-
-@property --angulo {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
 
 .noticias {
   position: relative;
@@ -17,12 +11,12 @@
   width: 100%;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 85px 24px 90px;
-
+  padding: 72px 24px 80px;
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Base oscura a pantalla completa */
+/* FONDO VIOLETA A PANTALLA COMPLETA (misma receta que Novedades) */
+
 .noticias::before {
   content: "";
   position: absolute;
@@ -33,10 +27,18 @@
   width: 100vw;
   z-index: -2;
 
-  background: linear-gradient(135deg, #1a0a2e, #2f1250 55%, #1b0b30);
+  background-image:
+    radial-gradient(circle at 80% 20%, rgba(255, 130, 230, 0.35), transparent 70%),
+    radial-gradient(circle at 20% 80%, rgba(130, 80, 255, 0.35), transparent 40%),
+    linear-gradient(rgba(110, 45, 130, 0.78), rgba(135, 70, 155, 0.78)),
+    url("../assets/fondo_mounstros.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Cuadrícula que avanza, se desvanece hacia los bordes */
+/* CAPA ANIMADA: íconos de noticias y confeti que caen */
+
 .noticias::after {
   content: "";
   position: absolute;
@@ -47,94 +49,33 @@
   width: 100vw;
   z-index: -1;
   pointer-events: none;
+  opacity: 0.85;
 
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 85%);
-  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 85%);
-  animation: noticias-grilla 16s linear infinite;
+    /* capa A: diario y rayo */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(40 50) scale(2)'%3E%3Cpath d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2'/%3E%3Cpath d='M18 14h-8M15 18h-5'/%3E%3Cpath d='M10 6h8v4h-8V6Z'/%3E%3C/g%3E%3Cg transform='translate(220 210) scale(1.8)'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/g%3E%3C/g%3E%3Ccircle cx='300' cy='70' r='5' fill='%23ff9ad5' fill-opacity='.7'/%3E%3Crect x='150' y='290' width='14' height='7' rx='2' transform='rotate(35 157 293)' fill='%23ffe08a' fill-opacity='.75'/%3E%3Ccircle cx='120' cy='190' r='4' fill='white' fill-opacity='.6'/%3E%3C/svg%3E"),
+    /* capa B: micrófono y cámara */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(60 80) scale(2.2)'%3E%3Cpath d='M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z'/%3E%3Cpath d='M19 10v2a7 7 0 0 1-14 0v-2'/%3E%3Cpath d='M12 19v3'/%3E%3C/g%3E%3Cg transform='translate(290 300) scale(2)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3C/g%3E%3Crect x='250' y='60' width='14' height='7' rx='2' transform='rotate(-30 257 63)' fill='%23ff9a8b' fill-opacity='.75'/%3E%3Ccircle cx='120' cy='350' r='5' fill='%23ffe08a' fill-opacity='.7'/%3E%3Ccircle cx='380' cy='160' r='3.5' fill='white' fill-opacity='.6'/%3E%3C/svg%3E"),
+    /* capa C: lupa y pin */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cg fill='none' stroke='white' stroke-opacity='.5' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(150 40) scale(1.7)'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/g%3E%3Cg transform='translate(30 170) scale(1.3)'%3E%3Cpath d='M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/g%3E%3C/g%3E%3Ccircle cx='60' cy='60' r='4.5' fill='%23ff9ad5' fill-opacity='.7'/%3E%3Crect x='200' y='220' width='12' height='6' rx='2' transform='rotate(50 206 223)' fill='%23ffe08a' fill-opacity='.7'/%3E%3C/svg%3E");
+
+  background-size: 360px 360px, 440px 440px, 280px 280px;
+  background-repeat: repeat;
+  background-position: 0 0, 140px 0, 70px 0;
+  animation: noticias-caer 45s linear infinite;
 }
 
-@keyframes noticias-grilla {
-  to { background-position: 0 56px, 56px 0; }
+/* Cada capa recorre un múltiplo exacto de su tamaño: el ciclo no tiene saltos */
+@keyframes noticias-caer {
+  to { background-position: 0 360px, 140px 880px, 70px 560px; }
 }
 
-/* =========================================
-   LUCES DE LA AURORA (las 6 figuras del JSX)
-========================================= */
-
-.noticias-fondo-3d {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
+/* Las figuras 3D del fondo anterior ya no se usan */
+.noticias-fondo-3d,
 .figura {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-  opacity: 0.6;
-  will-change: transform;
+  display: none;
 }
 
-.figura-1 {
-  width: 520px; height: 520px; top: -8%; left: -6%;
-  background: radial-gradient(circle, rgba(214, 76, 214, 0.75), transparent 68%);
-  animation: aurora-a 22s ease-in-out infinite;
-}
-
-.figura-2 {
-  width: 460px; height: 460px; top: 14%; right: -8%;
-  background: radial-gradient(circle, rgba(110, 90, 255, 0.7), transparent 68%);
-  animation: aurora-b 26s ease-in-out infinite;
-}
-
-.figura-3 {
-  width: 400px; height: 400px; top: 44%; left: 20%;
-  background: radial-gradient(circle, rgba(255, 120, 190, 0.5), transparent 68%);
-  animation: aurora-c 24s ease-in-out infinite;
-}
-
-.figura-4 {
-  width: 480px; height: 480px; top: 68%; right: 8%;
-  background: radial-gradient(circle, rgba(60, 200, 230, 0.4), transparent 68%);
-  animation: aurora-a 28s ease-in-out infinite reverse;
-}
-
-.figura-5 {
-  width: 440px; height: 440px; top: 84%; left: -6%;
-  background: radial-gradient(circle, rgba(150, 90, 240, 0.65), transparent 68%);
-  animation: aurora-b 20s ease-in-out infinite;
-}
-
-.figura-6 {
-  width: 360px; height: 360px; top: 36%; right: 30%;
-  background: radial-gradient(circle, rgba(214, 76, 214, 0.5), transparent 68%);
-  animation: aurora-c 30s ease-in-out infinite;
-}
-
-@keyframes aurora-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(14vw, 10vh, 0) scale(1.25); }
-}
-
-@keyframes aurora-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
-  50% { transform: translate3d(-16vw, -8vh, 0) scale(0.9); }
-}
-
-@keyframes aurora-c {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
-  50% { transform: translate3d(8vw, -14vh, 0) scale(1.3); }
-}
 
 /* =========================================
    ENCABEZADO
@@ -147,24 +88,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin-bottom: 55px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
-/* Etiqueta con puntito "en vivo" */
 .noticias-etiqueta {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  padding: 7px 16px;
+  gap: 9px;
+  margin-bottom: 14px;
+  padding: 6px 15px;
 
-  border: 1px solid rgba(255, 154, 213, 0.4);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
 
-  color: #f0c8ff;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -172,61 +110,44 @@
 
 .noticias-etiqueta::before {
   content: "";
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #ff5fae;
-  animation: noticias-vivo 1.8s ease-out infinite;
+  background: #ffffff;
+  animation: noticias-pulso 2s ease-out infinite;
 }
 
-@keyframes noticias-vivo {
-  0%   { box-shadow: 0 0 0 0 rgba(255, 95, 174, 0.8); }
-  70%  { box-shadow: 0 0 0 10px rgba(255, 95, 174, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 95, 174, 0); }
+@keyframes noticias-pulso {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
 
-/* Título con brillo que lo recorre */
 .noticias h2 {
-  margin: 0 0 12px;
-  font-size: clamp(30px, 4vw, 44px);
-  font-weight: 800;
-  letter-spacing: -1px;
-
+  margin: 0 0 5px;
   color: #ffffff;
-  background: linear-gradient(
-    100deg,
-    #ffffff 30%, #f0c8ff 42%, #ff9ad5 50%, #f0c8ff 58%, #ffffff 70%
-  );
-  background-size: 250% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: noticias-brillo 7s ease-in-out infinite;
-}
-
-@keyframes noticias-brillo {
-  0%, 100% { background-position: 100% 0; }
-  50% { background-position: 0 0; }
+  font-size: clamp(28px, 4vw, 34px);
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(50, 0, 70, 0.25);
 }
 
 .noticias h2::after {
   content: "";
   display: block;
-
-  width: 65px;
+  width: 56px;
   height: 4px;
-  margin: 15px auto 0;
-
+  margin: 12px auto 0;
   border-radius: 4px;
-  background: linear-gradient(90deg, #c77dff, #ff9ad5);
+  background: linear-gradient(90deg, #FF9AD5, #FFFFFF);
 }
 
 .noticias-subtitulo {
-  margin: 0;
-  color: #e4d1f0;
-  font-size: 16px;
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
   line-height: 1.7;
 }
+
 
 /* =========================================
    LISTADO
@@ -239,10 +160,12 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
+  align-items: stretch;
 }
 
+
 /* =========================================
-   TARJETAS: borde de degradé que gira en hover
+   TARJETAS
 ========================================= */
 
 .noticia-card {
@@ -252,38 +175,18 @@
   min-width: 0;
   overflow: hidden;
 
-  border: 2px solid transparent;
-  border-radius: 20px;
-  background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
-    conic-gradient(
-      from var(--angulo),
-      rgba(199, 125, 255, 0.55),
-      rgba(255, 154, 213, 0.55),
-      rgba(122, 167, 255, 0.55),
-      rgba(199, 125, 255, 0.55)
-    ) border-box;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 25px rgba(40, 0, 60, 0.18);
 
-  box-shadow: 0 12px 35px rgba(10, 0, 30, 0.35);
-
-  animation: noticia-giro 4s linear infinite paused;
-  transition:
-    translate 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-@keyframes noticia-giro {
-  to { --angulo: 360deg; }
+  transition: translate 0.35s ease, box-shadow 0.35s ease;
 }
 
 .noticia-card:hover,
 .noticia-card:focus-within {
-  translate: 0 -7px;
-  animation-play-state: running;
-
-  box-shadow:
-    0 0 28px rgba(199, 125, 255, 0.45),
-    0 20px 45px rgba(10, 0, 30, 0.45);
+  translate: 0 -8px;
+  box-shadow: 0 16px 35px rgba(40, 0, 60, 0.3);
 }
 
 /* Noticia principal */
@@ -317,21 +220,12 @@
   line-height: 1.7;
 }
 
-/* Zoom lento en la imagen principal (usa "scale" para no pisar el hover) */
-.noticia-card--principal .noticia-imagen {
-  animation: noticia-zoom 18s ease-in-out infinite alternate;
-}
-
-@keyframes noticia-zoom {
-  from { scale: 1; }
-  to { scale: 1.1; }
-}
-
 /* Secundarias */
 
 .noticia-card--secundaria .noticia-imagen-contenedor {
   aspect-ratio: 16 / 9;
 }
+
 
 /* =========================================
    IMÁGENES
@@ -354,8 +248,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 .noticia-card:hover .noticia-imagen {
@@ -365,10 +258,9 @@
 .noticia-imagen-contenedor::after {
   content: "";
   position: absolute;
-  inset: auto 0 0;
-
+  inset: auto 0 0 0;
   height: 40%;
-  background: linear-gradient(to top, rgba(25, 0, 45, 0.5), transparent);
+  background: linear-gradient(to top, rgba(114, 0, 114, 0.45), transparent);
   pointer-events: none;
 }
 
@@ -379,24 +271,26 @@
   letter-spacing: 3px;
 }
 
-/* Etiqueta destacada */
+/* Etiqueta de destacada */
 
 .noticia-destacada {
   position: absolute;
-  top: 18px;
-  left: 18px;
+  top: 15px;
+  left: 15px;
   z-index: 2;
 
-  padding: 8px 14px;
+  padding: 7px 13px;
   border-radius: 30px;
 
-  background: rgba(91, 20, 125, 0.9);
-  color: white;
+  background: rgba(114, 0, 114, 0.9);
+  color: #ffffff;
 
-  font-size: 11px;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  backdrop-filter: blur(8px);
 }
+
 
 /* =========================================
    INFORMACIÓN
@@ -406,9 +300,8 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 13px;
-
-  padding: 24px;
+  gap: 12px;
+  padding: 23px;
 }
 
 .noticia-meta {
@@ -422,7 +315,6 @@
 .noticia-tipo {
   padding: 5px 12px;
   border-radius: 30px;
-
   background: #f1e1fa;
   color: #70258d;
 
@@ -433,8 +325,9 @@
 }
 
 .noticia-fecha {
-  color: #777080;
-  font-size: 12px;
+  color: #71818b;
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
 .noticia-info h3 {
@@ -442,12 +335,12 @@
   margin: 0;
   overflow: hidden;
 
-  color: #292331;
-  font-size: 21px;
-  font-weight: 800;
+  color: #4a0048;
+  font-size: 1.18rem;
+  font-weight: 700;
   line-height: 1.35;
 
-  --webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -456,11 +349,11 @@
   margin: 0;
   overflow: hidden;
 
-  color: #686071;
-  font-size: 14px;
-  line-height: 1.65;
+  color: #586b76;
+  font-size: 0.91rem;
+  line-height: 1.6;
 
-  --webkit-line-clamp: 3;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -471,26 +364,27 @@
 
   width: fit-content;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 8px;
 
-  color: #79249a;
+  color: #720072;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
 
-  transition: gap 0.2s ease;
+  transition: gap 0.25s ease, color 0.25s ease;
 }
 
 .noticia-info a:hover {
-  gap: 13px;
-  color: #a03cc2;
+  gap: 12px;
+  color: #4a0048;
 }
 
 .noticia-info a:focus-visible {
-  outline: 2px solid #79249a;
+  outline: 2px solid #720072;
   outline-offset: 4px;
   border-radius: 3px;
 }
+
 
 /* =========================================
    BOTÓN VER TODAS
@@ -502,110 +396,100 @@
 
   display: flex;
   justify-content: center;
-
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .noticias-ver-todas {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  padding: 12px 28px;
 
-  padding: 14px 30px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  border-radius: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #720072;
 
-  background: transparent;
-  color: #ffffff;
-
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   text-decoration: none;
 
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    translate 0.25s ease;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .noticias-ver-todas:hover,
 .noticias-ver-todas:focus-visible {
-  background: #ffffff;
-  color: #54216f;
-  translate: 0 -3px;
+  background-color: #720072;
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
+
 /* =========================================
-   ESTADOS
+   ESTADOS DE CARGA Y ERROR
 ========================================= */
 
 .noticias-estado {
   position: relative;
   z-index: 1;
 
-  margin: 0 0 20px;
-  padding: 18px;
+  margin: 0 0 18px;
+  padding: 14px;
 
-  border-radius: 12px;
-  background: #ffffff;
-
+  border-radius: 8px;
+  background-color: #ffffff;
   color: #4a0048;
+
   font-size: 14px;
   text-align: center;
 }
 
 .noticias-error {
-  background: #ffebee;
+  background-color: #ffebee;
   color: #b71c1c;
 }
 
 .noticias-error p {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 
 .noticias-error button {
-  padding: 9px 20px;
+  padding: 8px 18px;
+
   border: 2px solid #b71c1c;
   border-radius: 8px;
-
-  background: #ffffff;
+  background-color: #ffffff;
   color: #b71c1c;
 
   font-family: inherit;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .noticias-error button:hover {
-  background: #b71c1c;
+  background-color: #b71c1c;
   color: #ffffff;
 }
 
+
 /* =========================================
-   ENTRADA DE TARJETAS AL HACER SCROLL
+   ENTRADA AL HACER SCROLL
+   (borrá este bloque si las tarjetas ya van dentro de <Reveal>)
 ========================================= */
 
 @supports (animation-timeline: view()) {
   .noticia-card {
-    animation:
-      noticia-entrada linear both,
-      noticia-giro 4s linear infinite paused;
-    animation-timeline: view(), auto;
-    animation-range: entry 0% entry 45%, normal;
-  }
-
-  .noticia-card:hover,
-  .noticia-card:focus-within {
-    animation-play-state: running, running;
+    animation: noticia-entrada linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
   }
 
   @keyframes noticia-entrada {
     from {
       opacity: 0;
-      transform: translateY(44px) scale(0.96);
+      transform: translateY(40px) scale(0.96);
     }
   }
 }
+
 
 /* =========================================
    RESPONSIVE
@@ -613,15 +497,11 @@
 
 @media (max-width: 720px) {
   .noticias {
-    padding: 60px 18px;
+    padding: 56px 18px 60px;
   }
 
   .noticias-encabezado {
-    margin-bottom: 35px;
-  }
-
-  .noticias-subtitulo {
-    font-size: 14px;
+    margin-bottom: 32px;
   }
 
   .noticias-lista {
@@ -632,6 +512,7 @@
   .noticia-card--principal {
     grid-column: auto;
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
   .noticia-card--principal .noticia-imagen-contenedor {
@@ -651,21 +532,11 @@
     padding: 20px;
   }
 
-  /* Luces más chicas para que no tapen el contenido en celular */
-  .figura-1,
-  .figura-2,
-  .figura-3,
-  .figura-4,
-  .figura-5,
-  .figura-6 {
-    width: 280px;
-    height: 280px;
-  }
-
   .noticias-pie {
-    margin-top: 35px;
+    margin-top: 32px;
   }
 }
+
 
 /* =========================================
    MOVIMIENTO REDUCIDO
@@ -673,11 +544,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .noticias::after,
-  .figura,
-  .noticias h2,
   .noticias-etiqueta::before,
-  .noticia-card,
-  .noticia-card--principal .noticia-imagen {
+  .noticia-card {
     animation: none !important;
   }
 
@@ -688,7 +556,12 @@
     transition: none !important;
   }
 
-  .noticias h2 {
-    background-position: 50% 0;
+  .noticia-card:hover,
+  .noticia-card:focus-within {
+    translate: none;
+  }
+
+  .noticia-card:hover .noticia-imagen {
+    transform: none;
   }
 }
