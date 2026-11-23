@@ -63,7 +63,7 @@ async function iniciarSesion(username, clave) {
     }
 
     // Impedir acceso sin verificar el correo
-    if (!usuario.email_verificado) {
+    if (!usuario.correo_verificado) {
         throw new ErrorSinPermiso(
             "Debés verificar tu correo electrónico antes de iniciar sesión"
         );

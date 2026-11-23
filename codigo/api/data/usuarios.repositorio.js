@@ -54,7 +54,7 @@ async function actualizarUsuario(id, datos, claveHash){
 //obtenerUsuarioPorId()
 async function obtenerUsuarioPorId(id){
     const consulta = `
-    SELECT id_usuario, username, email, rol, estado, email_verificado
+    SELECT id_usuario, username, email, rol, estado, correo_verificado
     FROM usuario
     WHERE id_usuario = $1;
     `;
@@ -66,7 +66,7 @@ async function obtenerUsuarioPorId(id){
 //buscarPorUsername()
 async function buscarPorUsername(username) {
     const consulta = `
-        SELECT id_usuario, username, email, contraseña, rol, estado
+        SELECT id_usuario, username, email, contraseña, rol, estado, correo_verificado
         FROM usuario
         WHERE username = $1;
     `;
@@ -100,7 +100,7 @@ async function verificarCorreo(email) {
         UPDATE usuario
         SET email_verificado = TRUE
         WHERE email = $1
-        RETURNING id_usuario, username, email, email_verificado;
+        RETURNING id_usuario, username, email, correo_verificado;
     `;
 
     const resultado = await pool.query(consulta, [email]);
