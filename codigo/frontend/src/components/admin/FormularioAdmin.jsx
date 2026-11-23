@@ -79,11 +79,36 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
   );
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
+  const [avisoConfirmado, setAvisoConfirmado] = useState("");
 
   const idBase = `campo-${recurso.clave}`;
 
   function cambiar(clave, valor) {
-    setValores((v) => ({ ...v, [clave]: valor }));
+    setValores((v) => {
+      const nuevos = { ...v, [clave]: valor };
+
+      recurso.campos.forEach((c) => {
+        if (c.soloInscriptosDe === clave && !alumnosInscriptos(c, nuevos).some((a) => String(a.id_alumno) === String(nuevos[c.clave]))) {
+          nuevos[c.clave] = "";
+        }
+      });
+
+      return nuevos;
+    });
+    setAvisoConfirmado("");
+  }
+
+  function alumnosInscriptos(campo, actuales) {
+    const idTaller = actuales[campo.soloInscriptosDe];
+    if (!idTaller) return [];
+
+    const inscriptos = new Set(
+      (datos.inscripciones?.filas ?? [])
+        .filter((i) => String(i.id_taller) === String(idTaller) && i.estado === "aceptada")
+        .map((i) => String(i.id_alumno))
+    );
+
+    return (datos.alumnos?.filas ?? []).filter((a) => inscriptos.has(String(a.id_alumno)));
   }
 
   function faltantes() {
@@ -160,6 +185,13 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
       return;
     }
 
+    const aviso = recurso.avisoAntesDeGuardar?.(valores, datos);
+    if (aviso && aviso !== avisoConfirmado) {
+      setError(aviso);
+      setAvisoConfirmado(aviso);
+      return;
+    }
+
     setError("");
     setGuardando(true);
 
@@ -218,11 +250,18 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
         </select>
       );
     } else if (c.tipo === "relacion") {
-      const resto = datos[c.relacion]?.filas || [];
       const claveId = RECURSOS.find((x) => x.clave === c.relacion).id;
+      const resto = c.soloInscriptosDe ? alumnosInscriptos(c, valores) : datos[c.relacion]?.filas || [];
+      const sinTaller = c.soloInscriptosDe && !valores[c.soloInscriptosDe];
       control = (
         <select {...comunes} value={valor} onChange={(e) => cambiar(c.clave, e.target.value)}>
-          <option value="">Elegí una opción</option>
+          <option value="">
+            {sinTaller
+              ? "Elegí primero el taller"
+              : c.soloInscriptosDe && resto.length === 0
+                ? "Este taller no tiene alumnos inscriptos"
+                : "Elegí una opción"}
+          </option>
           {resto.map((r) => (
             <option key={r[claveId]} value={r[claveId]}>
               {ETIQUETAS[c.relacion](r)}

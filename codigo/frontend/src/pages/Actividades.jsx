@@ -38,6 +38,27 @@ function Actividades() {
     return `${dia}/${mes}/${anio}`;
   }
 
+  const hoy = new Date().toLocaleDateString("en-CA");
+  const visibles = actividades.filter((a) => a.estado !== "cancelada" && a.estado !== "inactiva");
+  const proximas = visibles
+    .filter((a) => a.estado !== "realizada" && String(a.fecha).slice(0, 10) >= hoy)
+    .sort((a, b) => String(a.fecha).localeCompare(String(b.fecha)));
+  const pasadas = visibles
+    .filter((a) => !proximas.includes(a))
+    .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+
+  function tarjeta(actividad) {
+    return (
+      <article className="actividad-card" key={actividad.id_actividad}>
+        <span className="actividad-fecha">{mostrarFecha(actividad.fecha)}</span>
+
+        <h3>{actividad.nombre}</h3>
+
+        {actividad.descripcion && <p>{actividad.descripcion}</p>}
+      </article>
+    );
+  }
+
   return (
     <section className="pagina-actividades">
       <Reveal className="actividades-encabezado">
@@ -56,31 +77,33 @@ function Actividades() {
         </p>
       )}
 
-      {!cargando && !error && actividades.length === 0 && (
+      {!cargando && !error && visibles.length === 0 && (
         <p className="actividades-mensaje">
           Próximamente compartiremos nuevas actividades.
         </p>
       )}
 
-      {!cargando && !error && actividades.length > 0 && (
-        <section className="actividades-listado">
-          {actividades.map((actividad) => (
-            <article
-              className="actividad-card"
-              key={actividad.id_actividad}
-            >
-              <span className="actividad-fecha">
-                {mostrarFecha(actividad.fecha)}
-              </span>
+      {!cargando && !error && visibles.length > 0 && (
+        <>
+          <section className="actividades-listado" aria-labelledby="actividades-proximas">
+            <h2 id="actividades-proximas">Próximas actividades</h2>
 
-              <h2>{actividad.nombre}</h2>
+            {proximas.length === 0 ? (
+              <p className="actividades-mensaje">
+                Por ahora no hay actividades programadas. Mirá las anteriores más abajo.
+              </p>
+            ) : (
+              proximas.map(tarjeta)
+            )}
+          </section>
 
-              {actividad.descripcion && (
-                <p>{actividad.descripcion}</p>
-              )}
-            </article>
-          ))}
-        </section>
+          {pasadas.length > 0 && (
+            <details className="actividades-realizadas">
+              <summary>Actividades anteriores ({pasadas.length})</summary>
+              <section className="actividades-listado">{pasadas.map(tarjeta)}</section>
+            </details>
+          )}
+        </>
       )}
     </section>
   );

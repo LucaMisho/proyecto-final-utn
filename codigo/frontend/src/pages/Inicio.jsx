@@ -8,6 +8,7 @@ import Novedades from "../components/inicio/Novedades";
 import Noticias from "../components/inicio/Noticias";
 import Sugerencias from "../components/inicio/Sugerencias";
 import Contacto from "../components/inicio/Contacto";
+import SearchBar from "../components/inicio/SearchBar";
 
 import TransicionSeccion from "../components/inicio/TransicionSeccion";
 import "../styles/TransicionSeccion.css";
@@ -42,14 +43,11 @@ export default function Inicio() {
   return (
     <>
       <Carrusel />
-
+<ResumenAdmin />
       <TransicionSeccion>
 
-        <ResumenAdmin />
-
+        <SearchBar />
         <QuienesSomos />
-        
-
         <SeparadorBurbujas />
 
         <Novedades />

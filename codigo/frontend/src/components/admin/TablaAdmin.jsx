@@ -123,6 +123,7 @@ function TablaAdmin({
         </select>
       );
     }
+
     if (columna.tipo === "imagen") {
   const url = fila[columna.clave];
 

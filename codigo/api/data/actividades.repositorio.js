@@ -5,7 +5,7 @@ async function crearActividad(datos){
     const consulta = `
     INSERT INTO actividad (id_taller, id_barrio, nombre, descripcion, fecha, estado)
     VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado;
+    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, to_char(fecha, 'YYYY-MM-DD') AS fecha, estado;
     `;
 
     const resultado = await pool.query(consulta, [datos.id_taller ?? null, datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null]);
@@ -28,9 +28,9 @@ async function eliminarActividad(id){
 //listarActividades()
 async function listarActividades(){
     const consulta = `
-    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado
+    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, to_char(fecha, 'YYYY-MM-DD') AS fecha, estado
     FROM actividad
-    ORDER BY id_actividad;
+    ORDER BY fecha, id_actividad;
     `;
 
     const resultado = await pool.query(consulta);
@@ -43,7 +43,7 @@ async function actualizarActividad(id, datos){
     UPDATE actividad
     SET id_taller = $1, id_barrio = $2, nombre = $3, descripcion = $4, fecha = $5, estado = $6
     WHERE id_actividad = $7
-    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado;
+    RETURNING id_actividad, id_taller, id_barrio, nombre, descripcion, to_char(fecha, 'YYYY-MM-DD') AS fecha, estado;
     `;
 
     const resultado = await pool.query(consulta, [datos.id_taller ?? null, datos.id_barrio ?? null, datos.nombre ?? null, datos.descripcion ?? null, datos.fecha ?? null, datos.estado ?? null, id]);
@@ -54,7 +54,7 @@ async function actualizarActividad(id, datos){
 //obtenerActividadPorId()
 async function obtenerActividadPorId(id){
     const consulta = `
-    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, fecha, estado
+    SELECT id_actividad, id_taller, id_barrio, nombre, descripcion, to_char(fecha, 'YYYY-MM-DD') AS fecha, estado
     FROM actividad
     WHERE id_actividad = $1;
     `;

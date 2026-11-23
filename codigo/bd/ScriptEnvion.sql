@@ -73,7 +73,8 @@ CREATE TABLE alumno (
     telefono           VARCHAR(30),
     tiene_beca         BOOLEAN NOT NULL DEFAULT FALSE,
     estudios_completos BOOLEAN NOT NULL DEFAULT FALSE,
-    colegio            VARCHAR(150)
+    colegio            VARCHAR(150),
+    fecha_nacimiento   DATE
 );
 
 -- ==========================================
@@ -113,7 +114,7 @@ CREATE TABLE taller (
     id_taller        INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre           VARCHAR(150) NOT NULL,
     descripcion      TEXT,
-    dia              VARCHAR(20),
+    dia              VARCHAR(60),
     hora_inicio      TIME,
     hora_fin         TIME,
     edad_minima      SMALLINT,
