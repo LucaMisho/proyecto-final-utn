@@ -73,7 +73,8 @@ CREATE TABLE alumno (
     telefono           VARCHAR(30),
     tiene_beca         BOOLEAN NOT NULL DEFAULT FALSE,
     estudios_completos BOOLEAN NOT NULL DEFAULT FALSE,
-    colegio            VARCHAR(150)
+    colegio            VARCHAR(150),
+    fecha_nacimiento   DATE
 );
 
 -- ==========================================
@@ -113,7 +114,7 @@ CREATE TABLE taller (
     id_taller        INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nombre           VARCHAR(150) NOT NULL,
     descripcion      TEXT,
-    dia              VARCHAR(20),
+    dia              VARCHAR(60),
     hora_inicio      TIME,
     hora_fin         TIME,
     edad_minima      SMALLINT,
@@ -122,6 +123,7 @@ CREATE TABLE taller (
 	cupo INTEGER NOT NULL CHECK (cupo > 0),
     equipo_disponible TEXT,
     estado           VARCHAR(30) NOT NULL DEFAULT 'activo',
+    imagen           TEXT,
     CONSTRAINT fk_taller_barrio
         FOREIGN KEY (id_barrio) REFERENCES barrio(id_barrio)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -143,9 +145,6 @@ CREATE TABLE actividad (
     descripcion  TEXT,
     fecha        DATE NOT NULL,
 	estado VARCHAR(50),
-    CONSTRAINT fk_actividad_taller
-        FOREIGN KEY (id_taller) REFERENCES taller(id_taller)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_actividad_barrio
         FOREIGN KEY (id_barrio) REFERENCES barrio(id_barrio)
         ON UPDATE CASCADE ON DELETE RESTRICT

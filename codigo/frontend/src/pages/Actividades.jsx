@@ -1,9 +1,8 @@
-
 import { useEffect, useState } from "react";
 import Reveal from "../components/inicio/Reveal";
+import API from "../config/api";
 import "../styles/Actividades.css";
 
-const API = import.meta.env.VITE_API_URL;
 
 function Actividades() {
   const [actividades, setActividades] = useState([]);

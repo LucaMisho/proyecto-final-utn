@@ -18,6 +18,14 @@ async function obtenerAsistencia(id) {
     return asistencia;
 }
 
+async function exigirInscripcion(idAlumno, idTaller) {
+    const inscripto = await asistenciaRepositorio.tieneInscripcionAceptada(idAlumno, idTaller);
+
+    if (!inscripto) {
+        throw new ErrorDeDatos("El alumno no tiene una inscripción aceptada en ese taller");
+    }
+}
+
 //crearAsistencia()
 async function crearAsistencia(datos) {
     for (const campo of ["id_alumno", "id_taller", "fecha"]) {
@@ -25,6 +33,8 @@ async function crearAsistencia(datos) {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
+
+    await exigirInscripcion(datos.id_alumno, datos.id_taller);
 
     return asistenciaRepositorio.crearAsistencia(datos);
 }
@@ -41,6 +51,13 @@ async function actualizarAsistencia(id, datos) {
         if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
+    }
+
+    const cambiaAlumno = Number(datos.id_alumno) !== Number(asistencia.id_alumno);
+    const cambiaTaller = Number(datos.id_taller) !== Number(asistencia.id_taller);
+
+    if (cambiaAlumno || cambiaTaller) {
+        await exigirInscripcion(datos.id_alumno, datos.id_taller);
     }
 
     return asistenciaRepositorio.actualizarAsistencia(id, datos);

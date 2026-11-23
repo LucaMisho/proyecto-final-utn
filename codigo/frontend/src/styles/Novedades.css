@@ -494,4 +494,65 @@
   letter-spacing: 2px;
 }
 
+/* =========================================
+   FILTRO POR CATEGORÍA
+========================================= */
 
+.novedades-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 32px;
+}
+
+.novedades-filtro {
+  padding: 10px 20px;
+
+  border: 2px solid #FFFFFF;
+  border-radius: 999px;
+
+  background-color: transparent;
+  color: #FFFFFF;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.novedades-filtro:hover {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.novedades-filtro[aria-pressed="true"] {
+  background-color: #FFFFFF;
+  color: #720072;
+}
+
+.novedades-filtro:focus-visible {
+  outline: 3px solid #FFFFFF;
+  outline-offset: 3px;
+}
+
+.novedades-aviso-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .novedades-filtro {
+    transition: none;
+  }
+}

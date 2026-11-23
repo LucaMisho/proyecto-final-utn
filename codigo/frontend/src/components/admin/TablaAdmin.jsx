@@ -28,6 +28,9 @@ function TablaAdmin({
   function textoDeCelda(fila, columna) {
     const valor = fila[columna.clave];
     if (columna.tipo === "imagen") return "";
+    if (columna.relacion) {
+      return valor === null || valor === undefined || valor === "" ? "" : etiquetaDe(columna.relacion, valor);
+    }
     if (columna.mostrar) return columna.mostrar(valor);
     return valor === null || valor === undefined ? "" : String(valor);
   }
@@ -120,6 +123,20 @@ function TablaAdmin({
         </select>
       );
     }
+
+    if (columna.tipo === "imagen") {
+  const url = fila[columna.clave];
+
+  return url ? (
+    <img
+      src={url}
+      alt={`Imagen de ${recurso.nombreDe(fila)}`}
+      className="admin-miniatura"
+    />
+  ) : (
+    <span className="admin-sin-imagen">Sin imagen</span>
+  );
+}
 
     return textoDeCelda(fila, columna);
   }

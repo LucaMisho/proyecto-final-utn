@@ -17,6 +17,25 @@ async function obtenerAlumno(id) {
     return alumno;
 }
 
+function validarFechaNacimiento(valor) {
+    if (valor === undefined || valor === null || String(valor).trim() === "") return;
+
+    const texto = String(valor).slice(0, 10);
+    const fecha = new Date(`${texto}T00:00:00Z`);
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(texto) || Number.isNaN(fecha.getTime())) {
+        throw new ErrorDeDatos("La fecha de nacimiento no es válida");
+    }
+
+    if (fecha > new Date()) {
+        throw new ErrorDeDatos("La fecha de nacimiento no puede ser futura");
+    }
+
+    if (fecha.getUTCFullYear() < 1900) {
+        throw new ErrorDeDatos("La fecha de nacimiento no es válida");
+    }
+}
+
 //crearAlumno()
 async function crearAlumno(datos) {
     for (const campo of ["nombre", "apellido", "dni"]) {
@@ -24,6 +43,8 @@ async function crearAlumno(datos) {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
+
+    validarFechaNacimiento(datos.fecha_nacimiento);
 
     return alumnoRepositorio.crearAlumno(datos);
 }
@@ -41,6 +62,8 @@ async function actualizarAlumno(id, datos) {
             throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
         }
     }
+
+    validarFechaNacimiento(datos.fecha_nacimiento);
 
     return alumnoRepositorio.actualizarAlumno(id, datos);
 }

@@ -1,4 +1,3 @@
-
 import Reveal from "../components/inicio/Reveal";
 import "../styles/Comunidad.css";
 

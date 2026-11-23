@@ -68,4 +68,16 @@ async function obtenerInscripcionPorId(id){
     return resultado.rows[0] || null;
 }
 
-module.exports = {listarInscripciones, eliminarInscripcion, crearInscripcion, actualizarInscripcion, obtenerInscripcionPorId};
+//contarAceptadasDelTaller()
+async function contarAceptadasDelTaller(idTaller, excluirInscripcion){
+    const consulta = `
+    SELECT COUNT(*)::int AS total
+    FROM inscripcion
+    WHERE id_taller = $1 AND estado = 'aceptada' AND id_inscripcion <> COALESCE($2, -1);
+    `;
+
+    const resultado = await pool.query(consulta, [idTaller, excluirInscripcion ?? null]);
+    return resultado.rows[0].total;
+}
+
+module.exports = {contarAceptadasDelTaller, listarInscripciones, eliminarInscripcion, crearInscripcion, actualizarInscripcion, obtenerInscripcionPorId};
