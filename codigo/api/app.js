@@ -9,6 +9,7 @@ const app = express();
 const origenesPermitidos = [
     "http://localhost:5173",
     "https://proyecto-final-utn-sage.vercel.app",
+    "https://barriocultura-envionquequen.vercel.app",
     process.env.FRONTEND_URL
 ]
     .filter(Boolean)
@@ -44,7 +45,7 @@ const perfilRoutes = require("./routes/perfil.routes");
 app.use("/api/perfil", perfilRoutes);
 
 const buscadorRoutes = require("./routes/buscador.routes");
-app.use("/api/buscador", buscadorRoutes);
+app.use("/api/buscar", buscadorRoutes);
 
 const barrioRoutes = require("./routes/barrios.routes");
 app.use("/api/barrios", barrioRoutes);
