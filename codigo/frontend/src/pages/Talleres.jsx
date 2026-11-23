@@ -121,7 +121,6 @@ function Talleres() {
             ))}
       </div>
 
- 
       <Reveal className="talleres-encabezado">
         <h1>Conocé nuestros Talleres</h1>
 

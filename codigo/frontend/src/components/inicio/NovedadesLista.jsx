@@ -1,6 +1,25 @@
 
+import { Link } from "react-router-dom";
 import { formatearFecha } from "../../utils/fecha";
 import Reveal from "./Reveal";
+
+const RUTAS_POR_CATEGORIA = {
+  actividades: "/actividades",
+  talleres: "/talleres",
+  comunidad: "/comunidad",
+};
+
+export function claveDeCategoria(categoria) {
+  return String(categoria ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function rutaDe(categoria) {
+  return RUTAS_POR_CATEGORIA[claveDeCategoria(categoria)] ?? "/novedades";
+}
 
 function NovedadTarjeta({ novedad, delay }) {
   return (
@@ -42,9 +61,9 @@ function NovedadTarjeta({ novedad, delay }) {
 
         <p>{novedad.descripcion}</p>
 
-        <a href="#novedad-detalle" className="novedad-enlace">
+        <Link to={rutaDe(novedad.categoria)} className="novedad-enlace">
           Conocer más <span>→</span>
-        </a>
+        </Link>
       </div>
     </Reveal>
   );
@@ -55,6 +74,7 @@ export default function NovedadesLista({
   cargando,
   error,
   onReintentar,
+  mensajeVacio = "Todavía no hay novedades.",
 }) {
   return (
     <>
@@ -75,7 +95,7 @@ export default function NovedadesLista({
 
       {!cargando && !error && novedades.length === 0 && (
         <p className="novedades-estado">
-          Todavía no hay novedades.
+          {mensajeVacio}
         </p>
       )}
 

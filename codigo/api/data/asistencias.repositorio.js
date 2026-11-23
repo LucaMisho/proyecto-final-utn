@@ -138,7 +138,21 @@ async function guardarPlanillaDelMes(idTaller, fechaDesde, fechaHasta, marcas){
     }
 }
 
+//tieneInscripcionAceptada()
+async function tieneInscripcionAceptada(idAlumno, idTaller){
+    const consulta = `
+    SELECT 1
+    FROM inscripcion
+    WHERE id_alumno = $1 AND id_taller = $2 AND estado = 'aceptada'
+    LIMIT 1;
+    `;
+
+    const resultado = await pool.query(consulta, [idAlumno, idTaller]);
+    return resultado.rowCount > 0;
+}
+
 module.exports = {
+    tieneInscripcionAceptada,
     listarAsistencias,
     eliminarAsistencia,
     crearAsistencia,

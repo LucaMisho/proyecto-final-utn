@@ -2,15 +2,15 @@ const noticiaRepositorio = require("../data/noticias.repositorio");
 const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
 //listarNoticias()
-async function listarNoticias() {
-    return noticiaRepositorio.listarNoticias();
+async function listarNoticias(soloActivas = false) {
+    return noticiaRepositorio.listarNoticias(soloActivas);
 }
 
 //obtenerNoticiaPorId()
-async function obtenerNoticia(id) {
+async function obtenerNoticia(id, soloActivas = false) {
     const noticia = await noticiaRepositorio.obtenerNoticiaPorId(id);
 
-    if (!noticia) {
+    if (!noticia || (soloActivas && noticia.estado !== "activa")) {
         throw new ErrorNoEncontrado("Noticia no encontrada");
     }
 

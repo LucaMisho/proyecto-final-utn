@@ -26,10 +26,11 @@ async function eliminarNoticia(id){
 }
 
 //listarNoticias()
-async function listarNoticias(){
+async function listarNoticias(soloActivas = false){
     const consulta = `
     SELECT id_noticia, titulo, contenido, imagen, estado, fecha_publicacion
     FROM noticia
+    ${soloActivas ? "WHERE estado = 'activa'" : ""}
     ORDER BY id_noticia;
     `;
 
@@ -41,7 +42,7 @@ async function listarNoticias(){
 async function actualizarNoticia(id, datos){
     const consulta = `
     UPDATE noticia
-    SET titulo = $1, contenido = $2, imagen = $3, estado = COALESCE($4, 'activa')
+    SET titulo = $1, contenido = $2, imagen = COALESCE($3, imagen), estado = COALESCE($4, 'activa')
     WHERE id_noticia = $5
     RETURNING id_noticia, titulo, contenido, imagen, estado, fecha_publicacion;
     `;

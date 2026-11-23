@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { pedir, ErrorDeSesion } from "./pedir";
+import { diasDeSemanaDeTaller } from "../../utils/diasDeTaller";
 import "../../styles/PlanillaAsistencias.css";
 
 const MESES = [
@@ -20,6 +21,9 @@ const MESES = [
 function diasDelMes(anio, mes) {
   return new Date(anio, mes, 0).getDate();
 }
+
+const NOMBRES_DIA = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+const ABREVIATURAS_DIA = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
 function claveMarca(idAlumno, fecha) {
   return `${idAlumno}|${fecha}`;
@@ -132,6 +136,7 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
   const [hayCambios, setHayCambios] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const [errorGuardado, setErrorGuardado] = useState("");
+  const [verTodos, setVerTodos] = useState(false);
 
   const anios = useMemo(() => {
     const actual = new Date().getFullYear();
@@ -211,6 +216,7 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
 
   function abrirTaller(nuevoTaller) {
     setTaller(nuevoTaller);
+    setVerTodos(false);
     setPlanilla(null);
     setMarcas({});
     setHayCambios(false);
@@ -372,8 +378,20 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
     );
   }
 
-  const dias = planilla?.dias ?? diasDelMes(anio, mes);
+  const totalDias = planilla?.dias ?? diasDelMes(anio, mes);
   const alumnos = planilla?.alumnos ?? [];
+  const diasDictado = diasDeSemanaDeTaller(taller.dia);
+  const diasConMarcas = new Set(
+    Object.keys(marcasDesdePlanilla(planilla)).map((clave) => Number(clave.split("|")[1].slice(8, 10)))
+  );
+  const todosLosDias = Array.from({ length: totalDias }, (_, indice) => indice + 1);
+  const filtrando = diasDictado !== null && !verTodos;
+  const diasVisibles = filtrando
+    ? todosLosDias.filter(
+        (dia) =>
+          diasDictado.includes(new Date(anio, mes - 1, dia).getDay()) || diasConMarcas.has(dia)
+      )
+    : todosLosDias;
 
   return (
     <section className="planilla-vista" aria-labelledby="planilla-titulo">
@@ -395,6 +413,7 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
           <h3 id="planilla-titulo">{taller.nombre}</h3>
           <p className="planilla-encabezado__periodo">
             {MESES[mes - 1]} de {anio}
+            {taller.dia ? ` · ${taller.dia}` : ""}
           </p>
         </div>
 
@@ -461,6 +480,22 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
             </button>
           </div>
 
+          {diasDictado !== null && alumnos.length > 0 && (
+            <p className="planilla-nota">
+              {filtrando
+                ? "Se muestran solo los días en que se dicta el taller. "
+                : "Se muestran todos los días del mes. "}
+              <button
+                type="button"
+                className="admin-boton admin-boton--secundario admin-boton--chico"
+                onClick={() => setVerTodos((v) => !v)}
+                aria-pressed={verTodos}
+              >
+                {filtrando ? "Mostrar todos los días" : "Mostrar solo los días del taller"}
+              </button>
+            </p>
+          )}
+
           {alumnos.length === 0 ? (
             <p className="planilla-estado">
               No hay alumnos con inscripción aceptada ni asistencias registradas en este mes.
@@ -478,8 +513,11 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
                     <th scope="col" className="planilla-columna-nombre">
                       Apellido y nombre
                     </th>
-                    {Array.from({ length: dias }, (_, indice) => indice + 1).map((dia) => (
+                    {diasVisibles.map((dia) => (
                       <th key={dia} scope="col" className="planilla-columna-dia">
+                        <span className="planilla-dia-semana">
+                          {ABREVIATURAS_DIA[new Date(anio, mes - 1, dia).getDay()]}
+                        </span>
                         {dia}
                       </th>
                     ))}
@@ -493,7 +531,7 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
                         {alumno.apellido}, {alumno.nombre}
                       </th>
 
-                      {Array.from({ length: dias }, (_, indice) => indice + 1).map((dia) => {
+                      {diasVisibles.map((dia) => {
                         const fecha = fechaDelDia(anio, mes, dia);
                         const marca = marcas[claveMarca(alumno.id_alumno, fecha)] ?? "";
                         const estado = textoEstado(marca);
@@ -507,7 +545,7 @@ function PlanillaAsistencias({ token, avisar, alFallarSesion }) {
                               }`}
                               onClick={() => alternarMarca(alumno.id_alumno, fecha)}
                               disabled={guardando}
-                              aria-label={`${alumno.apellido}, ${alumno.nombre}, día ${dia}: ${estado}. Cambiar marca`}
+                              aria-label={`${alumno.apellido}, ${alumno.nombre}, ${NOMBRES_DIA[new Date(anio, mes - 1, dia).getDay()]} ${dia}: ${estado}. Cambiar marca`}
                               title={`Día ${dia}: ${estado}`}
                             >
                               {marca}
