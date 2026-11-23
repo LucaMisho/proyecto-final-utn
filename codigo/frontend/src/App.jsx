@@ -8,6 +8,8 @@ import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Perfil from "./pages/Perfil";
 import Admin from "./pages/Admin";
+import Actividades from "./pages/Actividades";
+import Comunidad from "./pages/Comunidad";
 import TodasNovedades from "./pages/TodasNovedades";
 import TodasNoticias from "./pages/TodasNoticias";
 import NoticiaDetalle from "./pages/NoticiaDetalle";
@@ -31,6 +33,8 @@ function App() {
               <Route path="/" element={<Inicio />} />
               <Route path="/talleres" element={<Talleres />} />
               <Route path="/novedades" element={<TodasNovedades />} />
+              <Route path="/actividades" element={<Actividades />} />
+              <Route path="/comunidad" element={<Comunidad />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

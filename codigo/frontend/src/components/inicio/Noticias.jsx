@@ -25,7 +25,7 @@ function Noticias() {
       {/* ENCABEZADO */}
       <Reveal className="noticias-encabezado">
         <span className="noticias-etiqueta">
-          BARRIO CULTURA · ACTUALIDAD
+          BARRIO CULTURA · ENVIÓN-QUEQUÉN
         </span>
 
         <h2>Noticias</h2>

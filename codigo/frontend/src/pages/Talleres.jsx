@@ -115,6 +115,12 @@ function Talleres() {
 
   return (
     <section className="talleres banda banda--rosa" id="talleres">
+      <div className="talleres-fondo" aria-hidden="true">
+        {Array.from({ length: 10 }, (_, i) => (
+          <span key={i} className="talleres-flota" />
+        ))}
+      </div>
+
       <Reveal className="talleres-encabezado">
         <h1>Conocé nuestros Talleres</h1>
 

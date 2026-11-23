@@ -104,7 +104,7 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
 
       if (c.tipo === "casilla") cuerpo[c.clave] = Boolean(v);
       else if (c.tipo === "numero") cuerpo[c.clave] = v === "" ? null : Number(v);
-      else if (c.tipo === "relacion") cuerpo[c.clave] = Number(v);
+      else if (c.tipo === "relacion") cuerpo[c.clave] = v === "" ? null : Number(v);
       else if (c.tipo === "clave") {
         if (v !== "") cuerpo.contrasena = v;
       } else {
@@ -284,7 +284,7 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
 
   return (
     <Dialogo
-      id={`${idBase}-titulo`}
+      id={`${idBase}-dialogo`}
       titulo={editando ? `Editar ${recurso.singular}` : `Agregar ${recurso.singular}`}
       alCerrar={alCerrar}
     >

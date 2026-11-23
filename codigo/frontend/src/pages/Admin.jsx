@@ -62,7 +62,7 @@ function Admin() {
       setDatos((d) => ({ ...d, [clave]: { ...d[clave], cargando: true, error: "" } }));
 
       try {
-        const filas = await pedir(recurso.ruta, { token });
+        const filas = await pedir(recurso.rutaLista ?? recurso.ruta, { token });
         setDatos((d) => ({
           ...d,
           [clave]: { filas: Array.isArray(filas) ? filas : [], cargando: false, error: "" },

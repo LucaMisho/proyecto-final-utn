@@ -122,6 +122,7 @@ CREATE TABLE taller (
 	cupo INTEGER NOT NULL CHECK (cupo > 0),
     equipo_disponible TEXT,
     estado           VARCHAR(30) NOT NULL DEFAULT 'activo',
+    imagen           TEXT,
     CONSTRAINT fk_taller_barrio
         FOREIGN KEY (id_barrio) REFERENCES barrio(id_barrio)
         ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -137,8 +138,8 @@ CREATE TABLE taller (
 -- ==========================================
 CREATE TABLE actividad (
     id_actividad INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_taller    INTEGER NOT NULL,
-    id_barrio    INTEGER NOT NULL,
+    id_taller    INTEGER,
+    id_barrio    INTEGER,
     nombre       VARCHAR(150) NOT NULL,
     descripcion  TEXT,
     fecha        DATE NOT NULL,

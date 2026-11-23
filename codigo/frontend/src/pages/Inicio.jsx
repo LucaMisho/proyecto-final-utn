@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ResumenAdmin from "../components/inicio/ResumenAdmin";
 import useTitulo from "../hooks/useTitulo";
 import Carrusel from "../components/inicio/Carrusel";
@@ -25,6 +27,17 @@ function SeparadorBurbujas() {
 
 export default function Inicio() {
   useTitulo("");
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) return undefined;
+
+    const bajar = () => document.getElementById(hash.slice(1))?.scrollIntoView();
+    const tiempos = [0, 400, 1200].map((ms) => setTimeout(bajar, ms));
+
+    return () => tiempos.forEach(clearTimeout);
+  }, [hash]);
 
   return (
     <>
