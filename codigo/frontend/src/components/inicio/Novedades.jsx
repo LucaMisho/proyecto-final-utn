@@ -9,11 +9,18 @@ function Novedades() {
 
   return (
     <section className="novedades banda banda--celeste banda--parallax" id="novedades">
+    
+ {/* ENCABEZADO */}
       <Reveal className="novedades-encabezado">
-         <div>
+        <span className="noticias-etiqueta">
+          BARRIO CULTURA · ENVIÓN-QUEQUÉN
+        </span>
+
         <h2>Novedades</h2>
-        <p className="novedades-subtitulo">Lo último de nuestros barrios</p>
-        </div>
+
+        <p className="noticias-subtitulo">
+          Lo último de nuestros barrios.
+        </p>
       </Reveal>
 
       <NovedadesLista

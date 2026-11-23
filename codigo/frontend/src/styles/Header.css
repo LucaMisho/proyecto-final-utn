@@ -22,10 +22,20 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 4;
-  background: url("../assets/muñecos-tile.webp") center / 480px;
-  opacity: 0.05;
+  z-index: -1;
   pointer-events: none;
+
+  background: url("../assets/munecos-tile.webp") 0 0 / 480px auto repeat;
+  filter: grayscale(1) brightness(1.8);
+  opacity: 0.22;
+
+  /* Solo se ve dentro de las dos manchas: el resto del header queda liso */
+  -webkit-mask-image:
+    radial-gradient(ellipse 14% 120% at 36% 50%, #000 30%, transparent 100%),
+    radial-gradient(ellipse 9% 120% at 52% 50%, #000 30%, transparent 100%);
+  mask-image:
+    radial-gradient(ellipse 14% 120% at 36% 50%, #000 30%, transparent 100%),
+    radial-gradient(ellipse 9% 120% at 52% 50%, #000 30%, transparent 100%);
 }
 
 /* LOGO */
