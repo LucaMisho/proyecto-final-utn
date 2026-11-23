@@ -87,13 +87,23 @@
 
 /* Celulares */
 
+
 @media (max-width: 767px) {
     .busqueda {
         margin-left: auto;
+        position: relative;
+        z-index: 10;
     }
 
+    .busqueda--abierta {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+}
+
     .busqueda--abierta .busqueda-form input {
-        width: 140px;
+        width: 120px;
     }
 }
 
@@ -101,5 +111,79 @@
     .busqueda-form,
     .busqueda-form input {
         transition: none;
+    }
+}
+
+/* Panel de sugerencias */
+.busqueda {
+    position: relative;
+}
+
+.busqueda-sugerencias {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(340px, 90vw);
+    max-height: 70vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    background: #fff;
+    color: #1f2933;
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    z-index: 200;
+}
+
+.busqueda-sugerencias a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.92rem;
+}
+
+.busqueda-sugerencias a:hover,
+.busqueda-sugerencias a:focus-visible {
+    background: #f1e6f4;
+}
+
+.busqueda-tipo {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #8b2a9b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.busqueda-estado {
+    padding: 0.6rem 0.7rem;
+    color: #5b6770;
+    font-size: 0.9rem;
+}
+
+.busqueda-sugerencias a.busqueda-todo {
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 600;
+    color: #8b2a9b;
+    border-top: 1px solid #eee;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Ajustes del panel en celulares */
+@media (max-width: 767px) {
+    .busqueda-sugerencias {
+        position: fixed;
+        top: 80px;
+        left: 15px;
+        right: 15px;
+        width: auto;
+        max-width: none;
+        box-sizing: border-box;
     }
 }
