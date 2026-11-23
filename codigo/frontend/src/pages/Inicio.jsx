@@ -45,8 +45,6 @@ export default function Inicio() {
       <Carrusel />
 <ResumenAdmin />
       <TransicionSeccion>
-
-        <SearchBar />
         <QuienesSomos />
         <SeparadorBurbujas />
 

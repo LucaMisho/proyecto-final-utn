@@ -145,9 +145,6 @@ CREATE TABLE actividad (
     descripcion  TEXT,
     fecha        DATE NOT NULL,
 	estado VARCHAR(50),
-    CONSTRAINT fk_actividad_taller
-        FOREIGN KEY (id_taller) REFERENCES taller(id_taller)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT fk_actividad_barrio
         FOREIGN KEY (id_barrio) REFERENCES barrio(id_barrio)
         ON UPDATE CASCADE ON DELETE RESTRICT
