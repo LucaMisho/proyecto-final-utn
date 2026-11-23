@@ -38,12 +38,10 @@
 }
 
 /* CAPA ANIMADA: íconos de noticias y confeti que caen */
-
-
 .noticias::after {
   content: "";
   position: absolute;
-  top: -360px;            /* un ciclo extra arriba para que el loop no tenga saltos */
+  top: -360px;           
   bottom: 0;
   left: 50%;
   width: 100vw;

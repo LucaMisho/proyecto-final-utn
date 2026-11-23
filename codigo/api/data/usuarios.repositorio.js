@@ -3,9 +3,9 @@ const pool = require ("./conexion");
 //crearUsuario
 async function crearUsuario(datos, claveHash){
     const consulta = `
-    INSERT INTO usuario (username, email, contraseña, rol)
-    VALUES ($1, $2, $3, $4)
-    RETURNING id_usuario, username, email, rol, fecha_registro, estado;
+    INSERT INTO usuario (username, email, contraseña, rol, email_verificado)
+    VALUES ($1, $2, $3, $4, FALSE)
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado,email_verificado;
     `;
 
     const resultado = await pool.query(consulta, [datos.username, datos.email, claveHash, datos.rol ?? "USUARIO"]);
@@ -94,6 +94,20 @@ const actualizarPerfil = async (id_usuario, { username, email, claveHash }) => {
   return resultado.rows[0];
 };
 
+// Verificar correo electrónico
+async function verificarCorreo(email) {
+    const consulta = `
+        UPDATE usuario
+        SET email_verificado = TRUE
+        WHERE email = $1
+        RETURNING id_usuario, username, email, email_verificado;
+    `;
+
+    const resultado = await pool.query(consulta, [email]);
+
+    return resultado.rows[0] || null;
+}
+
 module.exports = {
     listarUsuarios, 
     eliminarUsuario, 
@@ -101,5 +115,6 @@ module.exports = {
     actualizarUsuario, 
     obtenerUsuarioPorId,
     buscarPorUsername,
-    actualizarPerfil
+    actualizarPerfil,
+    verificarCorreo
 };

@@ -9,32 +9,39 @@ function leerClave(datos) {
     return datos.contrasena ?? datos["contraseña"];
 }
 
-async function registrar(datos) {
-    const { username, email } = datos;
-    const clave = leerClave(datos);
+// Registrar
+async function registrar(req, res, next) {
+    try {
+        // 1. Registrar usuario mediante el servicio
+        const usuario = await authService.registrar(req.body);
 
-    if (!username || !email || !clave) {
-        throw new ErrorDeDatos("Todos los campos son obligatorios");
+        // 2. Generar token de verificación
+        const token = jwt.sign(
+            {
+                email: usuario.email,
+                tipo: "verificar"
+            },
+            process.env.JWT_SECRETO,
+            { expiresIn: "24h" }
+        );
+
+        // 3. Enviar correo
+        try {
+            await enviarVerificacion(usuario.email, token);
+        } catch (errorCorreo) {
+            console.error(
+                "No se pudo enviar el correo:",
+                errorCorreo
+            );
+        }
+
+        return res.status(201).json({
+            mensaje: "Cuenta creada. Revisá tu correo para confirmarla."
+        });
+
+    } catch (error) {
+        next(error);
     }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
-        throw new ErrorDeDatos("El email no es válido");
-    }
-
-    if (String(clave).length < 8) {
-        throw new ErrorDeDatos("La contraseña debe tener al menos 8 caracteres");
-    }
-
-    const claveHash = await bcrypt.hash(
-        String(clave),
-        10
-    );
-
-    // El rol no se toma del pedido: quien se registra siempre es USUARIO
-    return usuarioRepositorio.crearUsuario(
-        { username, email },
-        claveHash
-    );
 }
 
 
