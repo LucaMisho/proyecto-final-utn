@@ -4,7 +4,17 @@ const { responderError } = require("../middleware/errores");
 // Listar todos
 async function listar(req, res) {
     try {
-        const noticias = await noticiaService.listarNoticias();
+        const noticias = await noticiaService.listarNoticias(true);
+        res.status(200).json(noticias);
+    } catch (error) {
+        responderError(res, error);
+    }
+}
+
+// Listar todas, con borradores e inactivas (solo administrador)
+async function listarTodas(req, res) {
+    try {
+        const noticias = await noticiaService.listarNoticias(false);
         res.status(200).json(noticias);
     } catch (error) {
         responderError(res, error);
@@ -14,7 +24,7 @@ async function listar(req, res) {
 // Obtener por ID
 async function obtenerPorId(req, res) {
     try {
-        const noticia = await noticiaService.obtenerNoticia(req.params.id);
+        const noticia = await noticiaService.obtenerNoticia(req.params.id, true);
         res.status(200).json(noticia);
     } catch (error) {
         responderError(res, error);
@@ -58,6 +68,7 @@ async function borrar(req, res) {
 
 module.exports = {
     listar,
+    listarTodas,
     obtenerPorId,
     crear,
     actualizar,

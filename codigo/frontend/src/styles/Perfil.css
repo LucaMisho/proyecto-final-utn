@@ -1,4 +1,4 @@
-.perfil-pagina {
+﻿.perfil-pagina {
   position: relative;
   width: 100%;
   max-width: 640px;
@@ -7,13 +7,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-/* Textura de fondo con los muñecos de Envión: tenue, para no quitar legibilidad */
+/* Textura de fondo con los muñecos de Envión  */
 .perfil-pagina::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url("../assets/muñecos-tile.webp");
+  background-image: url("../assets/munecos-tile.webp");
   background-size: 240px;
   background-repeat: repeat;
   opacity: 0.07;
@@ -38,7 +38,7 @@
   animation: perfil-entrada 0.45s ease both;
 }
 
-/* Entrada escalonada: cada tarjeta aparece un poquito después de la anterior */
+/* Entrada escalonada: cada tarjeta aparece un poquito despues de la anterior */
 .perfil-tarjeta + .perfil-tarjeta {
   animation-delay: 0.1s;
 }
@@ -60,7 +60,7 @@
   margin-bottom: 12px;
 }
 
-/* Cabecera con degradé y textura propia */
+/* Cabecera con degradado y textura propia */
 .perfil-cabecera {
   position: relative;
   display: flex;
@@ -74,7 +74,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/textura-envion.png");
+  background-image: url("../assets/munecos-tile.webp");
   background-size: 160px;
   opacity: 0.12;
   pointer-events: none;
@@ -346,4 +346,5 @@
   background-color: #b71c1c;
   color: #FFFFFF;
 }
+
 

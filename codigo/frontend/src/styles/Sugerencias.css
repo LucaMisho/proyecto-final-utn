@@ -34,13 +34,8 @@
       transparent 40%
     ),
     linear-gradient(
-      rgba(199, 110, 231, 0.75),
-      rgba(204, 124, 211, 0.75)),
-    url("../assets/fondo_sugerencias.png");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+      rgba(151, 47, 185, 0.75),
+      rgba(119, 49, 124, 0.75))
 
 }
 /* CONTENEDOR PRINCIPAL */
@@ -94,7 +89,7 @@
   display: inline-block;
   margin-bottom: 12px;
 
-  color: #990099;
+  color: #f0e5f0;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -116,7 +111,7 @@
   max-width: 46ch;
   margin: 0;
 
-  color: #655568;
+  color: white;
   font-size: 14px;
   line-height: 1.9;
 }

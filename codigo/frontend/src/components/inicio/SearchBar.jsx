@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/SearchBar.css";
 
@@ -32,7 +32,7 @@ function SearchBar() {
     const controlador = new AbortController();
     const espera = setTimeout(() => {
       setCargando(true);
-      fetch(`${API}/buscador?q=${encodeURIComponent(consulta)}`, {
+      fetch(`${API}/buscar?q=${encodeURIComponent(consulta)}`, {
         signal: controlador.signal,
       })
         .then((r) => {
@@ -137,7 +137,7 @@ function SearchBar() {
       {hayLista && (
         <ul className="busqueda-sugerencias" aria-live="polite">
           {cargando && sugerencias.length === 0 && (
-            <li className="busqueda-estado">BuscandoÔÇª</li>
+            <li className="busqueda-estado">Buscando…</li>
           )}
           {!cargando && sugerencias.length === 0 && (
             <li className="busqueda-estado">Sin resultados</li>
@@ -157,7 +157,7 @@ function SearchBar() {
                 className="busqueda-todo"
                 onClick={() => setMostrar(false)}
               >
-                Ver todos los resultados ÔåÆ
+                Ver todos los resultados →
               </Link>
             </li>
           )}

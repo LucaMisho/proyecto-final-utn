@@ -15,7 +15,7 @@ import Comunidad from "./pages/Comunidad";
 import TodasNovedades from "./pages/TodasNovedades";
 import TodasNoticias from "./pages/TodasNoticias";
 import NoticiaDetalle from "./pages/NoticiaDetalle";
-
+import Buscar from "./components/inicio/Buscar";
 
 import { AvisosProvider } from "./contexto/Avisos";
 import { SesionProvider } from "./contexto/Sesion";
@@ -30,6 +30,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<MainLayout />}>
+            <Route path="/buscar" element={<Buscar />} />
               <Route path="/noticias" element={<TodasNoticias />} />
               <Route path="/noticias/:id" element={<NoticiaDetalle />} />
               <Route path="/perfil" element={<Perfil />} />
@@ -37,11 +38,11 @@ function App() {
               <Route path="/" element={<Inicio />} />
               <Route path="/talleres" element={<Talleres />} />
 
+              <Route path="/novedades" element={<TodasNovedades />} />
+
               
               <Route path="/actividades" element={<Actividades />} />
               <Route path="/comunidad" element={<Comunidad />} />
-
-              <Route path="/novedades" element={<TodasNovedades />} />
 
             </Route>
             <Route path="/login" element={<Login />} />

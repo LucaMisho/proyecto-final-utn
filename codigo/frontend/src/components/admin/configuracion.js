@@ -1,3 +1,5 @@
+import { calcularEdad, textoDeEdad } from "../../utils/edad";
+
 // Cómo se muestra cada dato relacionado (por ejemplo, el alumno de una inscripción)
 export const ETIQUETAS = {
   usuarios: (u) => u.username,
@@ -63,6 +65,7 @@ export const RECURSOS = [
       { clave: "dni", titulo: "DNI" },
       {clave: "edad", titulo: "Edad" },
       { clave: "telefono", titulo: "Teléfono" },
+      { clave: "fecha_nacimiento", titulo: "Edad", mostrar: textoDeEdad },
       { clave: "tiene_beca", titulo: "Beca", mostrar: SI_NO },
       { clave: "colegio", titulo: "Colegio" },
     ],
@@ -70,7 +73,13 @@ export const RECURSOS = [
       { clave: "nombre", etiqueta: "Nombre", tipo: "texto", requerido: true },
       { clave: "apellido", etiqueta: "Apellido", tipo: "texto", requerido: true },
       { clave: "dni", etiqueta: "DNI", tipo: "texto", requerido: true },
-      { clave: "fecha_nacimiento", etiqueta: "Fecha de nacimiento", tipo: "fecha" },
+      {
+        clave: "fecha_nacimiento",
+        etiqueta: "Fecha de nacimiento",
+        tipo: "fecha",
+        requeridoAlCrear: true,
+        ayuda: "Sirve para calcular la edad y controlar la edad mínima y máxima de los talleres.",
+      },
       { clave: "telefono", etiqueta: "Teléfono", tipo: "texto" },
       { clave: "colegio", etiqueta: "Colegio", tipo: "texto" },
       { clave: "tiene_beca", etiqueta: "Tiene beca", tipo: "casilla", inicial: false },
@@ -103,6 +112,27 @@ export const RECURSOS = [
       },
       { clave: "comentario", etiqueta: "Comentario", tipo: "area" },
     ],
+    avisoAntesDeGuardar: (valores, datos) => {
+      const alumno = (datos.alumnos?.filas ?? []).find((a) => String(a.id_alumno) === String(valores.id_alumno));
+      const taller = (datos.talleres?.filas ?? []).find((t) => String(t.id_taller) === String(valores.id_taller));
+      const edad = alumno ? calcularEdad(alumno.fecha_nacimiento) : null;
+
+      if (edad === null || !taller) return null;
+
+      const { edad_minima: minima, edad_maxima: maxima } = taller;
+      const fuera = (minima != null && edad < minima) || (maxima != null && edad > maxima);
+
+      if (!fuera) return null;
+
+      const rango =
+        minima != null && maxima != null
+          ? `de ${minima} a ${maxima} años`
+          : minima != null
+            ? `desde los ${minima} años`
+            : `hasta los ${maxima} años`;
+
+      return `${alumno.nombre} ${alumno.apellido} tiene ${edad} ${edad === 1 ? "año" : "años"} y el taller ${taller.nombre} es ${rango}. Si querés inscribirlo igual, volvé a tocar Guardar.`;
+    },
     alGuardar: (valores, fila) => {
       const cambioEstado = !fila || fila.estado !== valores.estado;
       return cambioEstado && valores.estado !== "pendiente"
@@ -126,13 +156,21 @@ export const RECURSOS = [
       { clave: "presente", titulo: "Presente", mostrar: SI_NO },
     ],
     campos: [
-      { clave: "id_alumno", etiqueta: "Alumno", tipo: "relacion", relacion: "alumnos", requerido: true },
       {
         clave: "id_taller",
         etiqueta: "Taller",
         tipo: "relacion",
         relacion: "talleres",
         requerido: true,
+      },
+      {
+        clave: "id_alumno",
+        etiqueta: "Alumno",
+        tipo: "relacion",
+        relacion: "alumnos",
+        requerido: true,
+        soloInscriptosDe: "id_taller",
+        ayuda: "Solo aparecen los alumnos con inscripción aceptada en el taller elegido.",
       },
       {
         clave: "fecha",
@@ -196,7 +234,12 @@ export const RECURSOS = [
       { clave: "nombre", etiqueta: "Nombre", tipo: "texto", requerido: true },
       { clave: "descripcion", etiqueta: "Descripción", tipo: "area" },
       { clave: "id_barrio", etiqueta: "Barrio", tipo: "relacion", relacion: "barrios", requerido: true },
-      { clave: "dia", etiqueta: "Días", tipo: "texto" },
+      {
+        clave: "dia",
+        etiqueta: "Días",
+        tipo: "texto",
+        ayuda: "Escribí los días de dictado, por ejemplo: Lunes, miércoles y viernes. La planilla de asistencias usa este dato.",
+      },
       { clave: "hora_inicio", etiqueta: "Hora de inicio", tipo: "hora" },
       { clave: "hora_fin", etiqueta: "Hora de fin", tipo: "hora" },
       { clave: "edad_minima", etiqueta: "Edad mínima", tipo: "numero" },
@@ -253,8 +296,51 @@ export const RECURSOS = [
       { clave: "fecha", etiqueta: "Fecha", tipo: "fecha", requerido: true },
       { clave: "id_barrio", etiqueta: "Barrio", tipo: "relacion", relacion: "barrios", requerido: true },
      { clave: "estado", etiqueta: "Estado", tipo: "texto" },
+      { clave: "id_taller", etiqueta: "Taller", tipo: "relacion", relacion: "talleres", ayuda: "Opcional. Dejalo vacío si la actividad no es de un taller." },
+      { clave: "id_barrio", etiqueta: "Barrio", tipo: "relacion", relacion: "barrios", ayuda: "Opcional." },
+      {
+        clave: "estado",
+        etiqueta: "Estado",
+        tipo: "opciones",
+        opciones: ["programada", "realizada", "cancelada"],
+        inicial: "programada",
+        ayuda: "En el sitio se muestran las programadas como próximas; las realizadas quedan en un apartado aparte y las canceladas no se muestran.",
+      },
     ],
     nombreDe: (a) => a.nombre,
+  },
+  {
+    clave: "noticias",
+    titulo: "Noticias",
+    singular: "noticia",
+    ruta: "noticias",
+    rutaLista: "noticias/admin/todas",
+    id: "id_noticia",
+    columnas: [
+      { clave: "imagen", titulo: "Imagen", tipo: "imagen" },
+      { clave: "titulo", titulo: "Título" },
+      { clave: "estado", titulo: "Estado" },
+      { clave: "fecha_publicacion", titulo: "Publicada", mostrar: fecha },
+    ],
+    campos: [
+      { clave: "titulo", etiqueta: "Título", tipo: "texto", requerido: true },
+      { clave: "contenido", etiqueta: "Contenido", tipo: "area", requerido: true },
+      {
+        clave: "imagen",
+        etiqueta: "Imagen",
+        tipo: "archivo",
+        ayuda: "Opcional. Elegí una foto de tu computadora (JPG, PNG o WebP, hasta 5 MB). Al editar, si no elegís otra se conserva la actual.",
+      },
+      {
+        clave: "estado",
+        etiqueta: "Estado",
+        tipo: "opciones",
+        opciones: ["activa", "inactiva", "borrador"],
+        inicial: "activa",
+        ayuda: "Solo las noticias activas se ven en el sitio.",
+      },
+    ],
+    nombreDe: (n) => n.titulo,
   },
   {
     clave: "sugerencias",

@@ -1,6 +1,6 @@
-/* BANDAS DE SECCIÓN
-   Fondo a ancho completo (aunque la sección tenga max-width) con
-   color propio + textura de muñecos. Alternarlas da ritmo a la página. */
+﻿/* BANDAS DE SECCIÃ“N
+   Fondo a ancho completo (aunque la secciÃ³n tenga max-width) con
+   color propio + textura de muÃ±ecos. Alternarlas da ritmo a la pÃ¡gina. */
 
 /* Evita scroll horizontal por el ancho de 100vw de las bandas */
 body {
@@ -33,11 +33,11 @@ body {
   width: 100vw;
   transform: translateX(-50%);
   z-index: -1;
-  background: url("../assets/muñecos-tile.webp") center / 560px;
+  background: url("../assets/muÃ±ecos-tile.webp") center / 560px;
   pointer-events: none;
 }
 
-/* Parallax: la textura queda fija respecto de la pantalla mientras la sección se desplaza */
+/* Parallax: la textura queda fija respecto de la pantalla mientras la secciÃ³n se desplaza */
 .banda--parallax::after {
   /* Se centra sin transform: un transform en el mismo elemento suele anular background-attachment: fixed */
   left: calc(50% - 50vw);
@@ -45,7 +45,7 @@ body {
   background-attachment: fixed;
 }
 
-/* Celulares, pantallas táctiles y quien prefiere menos movimiento: sin parallax */
+/* Celulares, pantallas tÃ¡ctiles y quien prefiere menos movimiento: sin parallax */
 @media (max-width: 720px), (hover: none), (prefers-reduced-motion: reduce) {
   .banda--parallax::after {
     background-attachment: scroll;
@@ -62,7 +62,7 @@ body {
   opacity: 0.14;
 }
 
-/* Crema: secciones más calmas (Noticias) */
+/* Crema: secciones mÃ¡s calmas (Noticias) */
 .banda--crema::before {
   background: linear-gradient(180deg, #FFF7FF 0%, #FCEAFC 100%);
 }
@@ -71,7 +71,7 @@ body {
   opacity: 0.06;
 }
 
-/* Celeste: tomado del celeste de los muñecos (Novedades) */
+/* Celeste: tomado del celeste de los muÃ±ecos (Novedades) */
 .banda--celeste::before {
   background: linear-gradient(180deg, #E6F7F9 0%, #C6E9EE 100%);
   border-top-color: rgba(0, 140, 155, 0.18);
@@ -81,7 +81,7 @@ body {
   opacity: 0.12;
 }
 
-/* Durazno: tomado del naranja de los muñecos (Noticias) */
+/* Durazno: tomado del naranja de los muÃ±ecos (Noticias) */
 .banda--durazno::before {
   background: linear-gradient(180deg, #FFF3EA 0%, #FFDDC8 100%);
   border-top-color: rgba(230, 110, 60, 0.2);
