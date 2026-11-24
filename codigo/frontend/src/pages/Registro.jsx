@@ -323,10 +323,11 @@ function Registro() {
             tabIndex={-1}
             ref={modalRef}
           >
-            <div className="terminos-modal-encabezado">
+           <div className="terminos-modal-contenido">
+  <div className="terminos-modal-encabezado">
               <div>
                 <span className="terminos-etiqueta">
-                  BARRIO CULTURA
+                  BARRIO CULTURA Y ENVIÓN-QUEQUÉN
                 </span>
 
                 <h2 id="terminos-titulo">
@@ -344,49 +345,220 @@ function Registro() {
               </button>
             </div>
 
-            <div className="terminos-modal-contenido">
-              <p>
-                Antes de crear tu cuenta, es importante que conozcas
-                las condiciones de uso de Barrio Cultura y Envión-Quequén.
-              </p>
 
-              <h3>1. Uso de la plataforma</h3>
-              <p>
-                La plataforma Barrio Cultura tiene como finalidad facilitar
-                el acceso a información sobre actividades, talleres y
-                propuestas comunitarias.
-              </p>
+  <p className="terminos-version">
+    Versión 1.0 · Vigencia:{" "}
+    23/11/2026
+  </p>
 
-              <h3>2. Datos de usuario</h3>
-              <p>
-                El usuario se compromete a proporcionar información correcta
-                y a mantener la confidencialidad de sus credenciales de acceso.
-              </p>
+  <p>
+    Antes de crear tu cuenta, es importante que conozcas las condiciones
+    de uso de este sitio y cómo tratamos tus datos personales.
+  </p>
 
-              <h3>3. Uso responsable</h3>
-              <p>
-                Los usuarios deben utilizar la plataforma de manera
-                respetuosa y responsable, evitando acciones que perjudiquen
-                a otras personas o al funcionamiento del sitio.
-              </p>
+  <h3>1. Quiénes somos</h3>
+  <p>
+    Este sitio pertenece al programa Envión Quequén y Barrio Cultura
+    (Necochea). Los responsables del sitio y del tratamiento de los datos
+    personales son los coordinadores del programa:{" "}
+    Jacqueline Franqui y 
+Gastón Cabello,
+    con domicilio en{" "}
+    Con calle 545 esquina 554, Quequén. y
+    contacto en{" "}
+    envionnecochea@yahoo.com.ar
+  </p>
 
-              <h3>4. Privacidad</h3>
-              <p>
-                La información proporcionada será utilizada conforme a las
-                políticas de privacidad aplicables y a la finalidad de
-                la plataforma.
-              </p>
-            </div>
+  <h3>2. Para qué sirve el sitio</h3>
+  <p>
+    El sitio informa sobre los talleres, actividades, novedades y noticias
+    del programa. Permite que las personas registradas envíen sugerencias y
+    gestionen su perfil, y que el personal autorizado administre los
+    contenidos y los registros del programa.
+  </p>
+  <p>
+    Usar el sitio no implica inscribirse en un taller, obtener una vacante
+    ni recibir ningún beneficio. Las inscripciones las carga el personal del
+    programa.
+  </p>
 
-            <div className="terminos-modal-pie">
-              <button
-                type="button"
-                className="terminos-btn-cerrar"
-                onClick={() => setMostrarTerminos(false)}
-              >
-                Volver al registro
-              </button>
-            </div>
+  <h3>3. Tu cuenta</h3>
+  <p>
+    Podés navegar el sitio sin cuenta. Para enviar sugerencias necesitás
+    registrarte con un nombre de usuario, un correo electrónico y una
+    contraseña.
+  </p>
+  <ul>
+    <li>
+      La cuenta es personal. No compartas tus credenciales ni dejes la
+      sesión abierta en dispositivos compartidos.
+    </li>
+    <li>
+      Tu contraseña se guarda cifrada y nadie del programa puede verla.
+    </li>
+    <li>
+      Si perdés el acceso o sospechás que alguien usó tu cuenta, escribinos
+      a envionbarriocultura@gmail.com.
+    </li>
+    <li>
+      Tu cuenta no te da acceso a datos de otras personas ni puede darte
+      permisos de administración. Esos permisos los asigna el programa por
+      un procedimiento interno.
+    </li>
+  </ul>
+
+  <h3>4. Uso correcto del sitio</h3>
+  <p>Te pedimos que:</p>
+  <ul>
+    <li>Proporciones datos verdaderos al registrarte.</li>
+    <li>
+      Escribas las sugerencias con respeto, sin ofensas, discriminación ni
+      contenido ilegal.
+    </li>
+    <li>
+      No incluyas datos personales de terceros, y menos de niñas, niños o
+      adolescentes.
+    </li>
+    <li>
+      No intentes acceder a información o funciones que no te corresponden,
+      ni dañar o sobrecargar el sitio.
+    </li>
+  </ul>
+  <p>
+    Si se detecta un uso indebido, el programa puede limitar o suspender la
+    cuenta de forma proporcionada. Se te informará el motivo y podrás pedir
+    que se revise la decisión.
+  </p>
+
+  <h3>5. Personal autorizado</h3>
+  <p>
+    El personal ingresa solo con su propia cuenta y dentro de los permisos
+    de su rol. Debe:
+  </p>
+  <ul>
+    <li>
+      Consultar o modificar datos solamente cuando sea necesario para sus
+      tareas.
+    </li>
+    <li>
+      Mantener la confidencialidad, también después de dejar de colaborar
+      con el programa.
+    </li>
+    <li>
+      No compartir usuarios, contraseñas, listados ni capturas por canales
+      no autorizados, ni usar los datos para fines personales.
+    </li>
+    <li>
+      Avisar de inmediato a{" "}
+      envionnecochea@yahoo.com.ar ante
+      cualquier acceso indebido, error o pérdida de información.
+    </li>
+  </ul>
+  <p>
+    El programa dará de baja los permisos cuando cambie la función de la
+    persona o termine su colaboración.
+  </p>
+
+  <h3>6. Datos personales que tratamos</h3>
+  <p>
+    <strong>Qué datos.</strong> Nombre de usuario, correo electrónico y
+    contraseña (cifrada), y el contenido y la fecha de tus sugerencias. El
+    personal, además, carga datos de los participantes de los talleres (por
+    ejemplo, inscripciones, asistencias y seguimientos), que solo ve quien
+    tiene permiso para hacerlo.
+  </p>
+  <p>
+    <strong>Para qué.</strong> Para crear y mantener tu cuenta, recibir y
+    responder tus sugerencias, y organizar las actividades del programa. No
+    los usamos para publicidad ni para fines distintos de estos.
+  </p>
+  <p>
+    <strong>Quién puede verlos.</strong> El personal autorizado, según su
+    rol. No vendemos ni cedemos tus datos a terceros.
+  </p>
+  <p>
+    <strong>Servicios técnicos que usamos.</strong> El sitio funciona con
+    proveedores que alojan la aplicación, la base de datos y las imágenes:
+    Vercel, Render, Neon y Cloudinary. Procesan la información por cuenta
+    del programa, y algunos pueden tener servidores fuera de Argentina.
+  </p>
+  <p>
+    <strong>Datos sensibles.</strong> El sitio no solicita datos de salud ni
+    otros datos sensibles, y nadie está obligado a darlos. Si en el futuro
+    hiciera falta tratarlos, se informará por separado y se pedirá la
+    autorización que corresponda.
+  </p>
+
+  <h3>7. Niñas, niños y adolescentes</h3>
+  <p>
+    El programa trabaja con menores, por eso el sitio los protege
+    especialmente: respeta su interés superior, su privacidad y su
+    dignidad.
+  </p>
+  <ul>
+    <li>
+      Los registros de participantes solo los carga y consulta el personal
+      autorizado.
+    </li>
+    <li>
+      No publicamos fotos, videos ni voces identificables de niñas, niños o
+      adolescentes sin una autorización específica de quien ejerce la
+      responsabilidad parental. Esa autorización es independiente de estos
+      términos, y participar en el programa no depende de darla.
+    </li>
+    <li>
+      Si una persona menor de edad se registra, le recomendamos hacerlo con
+      el acompañamiento de una persona adulta responsable.
+    </li>
+  </ul>
+
+  <h3>8. Seguridad</h3>
+  <p>
+    Aplicamos medidas razonables para proteger la información: contraseñas
+    cifradas, acceso por roles, sesiones con token y conexión segura.
+    Ningún sistema es infalible. Si ocurre un incidente, el programa lo
+    documentará, tomará medidas para reducir sus efectos y avisará a las
+    personas afectadas y a las autoridades cuando corresponda.
+  </p>
+
+  <h3>9. Tus derechos</h3>
+  <p>
+    Podés pedir acceso, rectificación, actualización y supresión de tus
+    datos escribiendo a{" "}
+    envionnecochea@yahoo.com.ar. Para
+    protegerte, vamos a verificar tu identidad antes de responder. Si no
+    recibís una respuesta adecuada, podés reclamar ante la Agencia de
+    Acceso a la Información Pública, autoridad de control de la Ley 25.326,
+    o recurrir a las vías judiciales que correspondan.
+  </p>
+
+  <h3>10. Cuánto tiempo guardamos los datos</h3>
+  <p>
+    Guardamos los datos de tu cuenta mientras la mantengas activa. Si
+    pedís eliminarla, borraremos tus datos, salvo los que debamos conservar
+    por una obligación legal. Los registros del programa se conservan{" "}
+    en un plazo de 30 días.
+  </p>
+
+  <h3>11. Disponibilidad del sitio</h3>
+  <p>
+    Hacemos lo posible por mantener el sitio disponible, pero puede
+    interrumpirse por mantenimiento, fallas técnicas o motivos de
+    seguridad. Si pasa, podés contactarnos por{" "}
+    envionnecochea@yahoo.com.ar.
+  </p>
+
+  <h3>12. Cambios y contacto</h3>
+  <p>
+    Si modificamos estos términos, publicaremos la nueva versión en el
+    sitio con su fecha de vigencia. Si el cambio afecta el tratamiento de
+    tus datos, te lo vamos a informar antes de aplicarlo.
+  </p>
+  <p>
+    Consultas generales y de privacidad:{" "}
+    envionnecochea@yahoo.com.ar.
+  </p>
+</div>
           </section>
         </div>
       )}

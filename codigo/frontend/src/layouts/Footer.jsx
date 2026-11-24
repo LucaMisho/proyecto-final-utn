@@ -1,5 +1,47 @@
 import "../styles/Footer.css";
-import cerrarMenu from "./Header";
+
+const instituciones = [
+  {
+    nombre: "Envión Quequén",
+    redes: [
+      {
+        icono: "bi-instagram",
+        etiqueta: "Instagram",
+        url: "https://www.instagram.com/envionquequen/",
+      },
+      {
+        icono: "bi-facebook",
+        etiqueta: "Facebook",
+        url: "https://www.facebook.com/envionquequen/",
+      },
+      {
+        icono: "bi-whatsapp",
+        etiqueta: "WhatsApp",
+        url: "https://wa.me/5492262471464",
+    },
+    ],
+  },
+  {
+    nombre: "Barrio Cultura",
+    redes: [
+      {
+        icono: "bi-instagram",
+        etiqueta: "Instagram",
+        url: "https://www.instagram.com/barrioculturanecochea/",
+      },
+      {
+        icono: "bi-facebook",
+        etiqueta: "Facebook",
+        url: "https://www.facebook.com/people/CIC-Barrio-Norte-Necochea/100067140305835/",
+      },
+      {
+        icono: "bi-envelope-fill",
+        etiqueta: "Correo",
+        url: "infoculturaneco@gmail.com",
+      },
+    ],
+  },
+];
 
 function Footer() {
   return (
@@ -21,8 +63,8 @@ function Footer() {
         <div className="footer-enlaces">
           <h3>Navegación</h3>
 
-          <a href="/" onClick={cerrarMenu}>Inicio</a>
-          <a href="#quienes-somos">Quiénes somos</a>
+          <a href="/">Inicio</a>
+          <a href="/#quienes-somos">Quiénes somos</a>
           <a href="/#novedades">Novedades</a>
           <a href="/#noticias">Noticias</a>
           <a href="/#sugerencias">Sugerencias</a>
@@ -38,37 +80,30 @@ function Footer() {
             en nuestras redes sociales.
           </p>
 
-          <div className="footer-redes-iconos">
+          {instituciones.map((inst) => (
+            <div key={inst.nombre} className="footer-redes-grupo">
+              <span className="footer-redes-titulo">{inst.nombre}</span>
 
-            <a
-              href="https://www.instagram.com/barrioculturanecochea/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-              title="Instagram"
-            >
-              <i className="bi bi-instagram"></i>
-            </a>
+              <div className="footer-redes-iconos">
+                {inst.redes.map((red) => {
+                  const externo = red.url.startsWith("http");
 
-            <a
-              href="https://www.facebook.com/people/CIC-Barrio-Norte-Necochea/100067140305835/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook"
-              title="Facebook"
-            >
-              <i className="bi bi-facebook"></i>
-            </a>
-
-            <a
-              href="mailto:"
-              aria-label="Gmail"
-              title="Gmail"
-            >
-              <i className="bi bi-envelope-fill"></i>
-            </a>
-
-          </div>
+                  return (
+                    <a
+                      key={red.etiqueta}
+                      href={red.url}
+                      target={externo ? "_blank" : undefined}
+                      rel={externo ? "noreferrer" : undefined}
+                      aria-label={`${red.etiqueta} de ${inst.nombre}`}
+                      title={`${red.etiqueta} de ${inst.nombre}`}
+                    >
+                      <i className={`bi ${red.icono}`}></i>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
@@ -85,4 +120,3 @@ function Footer() {
 }
 
 export default Footer;
-
