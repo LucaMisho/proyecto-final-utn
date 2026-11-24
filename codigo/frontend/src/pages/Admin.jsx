@@ -5,9 +5,11 @@ import { useAvisos } from "../contexto/Avisos";
 import useTitulo from "../hooks/useTitulo";
 import TablaAdmin from "../components/admin/TablaAdmin";
 import PlanillaAsistencias from "../components/admin/PlanillaAsistencias";
+import AutorizacionesAdmin from "../components/admin/AutorizacionesAdmin";
 import { RECURSOS, ETIQUETAS } from "../components/admin/configuracion";
 import { pedir, ErrorDeSesion } from "../components/admin/pedir";
 import "../styles/Admin.css";
+
 
 const ESTADO_INICIAL = { filas: [], cargando: true, error: "" };
 
@@ -39,12 +41,28 @@ function Admin() {
     [esAdministrador]
   );
 
+  /*pestaña especial, sin incorporar a recursos, ni cargar desde la API, para imprimir autorizaciones y documentación*/
+const pestanasVisibles = useMemo(
+  () =>
+    esAdministrador
+      ? [
+          ...recursosVisibles,
+          {
+            clave: "autorizaciones",
+            titulo: "Autorizaciones y documentación",
+          },
+        ]
+      : recursosVisibles,
+  [esAdministrador, recursosVisibles]
+);
+
   useEffect(() => {
     if (!puedeEntrar) return;
-    if (!recursosVisibles.some((recurso) => recurso.clave === activa)) {
-      setActiva(recursosVisibles[0].clave);
+    /*actualizar la validacion de pestañas*/
+   if (!pestanasVisibles.some((pestana) => pestana.clave === activa)) {
+  setActiva(pestanasVisibles[0].clave);
     }
-  }, [puedeEntrar, recursosVisibles, activa]);
+  }, [puedeEntrar, pestanasVisibles, activa]);
 
   const fallarSesion = useCallback(
     (error) => {
@@ -102,7 +120,7 @@ function Admin() {
   }
 
   function moverPestana(e, indice) {
-    const ultimo = recursosVisibles.length - 1;
+    const ultimo = pestanasVisibles.length - 1;
     let destino = null;
 
     if (e.key === "ArrowRight") destino = indice === ultimo ? 0 : indice + 1;
@@ -113,7 +131,7 @@ function Admin() {
     if (destino === null) return;
 
     e.preventDefault();
-    const clave = recursosVisibles[destino].clave;
+    const clave = pestanasVisibles[destino].clave;
     setActiva(clave);
     botones.current[clave]?.focus();
   }
@@ -142,9 +160,14 @@ function Admin() {
     );
   }
 
-  const recursoActivo =
+  /*const recursoActivo =
     recursosVisibles.find((r) => r.clave === activa) ?? recursosVisibles[0];
-  const usaPlanilla = recursoActivo.vista === "planilla";
+  const usaPlanilla = recursoActivo.vista === "planilla";*/
+
+  /*evitamos que el sistema intente buscar una ruta de API para Autorizaciones*/
+  const pestanaActiva = pestanasVisibles.find((p) => p.clave === activa);
+  const recursoActivo = RECURSOS.find((r) => r.clave === activa);
+  const usaPlanilla = recursoActivo?.vista === "planilla";
 
   const tablaAdmin = (
     <TablaAdmin
@@ -167,7 +190,7 @@ function Admin() {
       <h1>Panel de administración</h1>
 
       <div className="admin-pestanas" role="tablist" aria-label="Secciones de administración">
-        {recursosVisibles.map((r, indice) => (
+        {pestanasVisibles.map((r, indice) => ( 
           <button
             key={r.clave}
             type="button"
@@ -194,9 +217,11 @@ function Admin() {
         aria-labelledby={`pestana-${activa}`}
         className="admin-panel"
       >
-        <h2 tabIndex={-1}>{recursoActivo.titulo}</h2>
+        <h2 tabIndex={-1}>{pestanaActiva.titulo}</h2>
 
-        {usaPlanilla ? (
+        {activa === "autorizaciones" ? (
+        <AutorizacionesAdmin />
+        ) : usaPlanilla ? (
           <>
             <PlanillaAsistencias
               token={token}

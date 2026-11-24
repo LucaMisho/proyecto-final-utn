@@ -295,3 +295,127 @@
   color: #5A3A5A;
   font-size: 13px;
 }
+
+
+/* AUTORIZACIONES Y DOCUMENTACIÓN */
+
+.autorizaciones-admin {
+  margin-top: 20px;
+}
+
+.autorizaciones-admin > p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.autorizaciones-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.autorizacion-tarjeta {
+  padding: 22px;
+  border: 1px solid #EBD7EB;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(117, 0, 116, 0.10);
+}
+
+.autorizacion-tarjeta h3 {
+  margin: 0 0 12px;
+  color: #720072;
+  font-size: 18px;
+}
+
+.autorizacion-tarjeta p {
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.autorizacion-tarjeta button {
+  padding: 10px 16px;
+  border: 2px solid #720072;
+  border-radius: 8px;
+  background-color: #720072;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.autorizacion-tarjeta button:hover {
+  background-color: #4A0048;
+}
+
+/* DOCUMENTO PARA IMPRIMIR */
+
+.autorizacion-documento {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 35px;
+  background-color: #FFFFFF;
+  color: #222222;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.autorizacion-documento h1 {
+  margin-bottom: 30px;
+  color: #222222;
+  font-size: 19px;
+  text-align: center;
+}
+
+.autorizacion-documento p {
+  margin-bottom: 18px;
+  text-align: justify;
+}
+
+.autorizacion-firmas {
+  margin-top: 45px;
+}
+
+.autorizacion-firmas p {
+  margin-bottom: 24px;
+}
+
+/* CONFIGURACIÓN DE IMPRESIÓN */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  .autorizacion-documento,
+  .autorizacion-documento * {
+    visibility: visible;
+  }
+
+  .autorizacion-documento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    font-size: 11pt;
+    box-shadow: none;
+  }
+
+  .autorizacion-documento h1 {
+    font-size: 15pt;
+  }
+
+  .autorizacion-documento p {
+    page-break-inside: avoid;
+  }
+}
