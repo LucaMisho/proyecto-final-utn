@@ -112,6 +112,12 @@ app.get("/api/diagnostico", async (req, res) => {
     }
 });
 
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({ error: err.message || "Error interno" });
+});
+
 // Middlewares de manejo de errores
 const {
     rutaNoEncontrada,

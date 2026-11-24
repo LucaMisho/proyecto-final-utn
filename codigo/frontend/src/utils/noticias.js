@@ -19,4 +19,23 @@ export function normalizarNoticia(n) {
     imagen,
     fecha: n.fecha_publicacion,
   };
+
+}
+
+export function limpiarTexto(html = "") {
+  const conSaltos = String(html)
+    .replace(/<\/p>\s*<p>/gi, "\n\n")
+    .replace(/<br\s*\/?>/gi, "\n");
+
+  const doc = new DOMParser().parseFromString(conSaltos, "text/html");
+
+  return doc.body.textContent.replace(/\u00a0/g, " ").trim();
+}
+
+export function aTextoPlano(html = "") {
+  return new DOMParser()
+    .parseFromString(String(html), "text/html")
+    .body.textContent.replace(/\u00a0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }

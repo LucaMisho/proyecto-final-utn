@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Dialogo from "./Dialogo";
 import { ETIQUETAS, RECURSOS } from "./configuracion";
+import CampoEnriquecido from "./CampoEnriquecido";
 
 const TIPOS_IMAGEN = ["image/jpeg", "image/png", "image/webp"];
 const MAX_MB = 5;
@@ -57,6 +58,7 @@ function CampoArchivo({ id, archivo, actual, descripcionId, alElegir, alRechazar
 }
 
 function valorInicial(campo, fila, iniciales) {
+  if (campo.limpiarHtml) return limpiarTexto(String(v));
   if (campo.tipo === "archivo") return "";
 
   if (!fila) return iniciales?.[campo.clave] ?? campo.inicial ?? (campo.tipo === "casilla" ? false : "");
@@ -230,16 +232,12 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
 
     let control;
 
-    if (c.tipo === "area") {
+    if (c.tipo === "enriquecido") {
       control = (
-        <textarea
-          {...comunes}
-          rows={3}
-          value={valor}
-          onChange={(e) => cambiar(c.clave, e.target.value)}
-        />
-      );
-    } else if (c.tipo === "opciones") {
+       <CampoEnriquecido id={id} valor={valor} alCambiar={(html) => cambiar(c.clave, html)} />
+        
+       );
+      } else if (c.tipo === "opciones") {
       control = (
         <select {...comunes} value={valor} onChange={(e) => cambiar(c.clave, e.target.value)}>
           {c.opciones.map((o) => (

@@ -48,8 +48,7 @@ async function actualizarNovedad(id, datos){
     `;
 
     const resultado = await pool.query(consulta, [
-        datos.titulo, datos.descripcion, datos.categoria, datos.imagen ?? null, id
-    ]);
+        datos.titulo, datos.descripcion, datos.categoria, datos.imagen ?? null, id]);
     return resultado.rows[0] || null;
 }
 

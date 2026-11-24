@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { formatearFecha } from "../../utils/fecha";
+import { aTextoPlano } from "../../utils/noticias";
 import Reveal from "./Reveal";
 
 export default function NoticiasLista({
@@ -95,7 +96,9 @@ export default function NoticiasLista({
 
                 <h3>{noticia.titulo}</h3>
 
-                <p>{noticia.descripcion}</p>
+                <p className="noticia-extracto">
+                  {aTextoPlano(noticia.descripcion)}
+                </p>
 
                 <Link to={`/noticias/${noticia.id}`}>
                   Leer noticia <span>→</span>

@@ -140,6 +140,7 @@ export const RECURSOS = [
     },
     nombreDe: (i) => `inscripción ${i.id_inscripcion}`,
   },
+
   {
     clave: "asistencias",
     titulo: "Asistencias",
@@ -324,7 +325,7 @@ export const RECURSOS = [
     ],
     campos: [
       { clave: "titulo", etiqueta: "Título", tipo: "texto", requerido: true },
-      { clave: "contenido", etiqueta: "Contenido", tipo: "area", requerido: true },
+      { clave: "contenido", etiqueta: "Contenido", tipo: "enriquecido", requerido: true, filas: 12 },
       {
         clave: "imagen",
         etiqueta: "Imagen",
@@ -374,4 +375,30 @@ export const RECURSOS = [
     campos: [],
     nombreDe: (p) => `${p.apellido}, ${p.nombre}`,
   },
+
+  {
+  clave: "novedades",
+  titulo: "Novedades",
+  singular: "novedad",
+  ruta: "novedades",
+  id: "id_novedad", 
+  conservar: ["imagen"],
+  columnas: [
+    { clave: "titulo", titulo: "Título" },
+    { clave: "categoria", titulo: "Categoría" },
+    { clave: "fecha", titulo: "Fecha", mostrar: fecha }, // usá la columna de fecha real
+  ],
+   campos: [
+    { clave: "titulo", etiqueta: "Título", tipo: "texto", requerido: true, ayuda: "Máximo 120 caracteres." },
+    { clave: "descripcion", etiqueta: "Descripción", tipo: "textarea", requerido: true, ayuda: "Máximo 500 caracteres." },
+    { clave: "categoria", etiqueta: "Categoría", tipo: "texto", requerido: true, ayuda: "Máximo 40 caracteres." },
+    {
+      clave: "imagen",
+      etiqueta: "Imagen",
+      tipo: "archivo",
+      ayuda: "Elegí una foto de tu computadora (JPG, PNG o WebP, hasta 5 MB). Mejor si mide al menos 1600 px de ancho.",
+    },
+  ],
+  nombreDe: (n) => n.titulo,
+},
 ];

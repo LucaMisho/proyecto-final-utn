@@ -10,8 +10,8 @@ function validar(body) {
   if (!titulo || titulo.length > 120) {
     return { error: "El título es obligatorio (máximo 120 caracteres)" };
   }
-  if (!descripcion || descripcion.length > 500) {
-    return { error: "La descripción es obligatoria (máximo 500 caracteres)" };
+  if (!descripcion || descripcion.length > 700) {
+    return { error: "La descripción es obligatoria (máximo 700 caracteres)" };
   }
   if (!categoria || categoria.length > 40) {
     return { error: "La categoría es obligatoria (máximo 40 caracteres)" };
@@ -46,6 +46,7 @@ const obtener = async (req, res) => {
   }
 };
 
+// Crear
 const crear = async (req, res) => {
   const { error, datos } = validar(req.body);
   if (error) return res.status(400).json({ error });
@@ -66,8 +67,13 @@ const actualizar = async (req, res) => {
   if (error) return res.status(400).json({ error });
 
   try {
+    const actual = await novedadesData.obtenerNovedadPorId(id);
+    if (!actual) return res.status(404).json({ error: "Novedad no encontrada" });
+
+    // Foto nueva (la deja el middleware en el body) o la que ya tenía
+    datos.imagen = datos.imagen || actual.imagen;
+
     const novedad = await novedadesData.actualizarNovedad(id, datos);
-    if (!novedad) return res.status(404).json({ error: "Novedad no encontrada" });
     res.status(200).json(novedad);
   } catch (err) {
     console.error("Error al actualizar novedad:", err.message);

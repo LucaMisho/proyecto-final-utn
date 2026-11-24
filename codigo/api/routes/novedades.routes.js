@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../controllers/novedades.controllers");
+const novedadesController = require("../controllers/novedades.controllers");
 const { autenticarToken, autorizarRol } = require("../middleware/autenticacion");
+const subirImagen = require("../middleware/subirImagen");
 
 // Lectura pública: la ve cualquiera en el Inicio
-router.get("/", controller.listar);
-router.get("/:id", controller.obtener);
+router.get("/", novedadesController.listar);
+router.get("/:id", novedadesController.obtener);
 
 // Alta, edición y baja: solo quien administra
-// (copiá de otra ruta tuya cómo le pasás los roles a autorizarRol)
-router.post("/", autenticarToken, autorizarRol("ADMINISTRADOR"), controller.crear);
-router.put("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), controller.actualizar);
-router.delete("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), controller.eliminar);
+router.post("/", autenticarToken, autorizarRol("ADMINISTRADOR", "PERSONAL"), subirImagen("imagen", "barrio-cultura/noticias"), novedadesController.crear);
+router.put("/:id", autenticarToken, autorizarRol("ADMINISTRADOR", "PERSONAL"), subirImagen("imagen", "barrio-cultura/noticias"), novedadesController.actualizar);
+router.delete("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), novedadesController.eliminar);
 
 module.exports = router;

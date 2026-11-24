@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import useListado from "../../hooks/useListado";
-import { normalizarNoticia } from "../../utils/noticias";
+import { normalizarNoticia, limpiarTexto } from "../../utils/noticias";
 import NoticiasLista from "./NoticiasLista";
 import Reveal from "./Reveal";
 import "../../styles/Noticias.css";
 
 function Noticias() {
   const { items, cargando, error, recargar } = useListado("/noticias", 3);
-  const noticias = items.map(normalizarNoticia);
+  const noticias = items
+  .map(normalizarNoticia)
+  .map((n) => ({ ...n, contenido: limpiarTexto(n.contenido) }));
 
   return (
     <section className="noticias" id="noticias">
@@ -18,8 +20,6 @@ function Noticias() {
         <span className="figura figura-cubo figura-2"></span>
         <span className="figura figura-anillo figura-3"></span>
         <span className="figura figura-esfera figura-4"></span>
-        <span className="figura figura-cubo figura-5"></span>
-        <span className="figura figura-anillo figura-6"></span>
       </div>
 
       {/* ENCABEZADO */}

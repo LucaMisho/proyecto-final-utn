@@ -1,12 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import API from "../config/api";
 import useTitulo from "../hooks/useTitulo";
 import { formatearFecha } from "../utils/fecha";
-import { normalizarNoticia } from "../utils/noticias";
 import "../styles/NoticiaDetalle.css";
+import { normalizarNoticia, limpiarTexto } from "../utils/noticias";
+import DOMPurify from "dompurify";
 
 const FORMATO_FECHA = { day: "numeric", month: "long", year: "numeric" };
+
+// ¿El contenido trae etiquetas HTML? (noticias nuevas, cargadas con el editor)
+const TIENE_HTML = /<\/?[a-z][\s\S]*?>/i;
 
 export default function NoticiaDetalle() {
   const { id } = useParams();
@@ -18,6 +22,29 @@ export default function NoticiaDetalle() {
   const [noExiste, setNoExiste] = useState(false);
 
   useTitulo(noticia ? noticia.titulo : "Noticia");
+
+  // Cuerpo de la noticia:
+  // - si viene con HTML: se sanitiza y se muestra con formato
+  // - si es texto plano (noticias viejas): se muestra por párrafos como antes
+  const cuerpo = useMemo(() => {
+    const original = noticia?.contenido;
+    if (!original) return { html: "", parrafos: [] };
+
+    const texto = String(original);
+
+    if (TIENE_HTML.test(texto)) {
+      // Los &nbsp; impiden que el navegador corte la línea: se pasan a espacios comunes
+      const sinNbsp = texto.replace(/&nbsp;|\u00a0/g, " ");
+      return { html: DOMPurify.sanitize(sinNbsp), parrafos: [] };
+    }
+
+    return {
+      html: "",
+      parrafos: limpiarTexto(texto)
+        .split(/\n+/)
+        .filter((parrafo) => parrafo.trim() !== ""),
+    };
+  }, [noticia]);
 
   const cargar = useCallback(async () => {
     setError("");
@@ -126,11 +153,11 @@ export default function NoticiaDetalle() {
         <article className="noticia-detalle">
           <header className="noticia-detalle-portada">
             {noticia.imagen && (
-  <>
-              <img src={noticia.imagen} alt="" aria-hidden="true" className="noticia-detalle-fondo" />
-              <img src={noticia.imagen} alt={noticia.titulo} className="noticia-detalle-imagen" />
-            </>
-          )}
+              <>
+                <img src={noticia.imagen} alt="" aria-hidden="true" className="noticia-detalle-fondo" />
+                <img src={noticia.imagen} alt={noticia.titulo} className="noticia-detalle-imagen" />
+              </>
+            )}
             <div className="noticia-detalle-portada-texto">
               <Link to="/noticias" className="noticia-detalle-volver">
                 ← Volver a noticias
@@ -147,9 +174,20 @@ export default function NoticiaDetalle() {
             </div>
           </header>
 
-          <div className="noticia-detalle-cuerpo">
-            <p className="noticia-detalle-texto">{noticia.contenido}</p>
-          </div>
+          {cuerpo.html ? (
+            <div
+              className="noticia-detalle-cuerpo noticia-detalle-texto"
+              dangerouslySetInnerHTML={{ __html: cuerpo.html }}
+            />
+          ) : (
+            <div className="noticia-detalle-cuerpo">
+              {cuerpo.parrafos.map((parrafo, i) => (
+                <p key={i} className="noticia-detalle-texto">
+                  {parrafo}
+                </p>
+              ))}
+            </div>
+          )}
         </article>
       )}
 
