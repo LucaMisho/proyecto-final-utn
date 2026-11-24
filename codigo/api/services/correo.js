@@ -1,4 +1,4 @@
-const { Resend } = require("resend");
+//const { Resend } = require("resend");
 
 async function enviarVerificacion(destino, token) {
     if (!process.env.RESEND_API_KEY) {

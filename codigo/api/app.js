@@ -8,7 +8,7 @@ const app = express();
 // Configuración de CORS
 const origenesPermitidos = [
     "http://localhost:5173",
-    "https://proyecto-final-utn-sage.vercel.app",
+    "http://localhost:4173",
     "https://barriocultura-envionquequen.vercel.app",
     process.env.FRONTEND_URL
 ]

@@ -16,7 +16,7 @@ Kristensen Franco Valentin
 
 ## Estado
 
-Etapa 6 — Prototipos interactivosv
+Etapa 7 — Desarrollo del Frontend.
 
 ## Instrucciones de instalación y ejecución:
 Antes de ejecutar el proyecto, es necesario cumplir los siguientes requisitos:
@@ -48,7 +48,7 @@ Ejecutar el ScriptEnvion.sql de la carpeta /bd en la base de datos para integrar
 
 ## Iniciar el servidor 
 Una vez instaladas las dependencias y configurada la base de datos, iniciar la API con el 
-comando correspondiente definido en package.json, en este caso: npm run dev.  
+comando correspondiente definido en package.json, en este caso: npm run dev, en la terminal tiene que aparecer: API funcionando en puerto 3000
  
 ## Creación del usuario administrador  
 El proyecto cuenta con un comando para crear un usuario con rol de administrador: npm run admin:crear  
@@ -58,3 +58,47 @@ crear-admin.js en script que se encarga de hacer el INSERT de un usuario nuevo c
 permite usar los endpoints principales de la API.  
 
 Por motivos de seguridad, los usuarios registrados normalmente no pueden modificar su propio rol para obtener permisos de administrador. La asignación de este rol se realiza mediante el procedimiento específico de creación del administrador. 
+
+## Configurar y ejecutar el frontend
+
+El frontend es una aplicación React creada con Vite y está en la carpeta /codigo/frontend.
+Necesita que la API esté corriendo (ver "Iniciar el servidor"), por lo que hay que
+levantar primero el backend y después el frontend, cada uno en su propia terminal.
+
+### 1. Instalar las dependencias
+1. Abrir una segunda terminal en VSCODE y posicionarse en /codigo y luego /frontend.
+2. Ejecutar el comando: npm install
+
+### 2. Configurar las variables de entorno
+Crear un archivo nuevo llamado .env en la raíz de /frontend (si existe un .env.ejemplo,
+copiar sus valores) e indicar la URL de la API:
+
+VITE_API_URL=http://localhost:3000
+
+El puerto debe coincidir con el definido en el .env de la API. Las variables del
+frontend tienen que empezar con VITE_ para que Vite las exponga. Si se modifica el
+.env, hay que reiniciar el servidor de desarrollo.
+
+### 3. Iniciar el frontend
+Ejecutar el comando: npm run dev
+
+Vite muestra en la terminal la dirección donde se sirve la aplicación
+(por defecto http://localhost:5173). Abrirla en el navegador.
+
+Nota: la API solo acepta peticiones de los orígenes permitidos (CORS). Si al iniciar
+sesión aparece un error de CORS, hay que agregar la dirección del frontend
+(por ejemplo http://localhost:5173) a la lista de orígenes permitidos en app.js de la API.
+
+### 4. Generar la versión de producción (opcional)
+- npm run build: genera la carpeta dist con la aplicación lista para publicar.
+- npm run preview: permite probar localmente esa versión.
+
+### 5. Versión publicada
+- Frontend (Vercel): https://barriocultura-envionquequen.vercel.app/
+- API (Render): https://proyecto-final-utn-23w6.onrender.com
+
+### Estructura del frontend
+- src/layouts: Header, Footer y MainLayout.
+- src/pages: pantallas completas (Inicio, Login, Registro, Perfil, Talleres, Noticias, etc.).
+- src/components: secciones y componentes reutilizables (por ejemplo components/inicio y components/admin).
+- src/assets y public: imágenes y recursos estáticos.

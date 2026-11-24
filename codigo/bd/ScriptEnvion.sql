@@ -15,7 +15,8 @@ CREATE TABLE usuario (
     contraseña       VARCHAR(255) NOT NULL,
     rol              VARCHAR(30) NOT NULL DEFAULT 'USUARIO',
     fecha_registro   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    estado           BOOLEAN NOT NULL DEFAULT TRUE
+    estado           BOOLEAN NOT NULL DEFAULT TRUE,
+    correo_verificado BOOLEAN NOT NULL DEFAULT TRUE
 );	
 
 -- ==========================================
