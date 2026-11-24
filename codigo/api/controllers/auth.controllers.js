@@ -1,5 +1,8 @@
 const authService = require("../services/auth.services");
 const { responderError } = require("../middleware/errores");
+const jwt = require("jsonwebtoken");
+const usuarioRepositorio = require("../data/usuarios.repositorio");
+const { enviarVerificacion } = require("../services/correo");
 
 // Iniciar sesión
 async function iniciarSesion(req, res) {
@@ -18,16 +21,84 @@ async function iniciarSesion(req, res) {
         responderError(res, error);
     }
 }
+// Registrar
 
-//Registrar
-async function registrar(req, res) {
+async function registrar(req, res, next) {
     try {
+        // Crear usuario
         const usuario = await authService.registrar(req.body);
 
-        res.status(201).json(usuario);
+        // Generar token de verificación
+        const token = jwt.sign(
+            {
+                email: usuario.email,
+                tipo: "verificar"
+            },
+            process.env.JWT_SECRETO,
+            { expiresIn: "24h" }
+        );
+
+        // Intentar enviar correo
+        try {
+            await enviarVerificacion(usuario.email, token);
+
+            return res.status(201).json({
+                mensaje: "Cuenta creada. Revisá tu correo para confirmarla.",
+                correoEnviado: true
+            });
+
+        } catch (errorCorreo) {
+            console.error("No se pudo enviar el correo:", errorCorreo);
+
+            return res.status(201).json({
+                mensaje: "Tu cuenta fue creada, pero no pudimos enviar el correo de verificación. Por el momento, solo podemos enviar correos a la dirección de prueba.",
+                correoEnviado: false
+            });
+        }
+
     } catch (error) {
-        responderError(res, error);
+        next(error);
     }
 }
 
-module.exports = {registrar, iniciarSesion};
+async function verificarCorreo(req, res, next) {
+    try {
+        const { token } = req.query;
+
+        if (!token) {
+            return res.status(400).json({
+                mensaje: "Falta el token de verificación"
+            });
+        }
+
+        const datos = jwt.verify(
+            token,
+            process.env.JWT_SECRETO
+        );
+
+        if (datos.tipo !== "verificar") {
+            return res.status(400).json({
+                mensaje: "Token inválido"
+            });
+        }
+
+        const usuario = await usuarioRepositorio.verificarCorreo(
+            datos.email
+        );
+
+        if (!usuario) {
+            return res.status(404).json({
+                mensaje: "No se encontró el usuario"
+            });
+        }
+
+        return res.status(200).json({
+            mensaje: "¡Correo verificado correctamente!"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = {registrar, iniciarSesion, verificarCorreo};

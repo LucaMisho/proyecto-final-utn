@@ -173,6 +173,21 @@
 }
   }
 
+  .footer-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-whatsapp::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 22px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='PEGAR_ACA_EL_PATH'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='PEGAR_ACA_EL_PATH'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 
   
 

@@ -62,7 +62,7 @@ function Buscar() {
   const total = secciones.reduce((suma, s) => suma + datos[s.clave].length, 0);
 
   return (
-    <section className="buscar">
+    <main className="buscar">
       <header className="buscar-encabezado">
         <span className="buscar-etiqueta">BARRIO CULTURA · ENVIÓN-QUEQUÉN</span>
         <h1>{q.length >= 2 ? <>Resultados para “{q}”</> : "Buscar"}</h1>
@@ -112,7 +112,7 @@ function Buscar() {
           </section>
         ))}
       </div>
-    </section>
+    </main>
   );
 }
 

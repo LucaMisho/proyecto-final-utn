@@ -3,9 +3,9 @@ const pool = require ("./conexion");
 //crearUsuario
 async function crearUsuario(datos, claveHash){
     const consulta = `
-    INSERT INTO usuario (username, email, contraseña, rol)
-    VALUES ($1, $2, $3, $4)
-    RETURNING id_usuario, username, email, rol, fecha_registro, estado;
+    INSERT INTO usuario (username, email, contraseña, rol, correo_verificado)
+    VALUES ($1, $2, $3, $4, TRUE)
+    RETURNING id_usuario, username, email, rol, fecha_registro, estado, correo_verificado;
     `;
 
     const resultado = await pool.query(consulta, [datos.username, datos.email, claveHash, datos.rol ?? "USUARIO"]);
@@ -54,7 +54,7 @@ async function actualizarUsuario(id, datos, claveHash){
 //obtenerUsuarioPorId()
 async function obtenerUsuarioPorId(id){
     const consulta = `
-    SELECT id_usuario, username, email, rol, estado
+    SELECT id_usuario, username, email, rol, estado, correo_verificado
     FROM usuario
     WHERE id_usuario = $1;
     `;
@@ -66,7 +66,7 @@ async function obtenerUsuarioPorId(id){
 //buscarPorUsername()
 async function buscarPorUsername(username) {
     const consulta = `
-        SELECT id_usuario, username, email, contraseña, rol, estado
+        SELECT id_usuario, username, email, contraseña, rol, estado, correo_verificado
         FROM usuario
         WHERE username = $1;
     `;
@@ -94,6 +94,20 @@ const actualizarPerfil = async (id_usuario, { username, email, claveHash }) => {
   return resultado.rows[0];
 };
 
+// Verificar correo electrónico
+async function verificarCorreo(email) {
+    const consulta = `
+        UPDATE usuario
+        SET correo_verificado = TRUE
+        WHERE email = $1
+        RETURNING id_usuario, username, email, correo_verificado;
+    `;
+
+    const resultado = await pool.query(consulta, [email]);
+
+    return resultado.rows[0] || null;
+}
+
 module.exports = {
     listarUsuarios, 
     eliminarUsuario, 
@@ -101,5 +115,6 @@ module.exports = {
     actualizarUsuario, 
     obtenerUsuarioPorId,
     buscarPorUsername,
-    actualizarPerfil
+    actualizarPerfil,
+    verificarCorreo
 };
