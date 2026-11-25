@@ -481,3 +481,74 @@
     transition: none;
   }
 }
+
+/* ===== ESTILO PANTALLA COMPLETA (tipo Mailjet) ===== */
+
+@media (min-width: 851px) {
+  /* Sin la "tarjeta" flotante: ocupa toda la pantalla */
+  .login-pagina {
+    padding: 0;
+    background: #fff;
+    align-items: stretch;
+  }
+
+  .login-layout {
+    max-width: none;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+  }
+
+  /* Panel izquierdo: más oscuro, para que el texto resalte */
+  .login-visual {
+    padding: 40px 56px;
+    background:
+      linear-gradient(
+        160deg,
+        rgba(45, 10, 60, 0.9),
+        rgba(20, 4, 30, 0.8)
+      ),
+      url("../assets/login-fondo.jpeg") center / cover no-repeat;
+  }
+
+  /* Texto con la línea lateral, como el testimonio de la captura */
+  .login-visual-contenido p {
+    padding-left: 16px;
+    border-left: 3px solid #e3b6ed;
+  }
+
+  /* Panel derecho: bloque angosto centrado, texto alineado a la izquierda */
+  .login-contenedor {
+    align-items: center;
+    padding: 40px;
+  }
+
+  .login-encabezado,
+  .login-formulario,
+  .login-pie {
+    width: 100%;
+    max-width: 360px;
+    text-align: left;
+  }
+
+  /* El logo ya está en el panel izquierdo: no se repite */
+  .login-encabezado img {
+    display: none;
+  }
+
+  .login-encabezado h1 {
+    font-size: 26px;
+  }
+
+  /* Campos más rectos, con borde marcado */
+  .login-campo input {
+    border: 1px solid #8a8490;
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .login-formulario button[type="submit"] {
+    border-radius: 6px;
+  }
+}

@@ -1,14 +1,15 @@
 /* ENCABEZADO */
 .header {
   width: 100%;
-  min-height: 85px;
+  min-height: 92px;
   padding: 10px 5%;
   background: linear-gradient(120deg, #8c2188 0%, #750e75 40%, #6d096d 100%);
-  box-shadow: 0 6px 20px rgba(74, 0, 72, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 22px rgba(74, 0, 72, 0.35);
 
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 18px;
 
   /* Queda fijo arriba al hacer scroll */
   position: sticky;
@@ -38,6 +39,14 @@
     radial-gradient(ellipse 9% 120% at 52% 50%, #000 30%, transparent 100%);
 }
 
+/* Foco visible para quien navega con teclado */
+.header a:focus-visible,
+.header button:focus-visible {
+  outline: 2px solid #F3B9F3;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 /* LOGO */
 .header-logo {
   display: flex;
@@ -46,8 +55,8 @@
 }
 
 .header-logo img {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
   transition: transform 0.25s;
@@ -61,19 +70,22 @@
 .header-titulo {
   display: flex;
   flex-direction: column;
-  min-width: 130px;
+  gap: 2px;
+  min-width: 150px;
 }
 
 .header-titulo span:first-child {
   color: #FFFFFF;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
 }
 
 .header-titulo span:last-child {
   color: #F3DDF3;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 /* NAVEGACIÓN */
@@ -81,22 +93,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 26px;
   margin-left: auto;
 }
 
 .menu-navegacion a {
   position: relative;
-  padding: 6px 2px;
+  padding: 8px 2px;
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s;
 }
 
-/* Subrayado animado */
+/* Subrayado animado: la línea crece de izquierda a derecha */
 .menu-navegacion a::after {
   content: "";
   position: absolute;
@@ -119,24 +131,119 @@
   transform: scaleX(1);
 }
 
-/* INICIO DE SESIÓN */
+/* BUSCADOR, LOGIN Y PERFIL: mismo tamaño y estilo de botón circular */
 .header-login {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
   flex-shrink: 0;
-  margin-left: 10px;
-  transition: transform 0.2s;
+  width: 44px;
+  height: 44px;
+  margin-left: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .header-login:hover {
-  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .header-login svg {
-  width: 23px;
-  height: 23px;
+  width: 22px;
+  height: 22px;
+}
+
+/* PERFIL (cuando hay sesión iniciada) */
+.header-perfil {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: 6px;
+}
+
+.header-perfil-boton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 14px 4px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-perfil-boton:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.header-perfil-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F3DDF3;
+  color: #6d096d;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.header-perfil-nombre {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-perfil-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+  min-width: 230px;
+  padding: 8px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  box-shadow: 0 14px 40px rgba(40, 0, 40, 0.3);
+  animation: menu-entrada 0.2s ease;
+}
+
+.header-perfil-menu a,
+.header-perfil-menu button {
+  display: block;
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #45204f;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-perfil-menu a:hover,
+.header-perfil-menu button:hover {
+  background: #f4eff5;
+}
+
+.header-perfil-menu .header-perfil-salir {
+  margin-top: 6px;
+  border-top: 1px solid #eee8f0;
+  border-radius: 0 0 9px 9px;
+  color: #b52e35;
 }
 
 /* BOTÓN HAMBURGUESA */
@@ -147,6 +254,13 @@
   cursor: pointer;
 }
 
+/* PANTALLAS MUY GRANDES */
+@media (min-width: 1400px) {
+  .header {
+    padding: 10px 7%;
+  }
+}
+
 /* TABLETS */
 @media (min-width: 768px) and (max-width: 1000px) {
   .header {
@@ -155,29 +269,37 @@
   }
 
   .menu-navegacion {
-    gap: 12px;
+    gap: 14px;
   }
 
   .menu-navegacion a {
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .header-titulo span:first-child {
-    font-size: 15px;
+    font-size: 17px;
+  }
+
+  .header-perfil-nombre {
+    display: none;
+  }
+
+  .header-perfil-boton {
+    padding-right: 4px;
   }
 }
 
 /* CELULARES */
 @media (max-width: 767px) {
   .header {
-    min-height: 70px;
+    min-height: 72px;
     padding: 8px 15px;
     gap: 10px;
   }
 
   .header-logo img {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
   }
 
   .header-titulo {
@@ -185,11 +307,11 @@
   }
 
   .header-titulo span:first-child {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .header-titulo span:last-child {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   /* Con el buscador abierto se oculta el título para dar lugar */
@@ -210,7 +332,7 @@
 
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
+    gap: 14px;
 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
@@ -221,7 +343,8 @@
   }
 
   .menu-navegacion a {
-    font-size: 14px;
+    padding: 8px 2px;
+    font-size: 15px;
   }
 
   /* Hamburguesa */
@@ -235,14 +358,23 @@
   }
 
   .header-menu span {
-    width: 23px;
+    width: 24px;
     height: 2px;
     background-color: #FFFFFF;
     border-radius: 2px;
   }
 
-  .header-login {
+  .header-login,
+  .header-perfil {
     margin-left: 0;
+  }
+
+  .header-perfil-nombre {
+    display: none;
+  }
+
+  .header-perfil-boton {
+    padding-right: 4px;
   }
 }
 
@@ -260,11 +392,14 @@
 @media (prefers-reduced-motion: reduce) {
   .header-logo img,
   .header-login,
+  .header-perfil-boton,
+  .menu-navegacion a,
   .menu-navegacion a::after {
     transition: none;
   }
 
-  .menu-navegacion.abierto {
+  .menu-navegacion.abierto,
+  .header-perfil-menu {
     animation: none;
   }
 }

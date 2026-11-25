@@ -9,7 +9,6 @@ import Noticias from "../components/inicio/Noticias";
 import Sugerencias from "../components/inicio/Sugerencias";
 import Contacto from "../components/inicio/Contacto";
 
-
 function SeparadorBurbujas() {
   return (
     <div className="separador separador-burbujas" aria-hidden="true">
@@ -39,7 +38,7 @@ export default function Inicio() {
   return (
     <>
       <Carrusel />
-<ResumenAdmin />
+        <ResumenAdmin />
         <QuienesSomos />
         <SeparadorBurbujas />
         <Novedades />

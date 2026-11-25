@@ -1,4 +1,3 @@
-
 /* ===== REGISTRO ===== */
 
 .registro-pagina {
@@ -7,10 +6,12 @@
 }
 
 .registro-layout {
-  max-width: 1100px;
-  min-height: 720px;
+  max-width: none;
+  min-height: 100vh;   
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
 }
-
 .registro-visual {
   background-position: center;
 }
@@ -270,6 +271,202 @@
   background: #8b278b;
 }
 
+/* ===== LISTAS Y VERSIÓN DENTRO DE LOS TÉRMINOS ===== */
+
+.terminos-modal-contenido ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.terminos-modal-contenido li {
+  margin-bottom: 6px;
+}
+
+.terminos-version {
+  color: #91449e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ===== AVISO TIPO VENTANA (éxito / error) ===== */
+
+.registro-aviso-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(25, 12, 30, 0.7);
+  backdrop-filter: blur(5px);
+  animation: terminos-aparecer 0.2s ease;
+}
+
+.registro-aviso {
+  --aviso-color: #720072;
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  border: 2px solid var(--aviso-color);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 7px 7px 0 var(--aviso-color);
+  animation: terminos-subir 0.3s ease;
+}
+
+.registro-aviso--error {
+  --aviso-color: #c0262d;
+}
+
+/* Barra superior con botones de ventana */
+.registro-aviso-barra {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--aviso-color);
+}
+
+.registro-aviso-botones {
+  display: flex;
+  gap: 8px;
+}
+
+.registro-aviso-boton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: var(--aviso-color);
+  color: #fff;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Minimizar: una línea */
+.registro-aviso-min::before {
+  content: "";
+  width: 11px;
+  height: 2px;
+  margin-top: 6px;
+  background: #fff;
+}
+
+/* Maximizar: un cuadradito */
+.registro-aviso-max::before {
+  content: "";
+  width: 11px;
+  height: 9px;
+  border: 1.5px solid #fff;
+  border-top-width: 3px;
+  border-radius: 2px;
+}
+
+/* Cerrar: botón real */
+.registro-aviso-cerrar {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.registro-aviso-cerrar:hover {
+  opacity: 0.8;
+}
+
+/* Cuerpo */
+.registro-aviso-cuerpo {
+  padding: 40px 30px 42px;
+  text-align: center;
+}
+
+.registro-aviso-icono {
+  position: relative;
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 26px;
+  border-radius: 50%;
+  background: var(--aviso-color);
+}
+
+/* Tilde */
+.registro-aviso-icono::after {
+  content: "";
+  position: absolute;
+  left: 40px;
+  top: 22px;
+  width: 22px;
+  height: 46px;
+  border: solid #fff;
+  border-width: 0 9px 9px 0;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+/* Cruz (solo en error) */
+.registro-aviso--error .registro-aviso-icono::before,
+.registro-aviso--error .registro-aviso-icono::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 11px;
+  border: none;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.registro-aviso--error .registro-aviso-icono::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.registro-aviso--error .registro-aviso-icono::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.registro-aviso-cuerpo h2 {
+  margin: 0 0 12px;
+  color: var(--aviso-color);
+  font-size: clamp(28px, 6vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+}
+
+.registro-aviso-cuerpo p {
+  max-width: 360px;
+  margin: 0 auto;
+  color: #69616d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.registro-aviso-accion {
+  margin-top: 26px;
+  padding: 13px 26px;
+  border: 2px solid var(--aviso-color);
+  border-radius: 8px;
+  background: var(--aviso-color);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.registro-aviso-accion:hover {
+  background: #fff;
+  color: var(--aviso-color);
+}
+
 /* ===== ANIMACIONES ===== */
 
 @keyframes terminos-aparecer {
@@ -288,7 +485,7 @@
   }
 }
 
-/* ===== CELULARES ===== */
+/* ===== CELULARES (MODALES) ===== */
 
 @media (max-width: 600px) {
   .terminos-overlay {
@@ -314,12 +511,74 @@
   .terminos-modal-pie {
     padding: 15px 20px;
   }
+
+  .registro-aviso-cuerpo {
+    padding: 30px 20px 32px;
+  }
+
+  .registro-aviso-icono {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .terminos-overlay,
-  .terminos-modal {
+  .terminos-modal,
+  .registro-aviso-overlay,
+  .registro-aviso {
     animation: none;
   }
 }
 
+/* ===== REGISTRO A PANTALLA COMPLETA (escritorio) ===== */
+
+@media (min-width: 851px) {
+  .registro-pagina {
+    padding: 0;
+    min-height: auto;
+    background: #fff;
+    align-items: stretch;
+  }
+
+  .registro-layout {
+    max-width: none;
+    min-height: calc(100vh - 90px); /* 90px = alto aproximado del header */
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .registro-contenedor {
+    align-items: center;
+    padding: 40px;
+  }
+
+  .registro-contenido {
+    margin: 0;
+    max-width: 380px;
+  }
+
+  .registro-contenido .login-encabezado {
+    text-align: left;
+  }
+
+  .registro-contenido .login-encabezado img {
+    display: none;
+  }
+
+  .registro-contenido .login-pie {
+    text-align: left;
+  }
+
+  /* Campos rectos con borde marcado */
+  .registro-formulario .login-campo input {
+    border: 1px solid #8a8490;
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .registro-formulario button[type="submit"] {
+    border-radius: 6px;
+  }
+}

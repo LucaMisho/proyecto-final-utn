@@ -1,16 +1,31 @@
+/* =========================================================
+   BÚSQUEDA · tema azul con elementos de contorno blanco
+   (barra de búsqueda, chips, paginación, tarjetas)
+   ========================================================= */
+
 .buscar {
-  --b-fondo: #f4f8fb;
+  /* Colores: cambiá solo estas variables para re-tematizar */
+  --b-fondo: #4e95b1;          /* azul base */
+  --b-ola: #3f1649;            /* azul claro de la "ola" */
   --b-tarjeta: #ffffff;
   --b-texto: #1f2933;
   --b-suave: #5b6770;
-  --b-borde: #dbe4ea;
-  --b-acento: #1d6fa5;
+  --b-borde: #ffffff;
+  --b-acento: #0a6fd0;         /* títulos y enlaces sobre tarjeta blanca */
+  --b-sobre-fondo: #ffffff;    /* texto sobre el azul */
   --b-resalte: #fff1a8;
+  /* Para usar el violeta del sitio: --b-fondo: #5a0f6b; --b-ola: #7a2a8c; --b-acento: #720072; */
 
-  background: var(--b-fondo);
-  color: var(--b-texto);
+  position: relative;
   min-height: 70vh;
+  color: var(--b-sobre-fondo);
+  background-color: var(--b-fondo);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: "Lora", Georgia, "Times New Roman", serif;
 }
+
+/* ===== ENCABEZADO ===== */
 
 .buscar-encabezado {
   padding: 3rem 1.5rem 1.5rem;
@@ -19,23 +34,141 @@
 }
 
 .buscar-etiqueta {
+  font-family: "Montserrat", sans-serif;
   font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--b-acento);
-  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .buscar-encabezado h1 {
   margin: 0.4rem 0 0.3rem;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--b-sobre-fondo);
   overflow-wrap: anywhere;
 }
 
 .buscar-estado {
   margin: 0;
   min-height: 1.4em;
-  color: var(--b-suave);
+  color: rgba(255, 255, 255, 0.92);
 }
+
+/* ===== BARRA DE BÚSQUEDA (opcional) ===== */
+
+.buscar-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.buscar-campo {
+  position: relative;
+  flex: 1;
+}
+
+.buscar-campo input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 1.1rem 1rem 3.2rem;
+  border: 2px solid var(--b-borde);
+  border-radius: 14px;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.1rem;
+  outline: none;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.buscar-campo input::placeholder {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.buscar-campo input:focus {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Lupa */
+.buscar-campo::before {
+  content: "";
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  transform: translateY(-50%);
+  background: #fff;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Botón de filtros (íconos de sliders) */
+.buscar-filtros-btn {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border: 2px solid var(--b-borde);
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.buscar-filtros-btn::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: auto;
+  background: #fff;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 6h18M3 12h18M3 18h18'/%3E%3Ccircle cx='15' cy='6' r='2' fill='white'/%3E%3Ccircle cx='8' cy='12' r='2' fill='white'/%3E%3Ccircle cx='16' cy='18' r='2' fill='white'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.buscar-filtros-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== CHIPS DE FILTRO (opcional) ===== */
+
+.buscar-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.buscar-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--b-borde);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.buscar-chip button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ===== CONTENIDO ===== */
 
 .buscar-contenido {
   max-width: 1100px;
@@ -51,20 +184,25 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1.25rem;
   margin: 0 0 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--b-borde);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
 }
 
 .buscar-contador {
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: var(--b-acento);
-  color: #fff;
+  padding: 0.1rem 0.7rem;
   border-radius: 999px;
-  padding: 0.1rem 0.6rem;
+  background: #fff;
+  color: var(--b-acento);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
+
+/* ===== TARJETAS ===== */
 
 .buscar-grilla {
   list-style: none;
@@ -72,62 +210,68 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .buscar-tarjeta {
-  background: var(--b-tarjeta);
-  border: 1px solid var(--b-borde);
-  border-radius: 12px;
-  padding: 1rem 1.1rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  padding: 1.1rem 1.2rem;
+  border: 2px solid var(--b-borde);
+  border-radius: 16px;
+  background: var(--b-tarjeta);
+  color: var(--b-texto);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .buscar-tarjeta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0, 40, 100, 0.3);
 }
 
 .buscar-meta {
   margin: 0;
-  font-size: 0.78rem;
   color: var(--b-suave);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: capitalize;
 }
 
 .buscar-tarjeta h3 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .buscar-tarjeta h3 a {
-  color: inherit;
+  color: var(--b-acento);
   text-decoration: none;
 }
 
 .buscar-tarjeta h3 a:hover {
-  color: var(--b-acento);
+  text-decoration: underline;
 }
 
 .buscar-detalle {
   margin: 0;
-  color: var(--b-suave);
-  font-size: 0.92rem;
   display: -webkit-box;
-  --webkit-line-clamp: 3;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: var(--b-suave);
+  font-size: 0.92rem;
 }
 
 .buscar-ver {
   margin-top: auto;
   padding-top: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
   color: var(--b-acento);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
   text-decoration: none;
 }
 
@@ -136,39 +280,278 @@
 }
 
 .buscar mark {
+  padding: 0 0.1em;
+  border-radius: 3px;
   background: var(--b-resalte);
   color: inherit;
-  border-radius: 3px;
-  padding: 0 0.1em;
 }
 
+/* ===== MENSAJES ===== */
+
 .buscar-mensaje {
-  color: var(--b-suave);
   padding-top: 1rem;
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .buscar-mensaje--error {
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  background: #fff;
   color: #b42318;
+  font-weight: 600;
 }
 
 .buscar-vacio {
-  text-align: center;
   padding: 3rem 1rem;
-  color: var(--b-suave);
+  text-align: center;
+  color: #fff;
 }
 
 .buscar-volver {
   display: inline-block;
   margin-top: 1rem;
-  padding: 0.55rem 1.2rem;
+  padding: 0.6rem 1.4rem;
+  border: 2px solid #fff;
   border-radius: 999px;
-  background: var(--b-acento);
-  color: #fff;
+  background: #fff;
+  color: var(--b-acento);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
 }
 
+.buscar-volver:hover {
+  background: transparent;
+  color: #fff;
+}
+
+/* ===== PAGINACIÓN (opcional) ===== */
+
+.buscar-paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.buscar-pag-btn,
+.buscar-pag-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.buscar-pag-btn {
+  border-color: #fff;
+}
+
+.buscar-pag-btn:hover:not(:disabled),
+.buscar-pag-num:hover:not(.activa) {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.buscar-pag-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Página actual: círculo blanco */
+.buscar-pag-num.activa {
+  background: #fff;
+  color: var(--b-acento);
+  font-weight: 700;
+  cursor: default;
+}
+
+/* ===== ESCRITORIO: todo un poco más grande ===== */
+
+@media (min-width: 1024px) {
+  .buscar-encabezado,
+  .buscar-contenido {
+    max-width: 1280px;
+  }
+
+  .buscar-encabezado {
+    padding: 4.5rem 2rem 2rem;
+  }
+
+  .buscar-contenido {
+    padding: 0 2rem 4rem;
+  }
+
+  .buscar-etiqueta {
+    font-size: 0.95rem;
+  }
+
+  .buscar-encabezado h1 {
+    font-size: clamp(2.6rem, 4vw, 3.6rem);
+  }
+
+  .buscar-estado {
+    font-size: 1.2rem;
+  }
+
+  /* Barra y botón de filtros */
+  .buscar-form {
+    margin-top: 2rem;
+    gap: 1.25rem;
+  }
+
+  .buscar-campo input {
+    padding: 1.25rem 1.4rem 1.25rem 3.8rem;
+    border-radius: 16px;
+    font-size: 1.25rem;
+  }
+
+  .buscar-campo::before {
+    left: 1.3rem;
+    width: 26px;
+    height: 26px;
+  }
+
+  .buscar-filtros-btn {
+    width: 66px;
+    height: 66px;
+    border-radius: 16px;
+  }
+
+  .buscar-filtros-btn::before {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Chips */
+  .buscar-chips {
+    gap: 0.9rem;
+    margin-top: 1.5rem;
+  }
+
+  .buscar-chip {
+    padding: 0.7rem 1.2rem;
+    border-radius: 14px;
+    font-size: 1rem;
+  }
+
+  .buscar-chip button {
+    font-size: 1.5rem;
+  }
+
+  /* Secciones y tarjetas */
+  .buscar-seccion {
+    margin-top: 3rem;
+  }
+
+  .buscar-seccion h2 {
+    font-size: 1.7rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .buscar-contador {
+    padding: 0.2rem 0.9rem;
+    font-size: 1rem;
+  }
+
+  .buscar-grilla {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .buscar-tarjeta {
+    padding: 1.5rem 1.6rem;
+    gap: 0.55rem;
+    border-radius: 18px;
+  }
+
+  .buscar-meta {
+    font-size: 0.85rem;
+  }
+
+  .buscar-tarjeta h3 {
+    font-size: 1.3rem;
+  }
+
+  .buscar-detalle {
+    font-size: 1.02rem;
+    line-height: 1.55;
+  }
+
+  .buscar-ver {
+    padding-top: 0.7rem;
+    font-size: 1.02rem;
+  }
+
+  /* Botón "volver" y mensajes */
+  .buscar-volver {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .buscar-mensaje,
+  .buscar-vacio {
+    font-size: 1.15rem;
+  }
+
+  /* Paginación */
+  .buscar-paginacion {
+    gap: 0.75rem;
+    margin-top: 3.5rem;
+  }
+
+  .buscar-pag-btn,
+  .buscar-pag-num {
+    width: 54px;
+    height: 54px;
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== CELULARES ===== */
+
 @media (max-width: 600px) {
-  .buscar-encabezado { padding-top: 2rem; }
-  .buscar-grilla { grid-template-columns: 1fr; }
+  .buscar-encabezado {
+    padding-top: 2rem;
+  }
+
+  .buscar-grilla {
+    grid-template-columns: 1fr;
+  }
+
+  .buscar-form {
+    gap: 0.6rem;
+  }
+
+  .buscar-filtros-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buscar-tarjeta,
+  .buscar-campo input,
+  .buscar-volver,
+  .buscar-pag-btn,
+  .buscar-pag-num {
+    transition: none;
+  }
+
+  .buscar-tarjeta:hover {
+    transform: none;
+  }
 }

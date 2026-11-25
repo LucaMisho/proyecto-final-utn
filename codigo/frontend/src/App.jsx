@@ -29,6 +29,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<MainLayout />}>
+              <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Registro />} />
+
             <Route path="/buscar" element={<Buscar />} />
               <Route path="/noticias" element={<TodasNoticias />} />
               <Route path="/noticias/:id" element={<NoticiaDetalle />} />
@@ -44,8 +47,6 @@ function App() {
               <Route path="/comunidad" element={<Comunidad />} />
 
             </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/registro" element={<Registro />} />
           </Routes>
         </BrowserRouter>
       </SesionProvider>
