@@ -114,6 +114,11 @@ function Footer() {
           © {new Date().getFullYear()} Envión Quequén - Barrio Cultura.
           Todos los derechos reservados.
         </p>
+        <div>
+        <p>
+          Desarrollado por Massa, Luca - Genova, Candela - Kristensen, Franco
+        </p>
+        </div>
       </div>
     </footer>
   );
