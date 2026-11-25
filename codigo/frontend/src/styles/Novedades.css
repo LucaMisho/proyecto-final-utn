@@ -7,13 +7,12 @@
   position: relative;
   isolation: isolate;
   z-index: 1;
-  border-radius: 2%;
   box-shadow: 0 12px 32px rgba(117, 0, 116, 0.18);
   overflow: clip;
 
   box-sizing: border-box;
   width: 100%;
-  max-width: 1340px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 64px 24px 72px;
   font-family: 'Montserrat', sans-serif;

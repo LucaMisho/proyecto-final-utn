@@ -71,18 +71,26 @@ function NovedadTarjeta({ novedad, delay }) {
 
 export default function NovedadesLista({
   novedades,
-  cargando,
+  cargando = true,
   error,
   onReintentar,
   mensajeVacio = "Todavía no hay novedades.",
 }) {
   return (
     <>
-      {cargando && (
-        <p className="novedades-estado" role="status">
-          Cargando novedades...
-        </p>
-      )}
+     {cargando && (
+  <div className="novedades-contenido" role="status" aria-live="polite">
+    <span className="sr-only">Cargando novedades...</span>
+    {[1, 2, 3].map((n) => (
+      <div className="skeleton-card" key={n} aria-hidden="true">
+        <div className="skeleton skeleton-imagen"></div>
+        <div className="skeleton skeleton-linea skeleton-linea--corta"></div>
+        <div className="skeleton skeleton-linea skeleton-linea--titulo"></div>
+        <div className="skeleton skeleton-linea"></div>
+      </div>
+    ))};
+  </div>
+)}
 
       {error && (
         <div className="novedades-estado novedades-error" role="alert">
