@@ -2,7 +2,7 @@
 
 :root {
   --fondo-blanco: #FFFFFF;
-  --fondo-noticia: linear-gradient(180deg, #e6f5da 0%, #FFF 100%);
+  --fondo-noticia: linear-gradient(180deg, #fff 0%, #FFF 100%);
   --fondo-magenta: linear-gradient(rgba(102, 11, 96, 0.75), rgba(54, 19, 58, 0.75));
   --fondo-violeta: linear-gradient(180deg, #750074 0%, #4A0049 100%);
 

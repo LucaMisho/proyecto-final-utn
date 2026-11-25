@@ -9,7 +9,6 @@
   z-index: 0;
 
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
   padding: clamp(2rem, 5vw, 4rem) 20px clamp(3rem, 7vw, 5rem);
 
