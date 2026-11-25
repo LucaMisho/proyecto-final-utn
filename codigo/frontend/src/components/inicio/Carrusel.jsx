@@ -28,12 +28,9 @@ const diapositivas = [
   },
   {
     id: 4,
-    imagen: "/carrusel3.jpeg",
-    titulo: "Crecer juntos",
-    subtitulo: "Construimos oportunidades a través de la cultura.",
-    boton: "Conocé más",
-    enlace: "#noticias"
-
+    imagen: "/carrusel4.webp",
+    titulo: "Un espacio, mil oportunidades",
+    subtitulo: "Donde las ideas se transforman en experiencias y los sueños en proyectos."
   }
 
 ];
@@ -116,6 +113,7 @@ function Carrusel() {
                 <p>{item.subtitulo}</p>
               </div>
 
+             {item.boton && item.enlace && (
               <a
                 href={item.enlace}
                 className="carrusel-boton"
@@ -123,6 +121,7 @@ function Carrusel() {
               >
                 {item.boton} →
               </a>
+            )}
             </div>
           ))}
         </div>
