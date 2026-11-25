@@ -51,6 +51,12 @@ function Noticias() {
         </Link>
       </Reveal>
 
+
+      <p className="seccion-descripcion">
+        Historias, encuentros y logros de nuestra comunidad, contados con más
+        detalle. Leé las notas completas, mirá las fotos y conocé cómo se vive
+        el día a día en los barrios.
+    </p>
     </section>
   );
 }

@@ -1,15 +1,17 @@
 /* =========================================
    SECCIÓN NOTICIAS
 ========================================= */
-
 .noticias {
   position: relative;
   isolation: isolate;
+  overflow: clip;
+  border-radius: 2%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   z-index: 0;
 
   box-sizing: border-box;
   width: 100%;
-  max-width: 1120px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 72px 24px 80px;
   font-family: 'Montserrat', sans-serif;
@@ -26,11 +28,7 @@
   transform: translateX(-50%);
   width: 100vw;
   z-index: -2;
-
-  background-image:
-    radial-gradient(circle at 80% 20%, rgba(255, 130, 230, 0.35), transparent 70%),
-    radial-gradient(circle at 20% 80%, rgba(130, 80, 255, 0.35), transparent 40%),
-    linear-gradient(rgba(110, 45, 130, 0.78), rgba(135, 70, 155, 0.78)),
+  background: var(--fondo-noticia),
     url("../assets/fondo_mounstros.jpg");
   background-size: cover;
   background-position: center;
@@ -41,7 +39,7 @@
 .noticias::after {
   content: "";
   position: absolute;
-  top: -360px;           
+  top: 0px;           
   bottom: 0;
   left: 50%;
   width: 100vw;
@@ -49,7 +47,7 @@
   z-index: -1;
   pointer-events: none;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='white' stroke-opacity='.55' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(40 50) scale(2)'%3E%3Cpath d='M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2'/%3E%3Cpath d='M18 14h-8M15 18h-5'/%3E%3Cpath d='M10 6h8v4h-8V6Z'/%3E%3C/g%3E%3Cg transform='translate(220 210) scale(1.8)'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/g%3E%3C/g%3E%3Ccircle cx='300' cy='70' r='5' fill='%23ff9ad5' fill-opacity='.7'/%3E%3Crect x='150' y='290' width='14' height='7' rx='2' transform='rotate(35 157 293)' fill='%23ffe08a' fill-opacity='.75'/%3E%3Ccircle cx='120' cy='190' r='4' fill='white' fill-opacity='.6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='440' height='440' viewBox='0 0 440 440'%3E%3Cg fill='none' stroke='%23750074' stroke-opacity='.18' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(60 80) scale(2.2)'%3E%3Cpath d='m3 11 18-5v12L3 14v-3z'/%3E%3Cpath d='M11.6 16.8a3 3 0 1 1-5.8-1.6'/%3E%3C/g%3E%3Cg transform='translate(290 300) scale(2)'%3E%3Crect width='20' height='16' x='2' y='4' rx='2'/%3E%3Cpath d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/%3E%3C/g%3E%3C/g%3E%3Crect x='250' y='60' width='14' height='7' rx='2' transform='rotate(-30 257 63)' fill='%23ff9a8b' fill-opacity='.75'/%3E%3Ccircle cx='120' cy='350' r='5' fill='%23ffe08a' fill-opacity='.7'/%3E%3Ccircle cx='380' cy='160' r='3.5' fill='%23ffffff' fill-opacity='.6'/%3E%3C/svg%3E");
   background-size: 360px 360px;
   background-repeat: repeat;
 
@@ -67,13 +65,6 @@
     animation: none;
   }
 }
-
-/* Las figuras 3D del fondo anterior ya no se usan */
-.noticias-fondo-3d,
-.figura {
-  display: none;
-}
-
 
 /* =========================================
    ENCABEZADO
@@ -99,7 +90,7 @@
 
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.16);
-  color: #ffffff;
+  color: var(--violeta-texto);
 
   font-size: 12px;
   font-weight: 700;
@@ -111,7 +102,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ffffff;
+  background: #117837;
   animation: noticias-pulso 2s ease-out infinite;
 }
 
@@ -123,7 +114,7 @@
 
 .noticias h2 {
   margin: 0 0 5px;
-  color: #ffffff;
+  color: var(--violeta-texto);
   font-size: clamp(28px, 4vw, 34px);
   font-weight: 700;
   text-shadow: 0 2px 8px rgba(50, 0, 70, 0.25);
@@ -141,7 +132,7 @@
 
 .noticias-subtitulo {
   margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--violeta-suave);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -470,7 +461,6 @@
 
 /* =========================================
    ENTRADA AL HACER SCROLL
-   (borrá este bloque si las tarjetas ya van dentro de <Reveal>)
 ========================================= */
 
 @supports (animation-timeline: view()) {
@@ -562,4 +552,8 @@
   .noticia-card:hover .noticia-imagen {
     transform: none;
   }
+}
+
+.noticias.seccion-descripcion {
+  color: #F3E0F3;
 }

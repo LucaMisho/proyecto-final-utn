@@ -8,10 +8,7 @@ import Novedades from "../components/inicio/Novedades";
 import Noticias from "../components/inicio/Noticias";
 import Sugerencias from "../components/inicio/Sugerencias";
 import Contacto from "../components/inicio/Contacto";
-import SearchBar from "../components/inicio/SearchBar";
 
-import TransicionSeccion from "../components/inicio/TransicionSeccion";
-import "../styles/TransicionSeccion.css";
 
 function SeparadorBurbujas() {
   return (
@@ -43,7 +40,6 @@ export default function Inicio() {
     <>
       <Carrusel />
 <ResumenAdmin />
-      <TransicionSeccion>
         <QuienesSomos />
         <SeparadorBurbujas />
         <Novedades />
@@ -53,7 +49,6 @@ export default function Inicio() {
         <Sugerencias />
         <SeparadorBurbujas />
         <Contacto />
-      </TransicionSeccion>
     </>
   );
 }

@@ -1,6 +1,4 @@
-/* ANIMACIÓN DE ENTRADA (componente Reveal)
-   Usa animation (no transition) para no interferir con los
-   efectos hover de las tarjetas. */
+/* ANIMACIÓN DE ENTRADA (componente Reveal) */
 .reveal {
   opacity: 0;
 }

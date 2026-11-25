@@ -35,8 +35,7 @@ function QuienesSomos() {
           alt="Actividades y encuentros de la comunidad"
           width="1000"
           height="640"
-          loading="lazy"
-          decoding="async"
+
         />
       </div>
     </section>

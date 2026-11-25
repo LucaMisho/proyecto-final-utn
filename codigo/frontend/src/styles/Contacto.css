@@ -1,7 +1,7 @@
 .contacto {
   width: 100%;
   padding: 65px 7%;
-  background-color: #FAD5FA;
+  background-color: var(--fondo-blanco);
 }
 
 .contacto-encabezado {
@@ -18,7 +18,7 @@
 }
 
 .contacto-encabezado h2 {
-  color: #720072;
+  color: var(--violeta-texto);
   font-size: 32px;
   margin: 12px 0;
 }

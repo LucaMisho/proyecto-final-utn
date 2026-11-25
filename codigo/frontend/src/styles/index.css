@@ -1,14 +1,13 @@
 /* Configuración general */
 
 :root {
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #292929;
-    background-color: #FAD5FA;
+  --fondo-blanco: #FFFFFF;
+  --fondo-noticia: linear-gradient(180deg, #e6f5da 0%, #FFF 100%);
+  --fondo-magenta: linear-gradient(rgba(102, 11, 96, 0.75), rgba(54, 19, 58, 0.75));
+  --fondo-violeta: linear-gradient(180deg, #750074 0%, #4A0049 100%);
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  --violeta-texto: #750074;
+  --violeta-suave: #5A2D5A;
 }
 
 /* Todos los elementos */
@@ -55,19 +54,9 @@ a {
     text-decoration: none;
 }
 
-/* TRANSICIÓN ENTRE NOVEDADES Y NOTICIAS */
-
-/* SEPARADOR  */
-
-/* ================================
-   SEPARADORES ORGÁNICOS
-================================ */
-
-/* SEPARADOR ORGÁNICO */
-
-/* =================================
+/* 
    SEPARADORES DE BURBUJAS
-================================= */
+ */
 
 .separador {
   position: relative;
@@ -164,4 +153,12 @@ a {
   }
 }
 
+/* index.css, para las dos secciones */
+.seccion-descripcion {
+  max-width: 620px;
+  margin: 77px auto 32px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.6;
+}
 

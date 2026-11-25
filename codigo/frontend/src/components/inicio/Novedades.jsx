@@ -12,13 +12,13 @@ function Novedades() {
 
       {/* ENCABEZADO */}
       <Reveal className="novedades-encabezado">
-        <span className="noticias-etiqueta">
+        <span className="novedades-etiqueta">
           BARRIO CULTURA · ENVIÓN-QUEQUÉN
         </span>
 
         <h2>Novedades</h2>
 
-        <p className="noticias-subtitulo">
+        <p className="novedades-subtitulo">
           Lo último de nuestros barrios.
         </p>
       </Reveal>
@@ -36,7 +36,14 @@ function Novedades() {
         </Link>
       </div>
 
+      <p className="seccion-descripcion">
+       Acá encontrás lo último que pasa en Envión Quequén y Barrio Cultura:
+       nuevos talleres, jornadas y propuestas para sumarte. Avisos cortos
+       para estar siempre al día.
+      </p>
+      
     </section>
+    
   );
 }
 

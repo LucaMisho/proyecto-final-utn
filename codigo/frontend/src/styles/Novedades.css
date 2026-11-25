@@ -6,33 +6,19 @@
 .novedades {
   position: relative;
   isolation: isolate;
-  z-index: 0;
+  z-index: 1;
+  border-radius: 2%;
+  box-shadow: 0 12px 32px rgba(117, 0, 116, 0.18);
+  overflow: clip;
 
   box-sizing: border-box;
   width: 100%;
-  max-width: 1120px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 64px 24px 72px;
   font-family: 'Montserrat', sans-serif;
 }
 
-
-/* FONDO ESTÁTICO: se pinta una sola vez */
-.novedades::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  z-index: -1;
-
-  background-image:
-    radial-gradient(circle at 20% 25%, rgba(255, 130, 230, 0.35), transparent 70%),
-    radial-gradient(circle at 80% 75%, rgba(130, 80, 255, 0.35), transparent 40%),
-    linear-gradient(rgba(126, 59, 122, 0.75), rgba(145, 78, 151, 0.75));
-}
 
 /* =========================================
    CAPA ANIMADA: confeti e íconos que caen
@@ -49,17 +35,14 @@
   width: 100vw;
   z-index: -1;
 
-  background-image:
-    radial-gradient(circle at 20% 25%, rgba(255, 130, 230, 0.35), transparent 70%),
-    radial-gradient(circle at 80% 75%, rgba(130, 80, 255, 0.35), transparent 40%),
-    linear-gradient(rgba(126, 59, 122, 0.75), rgba(145, 78, 151, 0.75));
+  background-image: var(--fondo-violeta);
 }
 
 /* ÍCONOS: una sola capa, animada con transform */
 .novedades::after {
   content: "";
   position: absolute;
-  top: -440px;
+  top: 0px;
   bottom: 0;
   left: 50%;
   width: 100vw;
@@ -91,6 +74,31 @@
 /* =========================================
    ENCABEZADO
 ========================================= */
+
+.novedades-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+  padding: 6px 15px;
+
+  border-radius: 999px;
+  background: white;
+  color: var(--violeta-texto);
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.novedades-etiqueta::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #117837;
+  animation: noticias-pulso 2s ease-out infinite;
+}
 
 .novedades-encabezado {
   display: flex;
@@ -559,4 +567,8 @@
   .novedades-filtro {
     transition: none;
   }
+}
+
+.novedades .seccion-descripcion {
+  color: #F3E0F3;
 }

@@ -22,20 +22,7 @@
   width: 100vw;
   z-index: -1;
 
-  background-image:
-    radial-gradient(
-      circle at 20% 25%,
-      rgba(255, 130, 230, 0.35),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 80% 75%,
-      rgba(130, 80, 255, 0.35),
-      transparent 40%
-    ),
-    linear-gradient(
-      rgba(151, 47, 185, 0.75),
-      rgba(119, 49, 124, 0.75))
+  background: var(--fondo-violeta)
 
 }
 /* CONTENEDOR PRINCIPAL */
@@ -69,7 +56,7 @@
 
   color: #FFFFFF;
   border-radius: 20px;
-  background: linear-gradient(135deg, #720072, #A52BA5);
+  background: var(--fondo-violeta);
   box-shadow: 0 12px 28px rgba(114, 0, 114, 0.22);
 
   transform: rotate(-5deg);
@@ -100,7 +87,7 @@
   max-width: 480px;
   margin: 0 0 18px;
 
-  color: #650065;
+  color: #FFF;
   font-size: clamp(28px, 3.5vw, 42px);
   font-weight: 800;
   line-height: 1.15;
@@ -111,7 +98,7 @@
   max-width: 46ch;
   margin: 0;
 
-  color: white;
+  color:  #F3E0F3;
   font-size: 14px;
   line-height: 1.9;
 }

@@ -1,4 +1,5 @@
 .quienes-somos {
+  position: relative;
   width: 100%;
   padding: 65px 7%;
   background-color: #fff;
@@ -88,37 +89,5 @@
   .quienes-somos-imagen {
     width: 100%;
     height: 230px;
-  }
-}
-
-
-/* ANIMACIÓN DEL CONTENIDO */
-.quienes-somos .quienes-somos-contenido {
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* ANIMACIÓN DE LA IMAGEN */
- .quienes-somos .quienes-somos-imagen {
-  opacity: 0;
-  transform: translateX(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-/* ACTIVACIÓN */
-.transicion-seccion.visible .quienes-somos-contenido,
-.transicion-seccion.visible .quienes-somos-imagen {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* ACCESIBILIDAD */
-@media (prefers-reduced-motion: reduce) {
-  .quienes-somos .quienes-somos-contenido,
-  .quienes-somos .quienes-somos-imagen {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }
