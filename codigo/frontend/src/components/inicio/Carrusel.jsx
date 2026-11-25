@@ -8,7 +8,7 @@ const diapositivas = [
     titulo: "Barrio Cultura",
     subtitulo: "Espacios para compartir, aprender y crecer.",
     boton: "Conocé nuestras actividades",
-    enlace: "#novedades"
+    enlace: "/actividades"
   },
   {
     id: 2,
@@ -25,7 +25,17 @@ const diapositivas = [
     subtitulo: "Construimos oportunidades a través de la cultura.",
     boton: "Conocé más",
     enlace: "#noticias"
+  },
+  {
+    id: 4,
+    imagen: "/carrusel3.jpeg",
+    titulo: "Crecer juntos",
+    subtitulo: "Construimos oportunidades a través de la cultura.",
+    boton: "Conocé más",
+    enlace: "#noticias"
+
   }
+
 ];
 
 function prefiereMenosMovimiento() {

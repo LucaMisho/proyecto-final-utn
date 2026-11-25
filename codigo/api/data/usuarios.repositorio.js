@@ -108,6 +108,32 @@ async function verificarCorreo(email) {
     return resultado.rows[0] || null;
 }
 
+async function obtenerPersonal() {
+    const resultado = await pool.query(`
+        SELECT id_usuario, username
+        FROM usuario
+        WHERE rol = 'PERSONAL'
+        AND estado = TRUE
+        ORDER BY username
+    `);
+
+    return resultado.rows;
+}
+
+
+async function listarUsuariosPersonal() {
+    const consulta = `
+        SELECT id_usuario, username
+        FROM usuario
+        WHERE rol = 'PERSONAL'
+        AND estado = TRUE
+        ORDER BY username;
+    `;
+
+    const resultado = await pool.query(consulta);
+    return resultado.rows;
+}
+
 module.exports = {
     listarUsuarios, 
     eliminarUsuario, 
@@ -116,5 +142,7 @@ module.exports = {
     obtenerUsuarioPorId,
     buscarPorUsername,
     actualizarPerfil,
-    verificarCorreo
+    verificarCorreo,
+    obtenerPersonal,
+    listarUsuariosPersonal
 };

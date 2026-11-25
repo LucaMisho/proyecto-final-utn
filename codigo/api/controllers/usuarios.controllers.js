@@ -73,6 +73,15 @@ async function borrar(req, res) {
     }
 }
 
+// Listar usuarios con rol PERSONAL
+async function listarPersonal(req, res) {
+    try {
+        const personal = await usuarioService.listarPersonal();
+        res.status(200).json(personal);
+    } catch (error) {
+        responderError(res, error);
+    }
+}
 
 
 module.exports = {
@@ -80,5 +89,7 @@ module.exports = {
     obtenerPorId,
     crear,
     actualizar,
-    borrar
+    borrar,
+    listarPersonal
+
 };

@@ -23,7 +23,7 @@ function TablaAdmin({
   const [cambioRol, setCambioRol] = useState(null);
 
   const filas = estado.filas;
-  const puedeEliminar = sesion.rol === "ADMINISTRADOR";
+  const puedeEliminar = sesion.rol === "ADMINISTRADOR" && "PERSONAL";
 
   function textoDeCelda(fila, columna) {
     const valor = fila[columna.clave];

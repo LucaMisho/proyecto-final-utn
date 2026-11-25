@@ -6,7 +6,7 @@ export const ETIQUETAS = {
   alumnos: (a) => `${a.apellido}, ${a.nombre}`,
   talleres: (t) => t.nombre,
   barrios: (b) => b.nombre,
-  personal: (p) => `${p.apellido}, ${p.nombre}`,
+ personal: (p) => p.username,
 };
 
 export const ROLES = ["USUARIO", "PERSONAL", "ADMINISTRADOR"];
@@ -192,12 +192,12 @@ export const RECURSOS = [
     columnas: [
       { clave: "fecha", titulo: "Fecha", mostrar: fecha },
       { clave: "id_alumno", titulo: "Alumno", relacion: "alumnos" },
-      { clave: "id_personal", titulo: "Personal", relacion: "personal" },
+      { clave: "id_usuario", titulo: "Personal", relacion: "personal" },
       { clave: "observacion", titulo: "Observación" },
     ],
     campos: [
       { clave: "id_alumno", etiqueta: "Alumno", tipo: "relacion", relacion: "alumnos", requerido: true },
-      { clave: "id_personal", etiqueta: "Personal", tipo: "relacion", relacion: "personal", requerido: true },
+      { clave: "id_usuario", etiqueta: "Personal", tipo: "relacion", relacion: "personal", requerido: true },
       {
         clave: "fecha",
         etiqueta: "Fecha",
@@ -209,7 +209,7 @@ export const RECURSOS = [
     ],
     iniciales: (datos, sesion) => {
       const propio = (datos.personal?.filas ?? []).find((p) => p.id_usuario === sesion.id_usuario);
-      return propio ? { id_personal: String(propio.id_personal) } : {};
+      return propio ? { id_usuario: String(propio.id_usuario) } : {};
     },
     nombreDe: (s) => `seguimiento del ${fecha(s.fecha)}`,
   },
@@ -364,18 +364,17 @@ export const RECURSOS = [
     nombreDe: (s) => `sugerencia ${s.id_sugerencia}`,
   },
   {
-    clave: "personal",
-    titulo: "Personal",
-    singular: "persona",
-    ruta: "personal",
-    id: "id_personal",
-    personal: "datos",
-    oculto: true,
-    columnas: [],
-    campos: [],
-    nombreDe: (p) => `${p.apellido}, ${p.nombre}`,
-  },
-
+  clave: "personal",
+  titulo: "Personal",
+  singular: "persona",
+  ruta: "usuarios/personal",
+  id: "id_usuario",
+  personal: "datos",
+  oculto: true,
+  columnas: [],
+  campos: [],
+  nombreDe: (p) => p.username || "Sin nombre",
+},
   {
   clave: "novedades",
   titulo: "Novedades",

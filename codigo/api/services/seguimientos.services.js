@@ -1,12 +1,27 @@
+
 const seguimientoRepositorio = require("../data/seguimientos.repositorio");
 const { ErrorNoEncontrado, ErrorDeDatos } = require("./errores");
 
-//listarSeguimientos()
+const CAMPOS_OBLIGATORIOS = ["id_alumno", "id_usuario", "observacion"];
+
+function validarDatos(datos) {
+    for (const campo of CAMPOS_OBLIGATORIOS) {
+        if (
+            datos[campo] === undefined ||
+            datos[campo] === null ||
+            String(datos[campo]).trim() === ""
+        ) {
+            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
+        }
+    }
+}
+
+// Listar seguimientos
 async function listarSeguimientos() {
     return seguimientoRepositorio.listarSeguimientos();
 }
 
-//obtenerSeguimientoPorId()
+// Obtener seguimiento
 async function obtenerSeguimiento(id) {
     const seguimiento = await seguimientoRepositorio.obtenerSeguimientoPorId(id);
 
@@ -17,18 +32,29 @@ async function obtenerSeguimiento(id) {
     return seguimiento;
 }
 
-//crearSeguimiento()
+// Crear seguimiento
 async function crearSeguimiento(datos) {
-    for (const campo of ["id_personal", "id_alumno", "observacion"]) {
-        if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
-        }
+    validarDatos(datos);
+
+    const personal = await seguimientoRepositorio.obtenerPersonalPorId(
+        datos.id_usuario
+    );
+
+    if (!personal) {
+        throw new ErrorDeDatos(
+            "El usuario seleccionado no existe o no tiene el rol PERSONAL"
+        );
     }
 
-    return seguimientoRepositorio.crearSeguimiento(datos);
+    return seguimientoRepositorio.crearSeguimiento({
+        id_usuario: datos.id_usuario,
+        id_alumno: datos.id_alumno,
+        fecha: datos.fecha,
+        observacion: datos.observacion
+    });
 }
 
-//actualizarSeguimiento
+// Actualizar seguimiento
 async function actualizarSeguimiento(id, datos) {
     const seguimiento = await seguimientoRepositorio.obtenerSeguimientoPorId(id);
 
@@ -36,16 +62,20 @@ async function actualizarSeguimiento(id, datos) {
         throw new ErrorNoEncontrado("Seguimiento no encontrado");
     }
 
-    for (const campo of ["id_personal", "id_alumno", "observacion"]) {
-        if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
-            throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
-        }
-    }
+    validarDatos({
+        id_alumno: datos.id_alumno,
+        id_usuario: seguimiento.id_usuario,
+        observacion: datos.observacion
+    });
 
-    return seguimientoRepositorio.actualizarSeguimiento(id, datos);
+    return seguimientoRepositorio.actualizarSeguimiento(id, {
+        id_alumno: datos.id_alumno,
+        fecha: datos.fecha,
+        observacion: datos.observacion
+    });
 }
 
-//borrarSeguimiento()
+// Eliminar seguimiento
 async function borrarSeguimiento(id) {
     const seguimiento = await seguimientoRepositorio.obtenerSeguimientoPorId(id);
 

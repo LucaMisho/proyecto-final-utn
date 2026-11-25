@@ -1,3 +1,4 @@
+
 const seguimientoService = require("../services/seguimientos.services");
 const { responderError } = require("../middleware/errores");
 
@@ -24,8 +25,9 @@ async function obtenerPorId(req, res) {
 // Crear
 async function crear(req, res) {
     try {
-        const seguimiento = await seguimientoService.crearSeguimiento(req.body);
-        res.status(201).json(seguimiento);
+        const nuevo = await seguimientoService.crearSeguimiento(req.body);
+
+        res.status(201).json(nuevo);
     } catch (error) {
         responderError(res, error);
     }
@@ -38,6 +40,7 @@ async function actualizar(req, res) {
             req.params.id,
             req.body
         );
+
         res.status(200).json(seguimiento);
     } catch (error) {
         responderError(res, error);
@@ -48,6 +51,7 @@ async function actualizar(req, res) {
 async function borrar(req, res) {
     try {
         await seguimientoService.borrarSeguimiento(req.params.id);
+
         res.status(200).json({
             mensaje: "Seguimiento eliminado correctamente"
         });

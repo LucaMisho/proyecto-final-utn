@@ -109,10 +109,16 @@ async function borrarUsuario(id) {
     return usuarioRepositorio.eliminarUsuario(id);
 }
 
+// Listar usuarios con rol PERSONAL
+async function listarPersonal() {
+    return usuarioRepositorio.listarUsuariosPersonal();
+}
+
 module.exports = {
     listarUsuarios,
     obtenerUsuario,
     crearUsuario,
     actualizarUsuario,
     borrarUsuario,
+    listarPersonal
 };
