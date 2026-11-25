@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { resumenPlano } from "../../utils/contenido";
 import "../../styles/Buscar.css";
 
 const API = import.meta.env.VITE_API_URL;
@@ -103,7 +104,7 @@ function Buscar() {
                     <h3>
                       <Link to={ruta}>{resaltar(item[texto], q)}</Link>
                     </h3>
-                    <p className="buscar-detalle">{resaltar(item[detalle], q)}</p>
+                    <p className="buscar-detalle">{resaltar(resumenPlano(item[detalle]), q)}</p>
                     <Link to={ruta} className="buscar-ver">Ver más →</Link>
                   </li>
                 );
