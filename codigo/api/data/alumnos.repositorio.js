@@ -62,4 +62,32 @@ async function obtenerAlumnoPorId(id){
     return resultado.rows[0] || null;
 }
 
-module.exports = {listarAlumnos, eliminarAlumno, crearAlumno, actualizarAlumno, obtenerAlumnoPorId};
+async function crearAlumnosEnLote(lista) {
+    const cliente = await pool.connect();
+
+    try {
+        await cliente.query("BEGIN");
+
+        for (const a of lista) {
+            await cliente.query(
+                `INSERT INTO alumno
+                 (nombre, apellido, dni, fecha_nacimiento, telefono, colegio, tiene_beca, estudios_completos)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+                [
+                    a.nombre, a.apellido, a.dni, a.fecha_nacimiento || null,
+                    a.telefono || null, a.colegio || null,
+                    Boolean(a.tiene_beca), Boolean(a.estudios_completos),
+                ]
+            );
+        }
+
+        await cliente.query("COMMIT");
+        return { importados: lista.length };
+    } catch (err) {
+        await cliente.query("ROLLBACK");
+        throw err;
+    } finally {
+        cliente.release();
+    }
+}
+module.exports = {listarAlumnos, eliminarAlumno, crearAlumno, actualizarAlumno, obtenerAlumnoPorId, crearAlumnosEnLote};

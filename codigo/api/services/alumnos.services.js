@@ -100,11 +100,42 @@ async function borrarAlumno(id) {
     return alumnoRepositorio.eliminarAlumno(id);
 }
 
+const MAX_LOTE = 500;
+
+async function importarAlumnos(lista) {
+    if (!Array.isArray(lista) || lista.length === 0) {
+        throw new ErrorDeDatos("No se recibieron alumnos para importar");
+    }
+    if (lista.length > MAX_LOTE) {
+        throw new ErrorDeDatos(`No se pueden importar más de ${MAX_LOTE} alumnos a la vez`);
+    }
+
+    // Se valida todo antes de guardar: o entra todo o no entra nada
+    lista.forEach((datos, i) => {
+        try {
+            for (const campo of ["nombre", "apellido", "dni"]) {
+                if (datos[campo] === undefined || datos[campo] === null || String(datos[campo]).trim() === "") {
+                    throw new ErrorDeDatos(`El campo ${campo} es obligatorio`);
+                }
+            }
+            validarEdadMinima(datos.fecha_nacimiento);
+        } catch (err) {
+            if (err instanceof ErrorDeDatos) {
+                throw new ErrorDeDatos(`Alumno ${i + 1}: ${err.message}`);
+            }
+            throw err;
+        }
+    });
+
+    return alumnoRepositorio.crearAlumnosEnLote(lista);
+}
+
 module.exports = {
     listarAlumnos,
     obtenerAlumno,
     crearAlumno,
     actualizarAlumno,
     borrarAlumno,
-    validarEdadMinima
+    validarEdadMinima,
+    importarAlumnos
 };

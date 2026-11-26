@@ -1,7 +1,10 @@
 import { useState } from "react";
 import FormularioAdmin from "./FormularioAdmin";
 import Confirmar from "./Confirmar";
+import Dialogo from "./Dialogo";
 import { ROLES } from "./configuracion";
+import ImportarAlumnos from "./ImportarAlumnos";
+import writeXlsxFile from "write-excel-file";
 import { pedir, ErrorDeSesion } from "./pedir";
 import { normalizar } from "../talleres/Utilidades.js";
 
@@ -17,13 +20,28 @@ function TablaAdmin({
   alFallarSesion,
   alReintentar,
 }) {
+  const [importando, setImportando] = useState(false);
   const [filtro, setFiltro] = useState("");
   const [formulario, setFormulario] = useState(null);
   const [aEliminar, setAEliminar] = useState(null);
   const [cambioRol, setCambioRol] = useState(null);
 
   const filas = estado.filas;
-  const puedeEliminar = sesion.rol === "ADMINISTRADOR" && "PERSONAL";
+  const puedeEliminar = ["ADMINISTRADOR", "PERSONAL"].includes(sesion.rol);
+
+ async function importar(lista) {
+  const resultado = await ejecutar(() =>
+    pedir(`${recurso.ruta}/lote`, {
+      metodo: "POST",
+      cuerpo: { alumnos: lista },
+      token,
+    })
+  );
+
+  avisar(`Se importaron ${resultado?.importados ?? lista.length} alumnos.`, "exito");
+  setImportando(false);
+  alCambiar(recurso.clave);
+}
 
   function textoDeCelda(fila, columna) {
     const valor = fila[columna.clave];
@@ -41,6 +59,37 @@ function TablaAdmin({
     return normalizar(texto).includes(normalizar(filtro.trim()));
   });
 
+  function fechaDeHoy() {
+  const hoy = new Date();
+  const m = String(hoy.getMonth() + 1).padStart(2, "0");
+  const d = String(hoy.getDate()).padStart(2, "0");
+  return `${hoy.getFullYear()}-${m}-${d}`;
+}
+
+async function exportar() {
+  const columnas = recurso.columnas.filter((c) => c.tipo !== "imagen" && c.tipo !== "rol");
+
+  const encabezado = columnas.map((c) => ({
+    value: c.titulo,
+    fontWeight: "bold",
+    backgroundColor: "#5B2C83",
+    color: "#FFFFFF",
+  }));
+
+  const cuerpo = visibles.map((fila) =>
+    columnas.map((c) => {
+      const texto = textoDeCelda(fila, c);
+      return { type: String, value: texto === "" ? undefined : texto };
+    })
+  );
+
+  await writeXlsxFile([encabezado, ...cuerpo], {
+    fileName: `${recurso.clave}-${fechaDeHoy()}.xlsx`,
+    columns: columnas.map(() => ({ width: 22 })),
+  });
+}
+
+  
   async function ejecutar(accion) {
     try {
       return await accion();
@@ -252,6 +301,26 @@ function TablaAdmin({
             Agregar {recurso.singular}
           </button>
         )}
+      {recurso.importable && (
+      <button
+        type="button"
+        className="admin-boton admin-boton--secundario"
+        onClick={() => setImportando(true)}
+      >
+        Importar Excel
+      </button>
+    )}
+
+    {recurso.exportable && (
+  <button
+    type="button"
+    className="admin-boton admin-boton--secundario"
+    onClick={exportar}
+    disabled={visibles.length === 0}
+  >
+    Exportar Excel
+  </button>
+)}
       </div>
 
       {contenido()}
@@ -266,6 +335,16 @@ function TablaAdmin({
           alCerrar={() => setFormulario(null)}
         />
       )}
+
+      {importando && (
+         <Dialogo
+          id={`${recurso.clave}-importar`}
+          titulo={`Importar ${recurso.titulo.toLowerCase()} desde Excel`}
+          alCerrar={() => setImportando(false)}
+         >
+          <ImportarAlumnos alConfirmar={importar} />
+        </Dialogo>
+)}
 
       {aEliminar && (
         <Confirmar

@@ -9,5 +9,6 @@ router.get("/:id", autenticarToken, autorizarRol("PERSONAL", "ADMINISTRADOR"), a
 router.post("/", autenticarToken, autorizarRol("PERSONAL", "ADMINISTRADOR"), alumnoController.crear);
 router.put("/:id", autenticarToken, autorizarRol("PERSONAL", "ADMINISTRADOR"), alumnoController.actualizar);
 router.delete("/:id", autenticarToken, autorizarRol("ADMINISTRADOR"), alumnoController.borrar);
+router.post("/lote", autenticarToken, autorizarRol("ADMINISTRADOR", "PERSONAL"), alumnoController.importarAlumnos);
 
 module.exports = router;

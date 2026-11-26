@@ -56,10 +56,29 @@ async function borrar(req, res) {
     }
 }
 
+async function importarAlumnos(req, res, next) {
+    try {
+        const cuerpo = req.body;
+        const lista = Array.isArray(cuerpo)
+            ? cuerpo
+            : Array.isArray(cuerpo?.alumnos)
+                ? cuerpo.alumnos
+                : cuerpo && Object.keys(cuerpo).length > 0
+                    ? [cuerpo]
+                    : [];
+
+        const resultado = await alumnoService.importarAlumnos(lista);
+        res.status(201).json(resultado);
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     listar,
     obtenerPorId,
     crear,
     actualizar,
-    borrar
+    borrar,
+    importarAlumnos
 };

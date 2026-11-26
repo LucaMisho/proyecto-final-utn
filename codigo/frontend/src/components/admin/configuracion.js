@@ -57,6 +57,8 @@ export const RECURSOS = [
     titulo: "Alumnos",
     singular: "alumno",
     ruta: "alumnos",
+    importable: true,
+    exportable: true,
     personal: "pestana",
     id: "id_alumno",
     columnas: [
