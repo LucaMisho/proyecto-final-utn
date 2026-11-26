@@ -36,6 +36,27 @@ function validarFechaNacimiento(valor) {
     }
 }
 
+const EDAD_MINIMA = 5;
+
+function validarEdadMinima(valor, hoy = new Date()) {
+    if (valor === undefined || valor === null || String(valor).trim() === "") return;
+
+    validarFechaNacimiento(valor); // lanza error si la fecha no es válida
+
+    const [anio, mes, dia] = String(valor).slice(0, 10).split("-").map(Number);
+
+    let edad = hoy.getUTCFullYear() - anio;
+    const cumplioEsteAnio =
+        hoy.getUTCMonth() + 1 > mes ||
+        (hoy.getUTCMonth() + 1 === mes && hoy.getUTCDate() >= dia);
+
+    if (!cumplioEsteAnio) edad -= 1;
+
+    if (edad < EDAD_MINIMA) {
+        throw new ErrorDeDatos(`La edad mínima es de ${EDAD_MINIMA} años`);
+    }
+}
+
 //crearAlumno()
 async function crearAlumno(datos) {
     for (const campo of ["nombre", "apellido", "dni"]) {
@@ -44,7 +65,7 @@ async function crearAlumno(datos) {
         }
     }
 
-    validarFechaNacimiento(datos.fecha_nacimiento);
+    validarEdadMinima(datos.fecha_nacimiento);
 
     return alumnoRepositorio.crearAlumno(datos);
 }
@@ -63,7 +84,7 @@ async function actualizarAlumno(id, datos) {
         }
     }
 
-    validarFechaNacimiento(datos.fecha_nacimiento);
+    validarEdadMinima(datos.fecha_nacimiento);
 
     return alumnoRepositorio.actualizarAlumno(id, datos);
 }
@@ -84,5 +105,6 @@ module.exports = {
     obtenerAlumno,
     crearAlumno,
     actualizarAlumno,
-    borrarAlumno
+    borrarAlumno,
+    validarEdadMinima
 };

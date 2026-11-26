@@ -1,4 +1,4 @@
-import { calcularEdad, textoDeEdad } from "../../utils/edad";
+import { calcularEdad, textoDeEdad, validarEdadMinima } from "../../utils/edad";
 
 // Cómo se muestra cada dato relacionado (por ejemplo, el alumno de una inscripción)
 export const ETIQUETAS = {
@@ -76,6 +76,7 @@ export const RECURSOS = [
         clave: "fecha_nacimiento",
         etiqueta: "Fecha de nacimiento",
         tipo: "fecha",
+        validar: (valor) => validarEdadMinima(valor),
         requeridoAlCrear: true,
         ayuda: "Sirve para calcular la edad y controlar la edad mínima y máxima de los talleres.",
       },

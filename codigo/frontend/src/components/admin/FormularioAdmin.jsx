@@ -71,7 +71,22 @@ function valorInicial(campo, fila, iniciales) {
   if (campo.tipo === "hora") return String(v).slice(0, 5);
   if (campo.tipo === "fecha") return String(v).slice(0, 10);
   return String(v);
+
+  
 }
+
+function validarCampos(campos, valores) {
+  for (const campo of campos) {
+    if (!campo.validar) continue;
+
+    const mensaje = campo.validar(valores[campo.clave]);
+    if (mensaje) return { campo, mensaje };
+  }
+
+  return null;
+}
+
+
 
 function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar }) {
   const editando = Boolean(fila);
@@ -182,9 +197,17 @@ function FormularioAdmin({ recurso, fila, datos, iniciales, alGuardar, alCerrar 
         Number(valores[c.clave]) < c.minimo
     );
     if (menorAlMinimo) {
-      setError(`${menorAlMinimo.etiqueta} tiene que ser ${menorAlMinimo.minimo} o más.`);
-      document.getElementById(`${idBase}-${menorAlMinimo.clave}`)?.focus();
+        setError(`${menorAlMinimo.etiqueta} tiene que ser ${menorAlMinimo.minimo} o más.`);
+        document.getElementById(`${idBase}-${menorAlMinimo.clave}`)?.focus();
       return;
+    }
+
+     const invalido = validarCampos(recurso.campos, valores);
+     if (invalido) {
+        setError(invalido.mensaje);
+        document.getElementById(`${idBase}-${invalido.campo.clave}`)?.focus();
+      return;
+
     }
 
     const aviso = recurso.avisoAntesDeGuardar?.(valores, datos);
